@@ -1,0 +1,56 @@
+#!/bin/sh
+
+TMP_FILE="$HOME/.config/bspwm/.gap-state"
+POLYBAR_LAUNCH_SCRIPT="$HOME/.config/polybar/launch.sh"
+
+reload_polybar() {
+    $POLYBAR_LAUNCH_SCRIPT
+}
+
+enable_gaps() {
+    echo "enabled" > $TMP_FILE
+    bspc config -m "DP-0" top_padding   40
+    bspc config border_width          3
+    bspc config window_gap            10
+    reload_polybar
+}
+
+disable_gaps() {
+    echo "disabled" > $TMP_FILE
+    bspc config -m "DP-0" top_padding   30
+    bspc config border_width          2
+    bspc config window_gap            0
+    reload_polybar
+}
+
+restore_gaps() {
+    if [[ $(cat $TMP_FILE) == "enabled" ]]; then
+        enable_gaps
+    elif [[ $(cat $TMP_FILE) == "disabled" ]]; then
+        disable_gaps
+    fi
+}
+
+toggle_gaps() {
+    if [[ $(cat $TMP_FILE) == "enabled" ]]; then
+        disable_gaps
+    elif [[ $(cat $TMP_FILE) == "disabled" ]]; then
+        enable_gaps
+    else 
+        enable_gaps
+    fi
+}
+
+if [[ $1 == "enable" ]] || [[ $1 = "" ]]; then
+    enable_gaps
+elif [[ $1 == "disable" ]]; then
+    disable_gaps
+elif [[ $1 == "restore" ]] && [[ -f $TMP_FILE ]]; then
+    restore_gaps
+elif [[ $1 == "toggle" ]]; then
+    toggle_gaps
+elif [[ $1 == "status" ]]; then
+    cat $TMP_FILE
+else
+    echo "Usage: ~/.config/bspwm/gaps [enable|disable|restore|toggle|status]"
+fi

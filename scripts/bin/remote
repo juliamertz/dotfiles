@@ -1,0 +1,11 @@
+#!/usr/bin/env xonsh
+
+import json
+
+remotes = json.loads($(cat ~/.config/.sharedsecrets))['remotes']
+
+target = $ARGS[1]
+remote = remotes[target]
+$adress = remote["user"] + "@" + remote["host"]
+
+kitty +kitten ssh $adress

@@ -1,0 +1,76 @@
+#! /bin/sh
+
+xinput set-prop 'Logitech USB Receiver Mouse' 'libinput Accel Speed' -1
+xsetroot -cursor_name left_ptr &
+
+xrandr --output HDMI-0  \
+       --rotate left    \
+       --mode 2560x1440 \
+       --rate 74.92     \
+       --pos 0x0
+
+xrandr --output DP-0    \
+       --rotate normal  \
+       --mode 2560x1440 \
+       --rate 164.83    \
+       --pos 1440x388   \
+       --primary 
+
+pgrep -x sxhkd > /dev/null || SXHKD_SHELL="sh" sxhkd &
+pgrep -x picom > /dev/null || picom -b
+pgrep -x gummy > /dev/null || gummy start &
+
+~/.config/polybar/launch.sh
+
+nm-applet &
+
+feh --bg-fill ~/.config/background
+
+/usr/lib/xfce-polkit/xfce-polkit & 
+
+pgrep bspswallow || bspswallow &
+
+protonvpn-cli connect -f
+
+# /home/joris/.config/scripts/set-random-wallpaper.sh
+
+bspc monitor DP-0 -d 1 2 3 4
+bspc monitor HDMI-0 -d 5 6 7 8
+
+bspc config border_width          3
+bspc config window_gap            10
+bspc config focus_follows_pointer true
+bspc config pointer_follows_focus true
+
+bspc config ignore_ewmh_struts      true
+bspc config -m "DP-0" top_padding   40
+bspc config -m "HDMI-0" top_padding 0
+
+bspc config -m "DP-0" split_ratio 0.40
+bspc config borderless_monocle true
+bspc config gapless_monocle    true
+
+bspc rule -a Pavucontrol state=floating
+bspc rule -a Galculator state=floating
+
+Base='#232136'
+Surface='#2a273f'
+Overlay='#393552'
+Muted='#6e6a86'
+Subtle='#908caa'
+Text='#e0def4'
+Love='#eb6f92'
+Gold='#f6c177'
+Rose='#ea9a97'
+Pine='#3e8fb0'
+Foam='#9ccfd8'
+Iris='#c4a7e7'
+HighlightLow='#2a283e'
+HighlightMed='#44415a'
+HighlightHigh='#56526e'
+
+bspc config normal_border_color $HighlightMed
+bspc config active_border_color $HighlightMed
+bspc config focused_border_color $Love
+
+bsp-layout set rtall

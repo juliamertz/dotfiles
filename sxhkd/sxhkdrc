@@ -1,0 +1,208 @@
+# Open new terminal
+super + Return
+    kitty	
+
+# Open browser
+super + shift + w
+	firefox
+
+# Open spotify
+super + shift + s
+	spotify
+
+super + shift + m
+	firefox --new-tab https://mail.proton.me/u/0/inbox
+
+# Open code editor
+super + shift + e
+    code
+
+# Open audio device settings
+super + shift + p
+	pavucontrol
+
+super + shift + c
+	galculator
+
+# Close window 
+super + w
+    bspc node -c
+
+# Blue light filter menu
+super + Home
+	/home/joris/.config/rofi/displaymenu/start.sh
+
+# Program launcher
+super + space
+	/home/joris/.config/rofi/launcher/launcher.sh
+
+# Send focus to next/previous monitor
+super + ctrl + {Left,Right}
+	bspc desktop -f {prev.occupied,next.occupied}
+
+# Kill program
+super + shift + q
+    bspc node -k
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# Resize windows
+super + alt + j
+	bspc node -z bottom 0 -100 || bspc node -z top 0 100 
+
+super + alt + k
+	bspc node -z bottom 0 100 || bspc node -z top 0 -100
+
+super + alt + l
+	bspc node -z left 100 0 || bspc node -z right 100 0
+
+super + alt + h
+	bspc node -z left -100 0 || bspc node -z right -100 0
+
+ctrl + shift + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# focus the node in the given direction
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+# Swap windows / move window
+super + {ctrl,shift} + {h,j,k,l}
+	bspc node -{n,s} {west,south,north,east}
+
+# Swap focused window with biggest window on current desktop
+super + s
+	bspc node biggest.local --swap focused --follow #|| bspc node last --swap biggest.local
+
+super + t
+	bspc node -t floating || bspc node -t tiled 
+
+# Toggle tiling/fullscreen
+super + f
+	bspc node -t fullscreen || bspc node -t tiled
+
+# Focus workspace
+super + {1,2,3,4,5,6,7,8}
+	bspc desktop -f {1,2,3,4,5,6,7,8}
+
+# Send window to workspace
+super + shift + {1,2,3,4,5,6,7,8}
+	bspc node -d {1,2,3,4,5,6,7,8} --follow
+
+super + Insert
+	~/.config/bspwm/gaps toggle
+
+Print
+	/home/joris/.config/rofi/screenshotmenu/start.sh
+
+super + o
+	/home/joris/.config/rofi/audiomenu/start.py
+
+super + shift + o
+	sh /home/joris/.config/scripts/toggle-airpods-connection.sh
+
+# Media controls
+XF86AudioNext
+	playerctl next
+
+XF86AudioPrev
+	playerctl previous
+
+XF86AudioPlay
+	playerctl play-pause
+
+XF86AudioMute
+	pamixer --toggle-mute
+
+XF86AudioLowerVolume
+	pamixer --decrease 5
+
+XF86AudioRaiseVolume
+	pamixer --increase 5
+
+alt + {Prior,Next}
+	/home/joris/.config/scripts/home-assistant/cycleScenes.fish {previous,next}
+
+# MacOS like keyboard navigation
+super + Left
+  xdotool keyup Left key --clearmodifiers Home
+
+super + Right
+  xdotool keyup Right key --clearmodifiers End
+
+super + shift + Left
+  xdotool keyup Left key --clearmodifiers shift+Home
+
+super + shift + Right
+  xdotool keyup Right key --clearmodifiers shift+End
+
+# super + Up
+#   xdotool keyup Up key --clearmodifiers ctrl+Home
+
+# super + Down
+#   xdotool keyup Down key --clearmodifiers ctrl+End
+
+# super + shift + Up
+#   xdotool keyup Up key --clearmodifiers ctrl+shift+Home
+
+# super + shift + Down
+#   xdotool keyup Down key --clearmodifiers ctrl+shift+End
+
+alt + Left
+  xdotool keyup Left key --clearmodifiers ctrl+Left
+
+alt + Right
+  xdotool keyup Right key --clearmodifiers ctrl+Right
+
+alt + shift + Left
+  xdotool keyup Left key --clearmodifiers ctrl+shift+Left
+
+alt + shift + Right
+  xdotool keyup Right key --clearmodifiers ctrl+shift+Right
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+super + End
+	~/.config/rofi/powermenu/powermenu.sh
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel

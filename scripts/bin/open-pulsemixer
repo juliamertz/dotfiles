@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+
+alacritty --hold -e /home/joris/.config/scripts/bin/pulsemixer &
+sleep .5
+
+window_ids=$(wmctrl -l | grep -E '(^|\s)pulsemixer(\s|$)' | awk '{ print $1 }');
+
+for id in $window_ids; do
+    bspc node "$id" -t floating
+done
+
