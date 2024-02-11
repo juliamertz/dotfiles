@@ -1,0 +1,10 @@
+[submodule "tmux"]
+	path = tmux
+	url = git@github.com:jorismertz/tmux.git
+
+[submodule "nvim"]
+	path = nvim
+	url = git@github.com:jorismertz/nvim.git
+[submodule "lazygit"]
+	path = lazygit
+	url = git@github.com:jorismertz/lazygit.git
