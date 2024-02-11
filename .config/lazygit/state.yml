@@ -1,0 +1,26 @@
+lastupdatecheck: 0
+recentrepos:
+- /home/joris/dotfiles
+- /home/joris/.config/lazygit
+- /home/joris/.config
+- /home/joris/downloads/nvim
+- /home/joris/.config/tmux
+- /home/joris/projects/2024/glassi-turborepo
+- /home/joris/projects/2024/rust/mactype
+- /home/joris/projects/2023/sddm
+- /home/joris/projects/2024/rust/http-server
+- /home/joris/projects/2024/rel-space-index
+- /home/joris/projects/2024/noot
+- /home/joris/projects/2024/codemirror-rose-pine
+- /home/joris/projects/2023/moneybird-baka-sync
+- /home/joris/projects/2024/101Rip
+- /home/joris/projects/2024/hass-gpt
+- /home/joris/projects/2023/Newtab
+- /home/joris/projects/2023/portfolio
+- /home/joris/projects/2023/userstyles
+- /home/joris/downloads/mailspring
+startuppopupversion: 5
+customcommandshistory:
+- q
+hidecommandlog: false
+ignorewhitespaceindiffview: false
