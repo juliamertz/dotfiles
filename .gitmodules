@@ -11,3 +11,9 @@
 [submodule "alacritty"]
 	path = alacritty
 	url = git@github.com:jorismertz/alacritty.git
+[submodule ".config/alacritty"]
+	path = .config/alacritty
+	url = git@github.com:jorismertz/alacritty.git
+[submodule ".config/lazygit"]
+	path = .config/lazygit
+	url = git@github.com:jorismertz/lazygit.git
