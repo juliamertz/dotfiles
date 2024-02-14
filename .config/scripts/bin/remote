@@ -1,11 +1,10 @@
-#!/usr/bin/env xonsh
+#!/bin/sh
 
-import json
+REMOTES=$(cat ~/.config/.sharedsecrets | jq .remotes)
+TARGET_REMOTE=$(echo $REMOTES | jq ".$1")
 
-remotes = json.loads($(cat ~/.config/.sharedsecrets))['remotes']
+HOST=$(echo $TARGET_REMOTE | jq .host | xargs)
+USER=$(echo $TARGET_REMOTE | jq .user | xargs)
 
-target = $ARGS[1]
-remote = remotes[target]
-$adress = remote["user"] + "@" + remote["host"]
-
-kitty +kitten ssh $adress
+# kitty +kitten ssh $HOST -l $USER
+ssh $HOST -l $USER
