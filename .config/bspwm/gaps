@@ -2,9 +2,36 @@
 
 TMP_FILE="$HOME/.config/bspwm/.gap-state"
 POLYBAR_LAUNCH_SCRIPT="$HOME/.config/polybar/launch.sh"
+PICOM_CONF_PATH="$HOME/.config/picom.conf"
 
 reload_polybar() {
     $POLYBAR_LAUNCH_SCRIPT
+}
+
+get_picom_rounding() {
+    cat $PICOM_CONF_PATH | while read line
+    do
+        if [[ $line =~ corner-radius.* ]]; then
+            value=$(echo $line| cut -d'=' -f 2)
+            echo $value
+            return 0
+        fi
+    done
+}
+
+# Usage:
+# set_picom_rounding <on | off>
+set_picom_rounding() {
+    local value;
+    if [[ $1 == "on" ]]; then
+        value=15
+    elif [[ $1 == "off" ]]; then
+        value=0
+    else 
+        echo "Invalud argument for toggle_picom_rounding expect <on | off>"
+        exit 1
+    fi
+    sed -i "s/corner-radius\s*=\s*.*/corner-radius=$value/g" $PICOM_CONF_PATH
 }
 
 enable_gaps() {
@@ -13,6 +40,7 @@ enable_gaps() {
     bspc config border_width          3
     bspc config window_gap            10
     reload_polybar
+    set_picom_rounding on
 }
 
 disable_gaps() {
@@ -21,6 +49,7 @@ disable_gaps() {
     bspc config border_width          2
     bspc config window_gap            0
     reload_polybar
+    set_picom_rounding off
 }
 
 restore_gaps() {
