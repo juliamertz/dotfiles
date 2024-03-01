@@ -1,6 +1,6 @@
 # Open new terminal
 super + Return
-    kitty	
+    wezterm	
 
 # Open browser
 super + shift + w

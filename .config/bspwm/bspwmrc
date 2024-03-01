@@ -23,9 +23,11 @@ xrandr --output DP-0    \
 pgrep -x sxhkd > /dev/null || SXHKD_SHELL="sh" sxhkd &
 pgrep -x picom > /dev/null || picom -b
 pgrep -x gummy > /dev/null || gummy start &
+pgrep -x mactype > /dev/nill || mactype &
 
 ~/.config/polybar/launch.sh
 
+mactype &
 nm-applet &
 
 feh --bg-fill ~/.config/background
