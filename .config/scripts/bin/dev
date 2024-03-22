@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+tmux rename-window 'neovim'
+tmux new-window -n 'lazygit' -d -c $(pwd) lazygit
+tmux new-window -n 'cmd' -d -c $(pwd)
+nvim .
