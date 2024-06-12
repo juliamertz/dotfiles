@@ -1,10 +1,15 @@
 -- pcall(require, "luarocks.loader")
 
+local gears = require("gears")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+local utils = require("djor.utils")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local bar = require("djor.bar")
 local style = require("djor.style")
 local keys = require("djor.keys")
+local launch = require("djor.launch")
 
 require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
@@ -70,6 +75,7 @@ awful.rules.rules = {
       instance = {},
       class = {
         "Arandr",
+        "feh",
       },
       name = {
         "Event Tester",
@@ -78,17 +84,61 @@ awful.rules.rules = {
         "pop-up",
       }
     },
-    properties = { floating = true }
+    properties = {
+      placement = awful.placement.centered,
+      floating = true
+    }
   },
 
+  {
+    rule = { class = launch.apps.terminal.class },
+    properties = { screen = 1, tag = "TERM" }
+  },
   -- {
-  --   rule = { class = "Firefox" },
+  --   rule = { class = launch.apps.browser.class },
   --   properties = { screen = 1, tag = "WEB" }
   -- },
+  {
+    rule = { class = launch.apps.music.class },
+    properties = { screen = 1, tag = "3" }
+  },
+  {
+    rule = { class = launch.apps.browser.class },
+    callback = function(c)
+      local has_browser = false
+      local tag = screen.primary.tags[2]
+
+      for _, client in ipairs(tag:clients()) do
+        if client.class == launch.apps.browser.class then
+          has_browser = true
+          break
+        end
+      end
+
+      if not has_browser then
+        c:move_to_tag(tag)
+      end
+    end
+  }
 }
+
+local function set_corner_radius(client)
+  if client.maximized then
+    client.shape = utils.corner_radius(0)
+    client.border_width = dpi(0)
+  else
+    client.shape = utils.corner_radius(style.theme.corner_radius)
+    client.border_width = style.theme.border_width
+  end
+end
+
+-- Corner rounding
+client.connect_signal("manage", set_corner_radius)
+client.connect_signal("property::maximized", set_corner_radius)
 
 -- Mouse follows focus
 require("plugins.micky")
+
 -- Focus follows mouse
 client.connect_signal("mouse::enter", function(c)
   c:emit_signal("request::activate", "mouse_enter", { raise = false })

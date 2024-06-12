@@ -1,7 +1,9 @@
+local style = require("djor.style")
 local utils = require("djor.utils")
+local bar = require("djor.bar")
 local gears = require("gears")
 local awful = require("awful")
-local applications = require("djor.apps")
+local launch = require("djor.launch")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local home_assistant = require("djor.hass")
@@ -69,6 +71,19 @@ M.globalkeys = gears.table.join(
     { description = "focus the next screen", group = "screen" }),
   awful.key({ modkey, "Control" }, "k", function() awful.screen.focus_relative(-1) end,
     { description = "focus the previous screen", group = "screen" }),
+  awful.key({ modkey, "Shift" }, "s", function()
+      local focused = awful.screen.focused()
+      if client.focus then
+        if focused.index == 1 then
+          client.focus.screen = 2
+          awful.screen.focus(2)
+        else
+          client.focus.screen = 1
+          awful.screen.focus(1)
+        end
+      end
+    end,
+    { description = "Send client to unfocused display", group = "client" }),
   awful.key({ modkey, }, "u", awful.client.urgent.jumpto,
     { description = "jump to urgent client", group = "client" }),
   awful.key({ modkey, }, "Tab",
@@ -79,21 +94,26 @@ M.globalkeys = gears.table.join(
       end
     end,
     { description = "go back", group = "client" }),
-  awful.key({ modkey, }, "Return", function() awful.spawn(applications.terminal) end,
+  awful.key({ modkey, "Shift" }, "b", function() awful.spawn('blueman-manager') end,
+    { description = "open bluetooth menu", group = "launcher" }),
+  awful.key({ modkey, }, "Return", function() launch.apps.terminal:focus() end,
     { description = "open a terminal", group = "launcher" }),
-  awful.key({ modkey, "Shift" }, "s", function() awful.spawn(applications.music) end,
+  awful.key({ modkey, "Shift" }, "m", function() launch.apps.music:focus() end,
     { description = "open music player", group = "launcher" }),
-  awful.key({ modkey, "Shift" }, "w", function() awful.spawn(applications.browser) end,
+  awful.key({ modkey, "Shift" }, "w", function() launch.apps.browser:focus() end,
     { description = "open browser", group = "launcher" }),
-  awful.key({ modkey }, "space", function() awful.spawn(applications.launcher) end,
+  awful.key({ modkey }, "space", function() awful.spawn(launch.rofi.launcher) end,
     { description = "open launcher", group = "launcher" }),
-  awful.key({}, "Print", function() awful.spawn(applications.screenshotmenu) end,
+  awful.key({ modkey }, "Print",
+    function() awful.spawn([[scrot -M 0 -F "/home/joris/screenshots/$(date | tr ' ' '-').png"]]) end,
+    { description = "open launcher", group = "launcher" }),
+  awful.key({}, "Print", function() awful.spawn(launch.rofi.screenshotmenu) end,
     { description = "open screenshotmenu", group = "launcher" }),
-  awful.key({ modkey }, "Home", function() awful.spawn(applications.displaymenu) end,
+  awful.key({ modkey }, "Home", function() awful.spawn(launch.rofi.displaymenu) end,
     { description = "open dispaymenu", group = "launcher" }),
-  awful.key({ modkey }, "o", function() awful.spawn(applications.audiomenu) end,
+  awful.key({ modkey }, "o", function() awful.spawn(launch.rofi.audiomenu) end,
     { description = "open audiomenu", group = "launcher" }),
-  awful.key({ modkey }, "End", function() awful.spawn(applications.powermenu) end,
+  awful.key({ modkey }, "End", function() awful.spawn(launch.rofi.powermenu) end,
     { description = "open powermenu", group = "launcher" }),
   awful.key({ modkey, "Shift" }, "o",
     function() awful.spawn(utils.config_path() .. "scripts/toggle-airpods-connection.sh") end,
@@ -174,6 +194,7 @@ M.clientkeys = gears.table.join(
   awful.key({ modkey, }, "m",
     function(c)
       c.maximized = not c.maximized
+
       c:raise()
     end,
     { description = "(un)maximize", group = "client" }),
@@ -182,13 +203,13 @@ M.clientkeys = gears.table.join(
       c.maximized_vertical = not c.maximized_vertical
       c:raise()
     end,
-    { description = "(un)maximize vertically", group = "client" }),
-  awful.key({ modkey, "Shift" }, "m",
-    function(c)
-      c.maximized_horizontal = not c.maximized_horizontal
-      c:raise()
-    end,
-    { description = "(un)maximize horizontally", group = "client" })
+    { description = "(un)maximize vertically", group = "client" })
+-- awful.key({ modkey, "Shift" }, "m",
+--   function(c)
+--     c.maximized_horizontal = not c.maximized_horizontal
+--     c:raise()
+--   end,
+--   { description = "(un)maximize horizontally", group = "client" })
 )
 
 for s in screen do

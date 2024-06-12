@@ -13,6 +13,20 @@ M.config_path = function()
   return filesystem.get_configuration_dir():gsub("awesome/", "")
 end
 
+M.tag_by_name = function(name, screen)
+  for _, tag in ipairs(screen.tags) do
+    if tag.name == name then
+      return tag
+    end
+  end
+end
+
+
+function M.corner_radius(radius)
+  return function(cr, width, height)
+    gears.shape.rounded_rect(cr, width, height, radius)
+  end
+end
 
 ---@param text string
 ---@param color string|nil
@@ -41,6 +55,13 @@ end
 ---@param str string
 ---@return string
 M.trim = function(str)
+  if str == nil then
+    return ""
+  end
+  if type(str) ~= "string" then
+    return str
+  end
+
   local result = str:gsub("^%s*(.-)%s*$", "%1")
   return result
 end

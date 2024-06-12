@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 if [ -z "$1" ]; then
-  PID=$(ps aux | awk '{ print $1 " " $2 " " $11 }' | fzf | awk '{ print $2 }')
+  PID=$(ps aux | fzf | awk '{ print $2 }')
 else
-  PID=$(ps aux | awk '{ print $1 " " $2 " " $11 }' | fzf --query $1 | awk '{ print $2 }')
+  PID=$(ps aux | fzf --query $1 | awk '{ print $2 }')
 fi
 
 kill $PID

@@ -5,7 +5,7 @@ local beautiful = require("beautiful")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
-local applications = require("djor.apps")
+local launch = require("djor.launch")
 local utils = require("djor.utils")
 
 local M = {}
@@ -41,8 +41,8 @@ local tasklist_buttons = gears.table.join(
 
 M.main_menu = awful.menu({
   items = {
-    { "awesome",       M.awesome_menu,       beautiful.awesome_icon },
-    { "open terminal", applications.terminal }
+    { "awesome",       M.awesome_menu,      beautiful.awesome_icon },
+    { "open terminal", launch.apps.terminal }
   }
 })
 
@@ -51,7 +51,7 @@ M.launcher = awful.widget.launcher({
   menu = M.main_menu
 })
 
-menubar.utils.terminal = applications.terminal
+menubar.utils.terminal = launch.apps.terminal
 
 local colors = require('djor.style').colors
 local date_format = utils.html_text_style("%Y/%m/%d %H:%M:%S", colors.gold)
@@ -64,6 +64,18 @@ local taglist_buttons = gears.table.join(
 local function song_format(str)
   return utils.html_text_style("󰎈 " .. str, colors.foam, nil, true)
 end
+
+local function sys_format(str)
+  return utils.html_text_style(str, colors.iris, nil, true)
+end
+
+local system = require('plugins.system')
+system.config.formatter = sys_format
+
+local cpu = system:cpu_widget()
+local mem = system:mem_widget()
+local gpu = system:gpu_widget()
+local vpn = system:proton_vpn_widget()
 
 local spotify = require('plugins.spotify')
 local spotify_widget = spotify:widget({
@@ -107,7 +119,7 @@ M.init = function(s)
       layout = wibox.layout.align.horizontal,
       M.launcher,
       s.tag_list,
-      s.mytasklist,
+      -- s.mytasklist,
       s.prompt_box,
     },
     {
@@ -116,7 +128,14 @@ M.init = function(s)
     },
     {
       layout = wibox.layout.align.horizontal,
-      spotify_widget,
+      wibox.widget {
+        layout = wibox.layout.fixed.horizontal,
+        spacing = 20,
+        cpu,
+        gpu,
+        mem,
+        spotify_widget,
+      },
       wibox.layout.margin(wibox.widget.systray(), 10, 10, 10, 10),
       -- s.layout_box,
     },

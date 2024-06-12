@@ -1,17 +1,20 @@
-
-set -U fish_greeting ""
+source ~/.config/fish/init.fish
 
 fish_add_path ~/.bun/bin
 fish_add_path ~/.local/share/fnm
 fish_add_path ~/.config/scripts/bin
 fish_add_path ~/.cargo/bin
 
-export XDG_CONFIG_HOME="$HOME/.config"
-export FZF_DEFAULT_COMMAND="fd --type directory --no-ignore --base-directory ~/projects/"
-# export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-# export PUPPETEER_EXECUTABLE_PATH=(which chromium)
+# Environment
+set -U fish_greeting ""
+set -g scripts ~/.config/scripts
+set -g EDITOR nvim
+set -g XDG_CONFIG_HOME ~/.config
+set -g FZF_DEFAULT_COMMAND "fd --type directory --no-ignore --base-directory ~/projects/"
+set -x BUN_INSTALL "$HOME/.bun"
+set -x PATH $BUN_INSTALL/bin $PATH
 
-set EDITOR nvim
+fish_vi_key_bindings
 
 # Aliases
 alias icat "wezterm imgcat"
@@ -28,26 +31,16 @@ alias ls "nerd-ls -iR"
 alias la "nerd-ls -iaR"
 alias sctl "sudo systemctl"
 alias spcm "sudo pacman"
+alias vpn "protonvpn-cli"
 
-function open_new_tab_here
-    kitty -d $(pwd) &> /dev/null &
-end
-
-# Quick project folder fuzzy finder shortcut
-bind \et open_new_tab_here
-
-
-set -g scripts ~/.config/scripts
-
-fish_config theme choose "Rosé Pine Moon"
-
-set hydro_accent_color green
-
-set hydro_color_pwd $hydro_accent_color
-set hydro_color_git white
-set hydro_color_error red
-set hydro_color_prompt --dim $hydro_accent_color
-set hydro_color_duration --dim $fish_color_command
+# Appearance
+# set hydro_accent_color green
+# set hydro_color_pwd $hydro_accent_color
+# set hydro_color_git white
+# set hydro_color_error red
+# set hydro_color_prompt --dim $hydro_accent_color
+# set hydro_color_duration --dim $fish_color_command
+fish_config theme choose "rose-pine-moon"
 
 fnm env --log-level quiet --use-on-cd | source
 
@@ -61,8 +54,6 @@ end
 
 
 # bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
 
 # Created by `pipx` on 2023-11-30 20:54:29
 set PATH $PATH /home/joris/.local/bin

@@ -22,7 +22,8 @@ local theme = {
   fg_urgent = colors.gold,
   fg_minimize = colors.highlightHigh,
 
-  useless_gap = dpi(2),
+  useless_gap = dpi(5),
+  corner_radius = 15,
   systray_icon_spacing = dpi(5),
   border_width = dpi(3),
   border_normal = colors.highlightLow,

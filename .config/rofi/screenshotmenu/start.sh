@@ -47,6 +47,7 @@ elif [[ $choice == "Focused window" ]]; then
 elif [[ $choice = Monitor* ]]; then
     MONITOR_NUMBER=$(echo $choice | awk -F "⠀" '{print $2}')
     filename=$(get_filename)
+    sleep 0.2
     scrot -M $MONITOR_NUMBER -F $filename
 else
     echo "Invalid option"

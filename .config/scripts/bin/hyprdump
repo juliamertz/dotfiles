@@ -1,0 +1,15 @@
+USAGE="hyprdump (tty|session)"
+
+if [ $# -ne 1 ]; then
+    echo $USAGE
+    exit 1
+fi
+
+if [ $1 = "tty" ]; then
+    cat /tmp/hypr/$(ls -t /tmp/hypr/ | head -n 1)/hyprland.log
+elif [ $1 = "session" ]; then
+  cat /tmp/hypr/$(ls -t /tmp/hypr/ | head -n 2 | tail -n 1)/hyprland.log
+else
+    echo $USAGE
+    exit 1
+fi
