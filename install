@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-git submodule update --init --recursive
-~/dotfiles/stow

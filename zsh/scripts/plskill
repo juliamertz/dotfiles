@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+  PID=$(ps aux | fzf | awk '{ print $2 }')
+else
+  PID=$(ps aux | fzf --query $1 | awk '{ print $2 }')
+fi
+
+kill $PID
