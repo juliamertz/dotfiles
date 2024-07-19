@@ -1,0 +1,35 @@
+[[keymaps]]
+command = "PageSelectNextOrScrollDown"
+key_sequence = "d"
+
+[[keymaps]]
+command = "PageSelectPreviousOrScrollUp"
+key_sequence = "u"
+
+[[keymaps]]
+command = "PageSelectNextOrScrollDown"
+key_sequence = "C-d"
+
+[[keymaps]]
+command = "PageSelectPreviousOrScrollUp"
+key_sequence = "C-u"
+
+[[keymaps]]
+command = "FocusNextWindow"
+key_sequence = "l"
+
+[[keymaps]]
+command = "FocusPreviousWindow"
+key_sequence = "h"
+
+[[actions]]
+action = "GoToArtist"
+key_sequence = "B"
+
+[[actions]]
+action = "GoToAlbum"
+key_sequence = "A"
+
+[[actions]]
+action = "ToggleLiked"
+key_sequence = "C-l"
