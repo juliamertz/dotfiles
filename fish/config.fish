@@ -1,9 +1,3 @@
-fish_add_path ~/.bun/bin
-fish_add_path ~/.local/share/fnm
-fish_add_path ~/.config/scripts/bin
-fish_add_path ~/.cargo/bin
-fish_add_path ~/go/bin
-
 # Environment
 set -U fish_greeting ""
 set -g scripts ~/.config/scripts
@@ -22,6 +16,5 @@ alias spt "spotify_player"
 fish_config theme choose "rose-pine-moon"
 
 if status is-interactive
-    set_remote_vars
     # zoxide init fish | source
 end

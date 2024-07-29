@@ -1,7 +1,5 @@
 autoload -Uz compinit && compinit
 
-source "$INIT_PATH/remote-vars.zsh"
-
 if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
@@ -9,8 +7,6 @@ fi
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
-eval "$(fnm env --use-on-cd)"
-
 
 # Utility functions
 function add_path() {

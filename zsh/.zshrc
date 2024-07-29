@@ -1,4 +1,4 @@
-CONFIG_PATH=$HOME/.config/
+CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}"
 INIT_PATH=$CONFIG_PATH/zsh/init
 
 source $INIT_PATH/prompt.zsh
@@ -6,16 +6,9 @@ source $INIT_PATH/tools.zsh
 source $INIT_PATH/zinit.zsh
 
 # Aliases
-alias ls='nerd-ls -iR'
-alias vim='nvim'
 alias cat='bat -pp'
 alias lg='lazygit'
-alias turbo='npx turbo'
-alias neofetch='neofetch --ascii_colors 4 2' 
-alias ls='nerd-ls -iR'
-alias la='nerd-ls -iaR'
 alias sctl='sudo systemctl'
-alias vpn='protonvpn-cli'
 alias sqlite='litecli'
 
 # Plugins
@@ -27,9 +20,9 @@ plugin 'zsh-users/zsh-autosuggestions'
 plugin 'Aloxaf/fzf-tab'
 plugin 'hlissner/zsh-autopair'
 
-add_path $HOME/.config/zsh/scripts
 add_path $HOME/.cargo/bin
 add_path $HOME/.local/bin
-add_path $HOME/.local/share/gem/ruby/3.0.0/bin
+add_path $HOME/.local/share/flatpak/exports/shar
+add_path /var/lib/flatpak/exports/share
 
 source $INIT_PATH/cleanup.zsh

@@ -1,6 +1,6 @@
 return {
 	{
-		"jorismertz/askama.nvim",
+		"juliamertz/askama.nvim",
 		-- name = "askama.nvim",
 		-- dir = "~/projects/2024/askama.nvim",
     build = "build.lua",
@@ -10,8 +10,8 @@ return {
 			"L3MON4D3/LuaSnip",
 		},
 		opts = {
-			branch = "stable",
-			-- parser_path = "/home/joris/projects/2024/askama_treesitter",
+			-- branch = "stable",
+			parser_path = "/home/julia/projects/2024/askama_treesitter",
 			file_extension = "html",
 			enable_snippets = true,
 			snippet_autopairs = true,

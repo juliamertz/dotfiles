@@ -16,6 +16,14 @@ M.awesome_menu = {
   { "quit",    awesome.quit },
 }
 
+M.main_menu = awful.menu({
+  items = {
+    { "Awesome",       M.awesome_menu,      beautiful.awesome_icon },
+    { "Application launcher", launch.rofi.launcher },
+    { "Open terminal", launch.apps.terminal },
+  }
+})
+
 local tasklist_buttons = gears.table.join(
   awful.button({}, 1, function(c)
     if c == client.focus then
@@ -39,12 +47,6 @@ local tasklist_buttons = gears.table.join(
   end))
 
 
-M.main_menu = awful.menu({
-  items = {
-    { "awesome",       M.awesome_menu,      beautiful.awesome_icon },
-    { "open terminal", launch.apps.terminal }
-  }
-})
 
 M.launcher = awful.widget.launcher({
   image = utils.config_path() .. "awesome/icons/nixos.png",
