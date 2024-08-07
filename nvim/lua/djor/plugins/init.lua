@@ -33,20 +33,27 @@ return {
 		end,
 	},
 
-	-- Moveline
-	{
-		"willothy/moveline.nvim",
+  { 
+    'fedepujol/move.nvim',
 		event = "VeryLazy",
-		build = "make",
-		config = function()
-			local moveline = require("moveline")
+    config = function ()
+      require('move').setup({
+        line = {
+          enable = true,
+          indent = true,
+        },
+        block = { enable = false },
+        word = { enable = false },
+        char = { enable = false },
+       })
 
-			vim.keymap.set("n", "<M-k>", moveline.up)
-			vim.keymap.set("n", "<M-j>", moveline.down)
-			vim.keymap.set("v", "<M-k>", moveline.block_up)
-			vim.keymap.set("v", "<M-j>", moveline.block_down)
-		end,
-	},
+      local opts = { noremap = true, silent = true }
+      vim.keymap.set('n', '<A-j>', ':MoveLine(1)<CR>', opts)
+      vim.keymap.set('n', '<A-k>', ':MoveLine(-1)<CR>', opts)
+      vim.keymap.set('v', '<A-j>', ':MoveBlock(1)<CR>', opts)
+      vim.keymap.set('v', '<A-k>', ':MoveBlock(-1)<CR>', opts)
+    end,
+  },
 
 	-- Indent blankline
 	{
