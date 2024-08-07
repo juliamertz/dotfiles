@@ -15,13 +15,18 @@ local opts = {
     rust = { "rustfmt" },
     handlebars = { "prettier" },
     sql = { "sql-formatter" },
-    nix = { "nixpkgs-fmt" },
+    nix = { "nixfmt" },
     -- toml = { "taplo" },
   },
   formatters = {
     taplo = {
       command = "taplo",
       args = { "fmt", "--option", "align_entries=true", "$FILENAME" },
+      stdin = false,
+    },
+    nixfmt = {
+      command = "nixfmt",
+      args = { "$FILENAME" },
       stdin = false,
     },
     ["sql-formatter"] = {

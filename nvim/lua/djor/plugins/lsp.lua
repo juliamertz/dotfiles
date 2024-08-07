@@ -6,8 +6,8 @@ return {
     dependencies = {
       { "onsails/lspkind.nvim" },
       { "neovim/nvim-lspconfig" },          -- Required
-      { "williamboman/mason.nvim" },        -- Optional
-      { "williamboman/mason-lspconfig.nvim" }, -- Optional
+      -- { "williamboman/mason.nvim" },        -- Optional
+      -- { "williamboman/mason-lspconfig.nvim" }, -- Optional
       { "hrsh7th/nvim-cmp" },               -- Required
       { "hrsh7th/cmp-nvim-lsp" },           -- Required
       { "L3MON4D3/LuaSnip" },               -- Required
@@ -29,19 +29,25 @@ return {
               callSnippet = "Replace",
             },
           },
-          rust_analyzer = {
-            checkOnSave = {
-              command = "clippy",
-            },
-            cargo = {
-              allFeatures = true,
-            },
-          },
+          -- rust_analyzer = {
+          --   checkOnSave = {
+          --     command = "clippy",
+          --   },
+          --   cargo = {
+          --     allFeatures = true,
+          --   },
+          -- },
         },
       })
 
-      lspconfig.htmx.setup({ filetypes = { "html", "htmlaskama" } })
-      lspconfig.tailwindcss.setup({ filetypes = { "html", "htmlaskama" } })
+      lspconfig.gopls.setup { } 
+      lspconfig.htmx.setup { filetypes = { "html", "htmlaskama" } } 
+      lspconfig.tailwindcss.setup { filetypes = { "html", "htmlaskama" } } 
+      -- lspconfig.rust_analyzer.setup {
+      --   settings = {
+      --     ['rust-analyzer'] = {},
+      --   },
+      -- }
 
       local cmp = require("cmp")
       local cmp_select = { behavior = cmp.SelectBehavior.Select }
