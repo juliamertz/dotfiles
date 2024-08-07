@@ -1,5 +1,5 @@
-CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}"
-INIT_PATH=$CONFIG_PATH/zsh/init
+ZDOTDIR=${ZDOTDIR:-$HOME/.config}
+INIT_PATH=$ZDOTDIR/init
 
 source $INIT_PATH/prompt.zsh
 source $INIT_PATH/tools.zsh
