@@ -1,6 +1,6 @@
 seek_duration_secs = 10
 modal_search = true 
-client_id = "5719b1978d88493c88963fd2378c5292"
+client_id_cmd = "cat /run/secrets/spotify_client_id"
 client_port = 8080
 tracks_playback_limit = 50
 playback_format = "{track} • {artists}\n{album}\n{metadata}"
