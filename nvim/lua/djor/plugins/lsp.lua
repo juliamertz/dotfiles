@@ -6,15 +6,16 @@ return {
     dependencies = {
       { "onsails/lspkind.nvim" },
       { "neovim/nvim-lspconfig" },          -- Required
-      -- { "williamboman/mason.nvim" },        -- Optional
-      -- { "williamboman/mason-lspconfig.nvim" }, -- Optional
+      { "williamboman/mason.nvim" },        -- Optional
+      { "williamboman/mason-lspconfig.nvim" }, -- Optional
       { "hrsh7th/nvim-cmp" },               -- Required
       { "hrsh7th/cmp-nvim-lsp" },           -- Required
       { "L3MON4D3/LuaSnip" },               -- Required
       { "folke/neodev.nvim",                opts = {} },
     },
     config = function()
-      require("neodev").setup({})
+      require("neodev").setup {}
+      require('mason').setup { PATH = "append", }
 
       local lsp = require("lsp-zero")
       lsp.preset("recommended")
