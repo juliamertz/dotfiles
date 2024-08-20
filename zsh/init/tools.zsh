@@ -7,6 +7,7 @@ fi
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
+eval "$(direnv hook zsh)"
 
 # Utility functions
 function add_path() {
