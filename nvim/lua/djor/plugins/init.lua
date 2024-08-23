@@ -42,7 +42,7 @@ return {
           enable = true,
           indent = true,
         },
-        block = { enable = false },
+        block = { enable = true },
         word = { enable = false },
         char = { enable = false },
        })
