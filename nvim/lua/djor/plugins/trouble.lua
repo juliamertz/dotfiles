@@ -16,6 +16,11 @@ return {
 			"<cmd>Trouble symbols toggle<cr>",
 			desc = "Symbols (Trouble)",
 		},
+		{
+			"<leader>td",
+			"<cmd>Trouble todo toggle<cr>",
+			desc = "Symbols (Trouble)",
+		},
 	},
 	opts = {
 		focus = true,
