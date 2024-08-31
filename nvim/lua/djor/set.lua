@@ -27,3 +27,8 @@ for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
 end
 
 vim.cmd('cnoreabbrev W w')
+
+vim.opt.undofile = true
+vim.opt.undodir = os.getenv("HOME") .. "/.cache/nvim_undo"
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 10000

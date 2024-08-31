@@ -5,9 +5,9 @@ return {
     local undotree = require('undotree')
 
     undotree.setup({
-      float_diff = true,  -- using float window previews diff, set this `true` will disable layout option
-      layout = "left_bottom", -- "left_bottom", "left_left_bottom"
-      position = "left", -- "right", "bottom"
+      float_diff = true,
+      layout = "left_bottom",
+      position = "left", --
       ignore_filetype = { 'undotree', 'undotreeDiff', 'qf', 'TelescopePrompt', 'spectre_panel', 'tsplayground' },
       window = {
         winblend = 30,
