@@ -32,14 +32,15 @@
   "nvim-web-devicons": { "branch": "master", "commit": "c0cfc1738361b5da1cd0a962dd6f774cc444f856" },
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
   "prettier.nvim": { "branch": "main", "commit": "d98e732cb73690b07c00c839c924be1d1d9ac5c2" },
+  "render-markdown.nvim": { "branch": "main", "commit": "74502e5d34efa68dde051bcc6bf28db9748922c7" },
   "rustaceanvim": { "branch": "master", "commit": "e539aa2494460e4cf51df1c7ac6fb16549408f79" },
   "tailwind-tools.nvim": { "branch": "master", "commit": "27d28c993382fdcb4c3d4d0ec4b98c6697a938b5" },
+  "telescope-import.nvim": { "branch": "main", "commit": "abce03c71791bd27fc9043b62b5483467875b758" },
   "telescope.nvim": { "branch": "master", "commit": "bfcc7d5c6f12209139f175e6123a7b7de6d9c18a" },
   "todo-comments.nvim": { "branch": "main", "commit": "51e10f838e84b4756c16311d0b1ef0972c6482d2" },
   "toggle-lsp-diagnostics.nvim": { "branch": "main", "commit": "afcacba44d86df4c3c9752b869e78eb838f55765" },
   "trouble.nvim": { "branch": "main", "commit": "e5d0e04121c662ce29190a57dd03655d43c59d44" },
   "typescript-tools.nvim": { "branch": "master", "commit": "5da4d695d66f676eb6ea766b946e86f93baaafe7" },
   "undotree": { "branch": "main", "commit": "eab459ab87dd249617b5f7187bb69e614a083047" },
-  "which-key.nvim": { "branch": "main", "commit": "6c1584eb76b55629702716995cca4ae2798a9cca" },
   "yanky.nvim": { "branch": "main", "commit": "73215b77d22ebb179cef98e7e1235825431d10e4" }
 }
