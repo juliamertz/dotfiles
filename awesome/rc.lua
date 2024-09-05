@@ -148,8 +148,9 @@ end
 client.connect_signal("manage", set_corner_radius)
 client.connect_signal("property::maximized", set_corner_radius)
 
--- Mouse follows focus
-require("plugins.micky")
+-- -- Mouse follows focus
+-- Seems to be causing crashes??
+-- require("plugins.micky") 
 
 -- Focus follows mouse
 client.connect_signal("mouse::enter", function(c)
