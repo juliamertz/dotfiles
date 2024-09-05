@@ -16,6 +16,6 @@ return {
         fg = "#38BDF8",
       },
     },
-    custom_filetypes = { "htmlaskama" },
+    custom_filetypes = { "htmlaskama", "htmldjango" },
   }
 }
