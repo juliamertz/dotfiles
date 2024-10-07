@@ -12,7 +12,9 @@ alias sctl='sudo systemctl'
 alias sqlite='litecli'
 
 # Plugins
-plugin 'jeffreytse/zsh-vi-mode'
+if [ -z $(env | grep NVIM=) ]; then
+  plugin 'jeffreytse/zsh-vi-mode'
+fi
 plugin 'romkatv/powerlevel10k'
 plugin 'zsh-users/zsh-syntax-highlighting'
 plugin 'zsh-users/zsh-completions'
