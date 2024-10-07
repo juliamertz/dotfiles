@@ -135,9 +135,7 @@ awful.rules.rules = {
 }
 
 local function set_corner_radius(client)
-	if client.maximized then
-		client.shape = utils.corner_radius(0)
-		client.border_width = dpi(0)
+	if client.maximized then client.shape = utils.corner_radius(0) client.border_width = dpi(0)
 	else
 		client.shape = utils.corner_radius(style.theme.corner_radius)
 		client.border_width = style.theme.border_width
@@ -148,14 +146,29 @@ end
 client.connect_signal("manage", set_corner_radius)
 client.connect_signal("property::maximized", set_corner_radius)
 
--- -- Mouse follows focus
--- Seems to be causing crashes??
--- require("plugins.micky") 
+function mouse_follows_focus()
+  local c = client.focus 
+  gears.timer( {  timeout = 0.1,
+  autostart = true,
+  single_shot = true,
+  callback =  function()
+    if mouse.object_under_pointer() ~= c then
+      local geometry = c:geometry()
+      local x = geometry.x + geometry.width/2
+      local y = geometry.y + geometry.height/2
+      mouse.coords({x = x, y = y}, true)
+    end
+  end } )
+end
+
 
 -- Focus follows mouse
 client.connect_signal("mouse::enter", function(c)
 	c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
+-- Mouse follows focus
+client.connect_signal("focus", move_mouse_onto_focused_client)
+
 
 client.connect_signal("focus", function(c)
 	c.border_color = beautiful.border_focus
