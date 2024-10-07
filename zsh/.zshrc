@@ -1,4 +1,4 @@
-ZDOTDIR=${ZDOTDIR:-$HOME/.config}
+ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 INIT_PATH=$ZDOTDIR/init
 
 source $INIT_PATH/prompt.zsh
