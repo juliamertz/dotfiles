@@ -1,0 +1,59 @@
+#!/usr/bin/env sh
+
+yabai -m signal --add event=window_created action="sketchybar --trigger refresh_space"
+yabai -m signal --add event=window_destroyed action="sketchybar --trigger refresh_space"
+yabai -m signal --add event=window_moved action="sketchybar --trigger refresh_space"
+yabai -m signal --add event=window_minimized action="sketchybar --trigger refresh_space"
+yabai -m signal --add event=window_deminimized action="sketchybar --trigger refresh_space"
+
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+# global settings
+yabai -m config window_origin_display default
+yabai -m config window_placement second_child
+
+yabai -m config window_border_width 2
+yabai -m config window_shadow off
+yabai -m config window_border_hidpi on
+yabai -m config window_border on
+yabai -m config window_border_blur off
+yabai -m config split_type auto
+yabai -m config auto_balance off
+yabai -m config layout bsp
+yabai -m config external_bar all:0:29
+
+yabai -m config mouse_follows_focus on
+# yabai -m config focus_follows_mouse autofocus
+
+# Window preferences
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Disk Utility$" manage=off
+yabai -m rule --add app="^System Information$" manage=off
+yabai -m rule --add app="^Activity Monitor$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^App Store$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off sticky=on
+yabai -m rule --add app="^Archive Utility$" manage=off
+yabai -m rule --add app="^Home Assistant$" manage=off sticky=off
+yabai -m rule --add app="^Home$" manage=off sticky=on
+yabai -m rule --add app="^Finder$" manage=off sticky=off
+yabai -m rule --add app="^WhatsApp$" manage=off sticky=off
+yabai -m rule --add app="^Messages$" manage=off sticky=off
+yabai -m rule --add app="^SF Symbols$" manage=off sticky=off
+yabai -m rule --add app="^Logi Options+$" manage=off sticky=off
+yabai -m rule --add app="^Weather$" manage=off sticky=off
+
+set gapSize 5
+
+yabai -m config              \
+    top_padding    $gapSize  \
+    bottom_padding $gapSize  \
+    left_padding   $gapSize  \
+    right_padding  $gapSize  \
+    window_gap     $gapSize
+
+# Color template:  0x(opacity hex table value)(regular hex color)
+borders active_color=0xffeb6f92 inactive_color=0xff494d64 width=5.0 2>/dev/null 1>&2 &
+
+# vim:ft=sh

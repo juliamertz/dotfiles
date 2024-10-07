@@ -1,0 +1,100 @@
+# Focus window
+cmd - h: yabai -m window --focus west || yabai -m display --focus 2
+cmd - j: yabai -m window --focus south
+cmd - k: yabai -m window --focus north
+cmd - l: yabai -m window --focus east || yabai -m display --focus 1
+
+# Resize window to direction
+cmd + alt - h: yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
+cmd + alt - j: yabai -m window --resize top:0:100 || yabai -m window --resize bottom:0:100
+cmd + alt - k: yabai -m window --resize top:0:-100 ||  yabai -m window --resize bottom:0:-100
+cmd + alt - l: yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0
+
+# Swap window to directrion
+cmd + shift - h: yabai -m window --swap west
+cmd + shift - j: yabai -m window --swap south
+cmd + shift - k: yabai -m window --swap north
+cmd + shift - l: yabai -m window --swap east
+
+# Warp window to direction
+# ctrl + cmd - left: yabai -m window --warp west || yabai -m window --display 2
+# ctrl + cmd - right: yabai -m window --warp east || yabai -m window --display 1
+# ctrl + cmd - up: yabai -m window --warp north
+# ctrl + cmd - down: yabai -m window --warp south
+
+# #send window to space
+cmd + shift - 1: yabai -m window --space $(rel-space-index --index 1 --display 2) && yabai -m space --focus $(rel-space-index --index 1 --display 2)
+cmd + shift - 2: yabai -m window --space $(rel-space-index --index 2 --display 2) && yabai -m space --focus $(rel-space-index --index 2 --display 2)
+cmd + shift - 3: yabai -m window --space $(rel-space-index --index 3 --display 2) && yabai -m space --focus $(rel-space-index --index 3 --display 2)
+cmd + shift - 4: yabai -m window --space $(rel-space-index --index 4 --display 2) && yabai -m space --focus $(rel-space-index --index 4 --display 2)
+cmd + shift - 5: yabai -m window --space $(rel-space-index --index 1 --display 3) && yabai -m space --focus $(rel-space-index --index 1 --display 3)
+cmd + shift - 6: yabai -m window --space $(rel-space-index --index 2 --display 3) && yabai -m space --focus $(rel-space-index --index 2 --display 3)
+cmd + shift - 7: yabai -m window --space $(rel-space-index --index 3 --display 3) && yabai -m space --focus $(rel-space-index --index 3 --display 3)
+cmd + shift - 8: yabai -m window --space $(rel-space-index --index 4 --display 3) && yabai -m space --focus $(rel-space-index --index 4 --display 3)
+
+# Switch
+cmd - 1: yabai -m space --focus $(rel-space-index --index 1 --display 2)
+cmd - 2: yabai -m space --focus $(rel-space-index --index 2 --display 2)
+cmd - 3: yabai -m space --focus $(rel-space-index --index 3 --display 2)
+cmd - 4: yabai -m space --focus $(rel-space-index --index 4 --display 2)
+cmd - 5: yabai -m space --focus $(rel-space-index --index 1 --display 3)
+cmd - 6: yabai -m space --focus $(rel-space-index --index 2 --display 3)
+cmd - 7: yabai -m space --focus $(rel-space-index --index 3 --display 3)
+cmd - 8: yabai -m space --focus $(rel-space-index --index 4 --display 3)
+
+# Switch spaces with arrow keys
+ctrl - h: yabai -m space --focus prev
+ctrl - l: yabai -m space --focus next
+
+# # App shortcuts
+cmd + ctrl - c: ~/.config/scripts/open-term.fish
+cmd + ctrl - e: open -b com.microsoft.VSCode
+cmd + ctrl - d: open -a "Home Assistant"
+cmd + ctrl - w: open -a "Firefox"
+cmd + ctrl - 1: open -a "1Password"
+cmd + ctrl - s: open -a "Spotify"
+cmd + ctrl - f: open -a "Figma"
+cmd + ctrl - a: open -a "Authy Desktop"
+
+# Smart light controls
+ralt - up: ~/.config/scripts/home_assistant/dimmer.fish up
+ralt - down: ~/.config/scripts/home_assistant/dimmer.fish down
+ralt - left: ~/.config/scripts/home_assistant/cycleScenes.fish previous #; ~/.config/scripts/home_assistant/dist/fetchCurrentScene.fish
+ralt - right: ~/.config/scripts/home_assistant/cycleScenes.fish next #; ~/.config/scripts/home_assistant/dist/fetchCurrentScene.fish
+
+# # Toggle display input over DDC
+# ralt - insert: ~/.config/scripts/toggle-display-input
+
+# # Switch gap size [ 0 -> 12 ]
+# ralt - k: ~/.config/scripts/enablegap.fish
+# ralt - l: ~/.config/scripts/disablegap.fish
+
+# Create / Destroy space
+ctrl + alt - x: yabai -m space --destroy; ~/.config/scripts/refreshUbersichtWidgets.fish
+ctrl + alt - c: yabai -m space --create; yabai -m space --focus $(yabai -m query --displays --display | jq ".spaces | last"); ~/.config/scripts/refreshUbersichtWidgets.fish
+
+cmd + shift - n: ~/.config/scripts/dupeWindow.fish
+
+cmd + alt - t: ~/.config/scripts/yabai-better-float/toggle-window-float.fish
+
+# # Fullscreen current window
+alt - f: yabai -m window --toggle native-fullscreen
+
+ctrl - f: skhd -k "cmd - f"
+
+# # Split window in space
+# ctrl + alt - z: yabai -m window --toggle split
+
+# # Align floating window on grid
+# ctrl + alt - g: yabai -m window --grid 10:10:1:1:8:8
+
+# # Mirror space vertically
+# ctrl + alt - l: yabai -m space --rotate 180
+
+# ctrl + cmd - r: ~/.config/scripts/refreshDesktop.fish
+
+# # Swap monitors
+# ctrl + cmd - q: ~/.config/scripts/yabai-helper display-swap
+
+# # Connect / Disconnect Airpods
+cmd + shift - o: ~/.config/scripts/toggle-airpods-connection.fish
