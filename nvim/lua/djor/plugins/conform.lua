@@ -8,6 +8,7 @@ local opts = {
     lua = { "stylua" },
     javascript = { { "prettierd", "prettier" } },
     typescript = { { "prettierd", "prettier" } },
+    astro = { { "prettierd", "prettier" } },
     typescriptreact = { "rustywind", { "prettierd", "prettier" } },
     go = { "gofumpt" },
     markdown = { "markdownlint" },
