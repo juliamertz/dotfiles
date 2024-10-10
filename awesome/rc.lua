@@ -161,13 +161,13 @@ function mouse_follows_focus()
   end } )
 end
 
+-- Mouse follows focus
+client.connect_signal("focus", mouse_follows_focus)
 
 -- Focus follows mouse
 client.connect_signal("mouse::enter", function(c)
 	c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
--- Mouse follows focus
-client.connect_signal("focus", move_mouse_onto_focused_client)
 
 
 client.connect_signal("focus", function(c)
