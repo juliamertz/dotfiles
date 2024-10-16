@@ -43,8 +43,8 @@ cmd - 7: yabai -m space --focus 7
 cmd - 8: yabai -m space --focus 8
 
 # Switch spaces with arrow keys
-ctrl - h: yabai -m space --focus prev
-ctrl - l: yabai -m space --focus next
+# ctrl - h: yabai -m space --focus prev
+# ctrl - l: yabai -m space --focus next
 
 # # App shortcuts
 cmd + ctrl - c: ~/.config/scripts/open-term.fish
@@ -57,10 +57,10 @@ cmd + ctrl - f: open -a "Figma"
 cmd + ctrl - a: open -a "Authy Desktop"
 
 # Smart light controls
-ralt - up: ~/.config/scripts/home_assistant/dimmer.fish up
-ralt - down: ~/.config/scripts/home_assistant/dimmer.fish down
-ralt - left: ~/.config/scripts/home_assistant/cycleScenes.fish previous #; ~/.config/scripts/home_assistant/dist/fetchCurrentScene.fish
-ralt - right: ~/.config/scripts/home_assistant/cycleScenes.fish next #; ~/.config/scripts/home_assistant/dist/fetchCurrentScene.fish
+# ralt - up: ~/.config/scripts/home_assistant/dimmer.fish up
+# ralt - down: ~/.config/scripts/home_assistant/dimmer.fish down
+# ralt - left: ~/.config/scripts/home_assistant/cycleScenes.fish previous #; ~/.config/scripts/home_assistant/dist/fetchCurrentScene.fish
+# ralt - right: ~/.config/scripts/home_assistant/cycleScenes.fish next #; ~/.config/scripts/home_assistant/dist/fetchCurrentScene.fish
 
 # # Toggle display input over DDC
 # ralt - insert: ~/.config/scripts/toggle-display-input
