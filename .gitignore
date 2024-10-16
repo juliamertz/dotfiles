@@ -1,11 +1,8 @@
-bspwm/.gap-state
 fish/completions
 fish/conf.d
 fish/functions
 tmux/plugins
-BraveSoftware/Brave-Browser
 litecli
-neofetch
 pulse
 qBittorrent
 zsh/.zcompdump
