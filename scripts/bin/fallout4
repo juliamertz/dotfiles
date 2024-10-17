@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-protontricks-launch --appid 377160 /mnt/games/mods/fallout4/modorganizer2/ModOrganizer.exe &> /dev/null &
