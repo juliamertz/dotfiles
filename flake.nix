@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -23,40 +22,21 @@
       systems = nixpkgs.lib.systems.flakeExposed;
 
       perSystem =
-        { pkgs, lib, ... }:
+        { pkgs, ... }:
         let
-          wrappedProgram = path: pkgs.callPackage path { inherit wrapPackage inputs; };
-          wrapPackage =
-            args:
-            let
-              cfg = {
-                extraFlags = "";
-                extraArgs = "";
-                dependencies = [ ];
-                postWrap = "";
-                preWrap = "";
-              } // args;
-
-              join = value: if builtins.isList value then lib.concatStringsSep " " value else value;
-            in
-            pkgs.symlinkJoin {
-              inherit (cfg) name;
-              paths = [ cfg.package ] ++ cfg.dependencies;
-              buildInputs = [ pkgs.makeWrapper ];
-              postBuild = ''
-                ${cfg.preWrap}
-                wrapProgram $out/bin/${cfg.name} \
-                  --add-flags "${join cfg.extraFlags}" ${join cfg.extraArgs}
-                ${cfg.postWrap}
-              '';
-            };
-
+          inherit (pkgs) callPackage;
+          wrapPackage = callPackage ./wrapPackage.nix { };
+          wrap = p: callPackage p { inherit wrapPackage inputs; };
         in
         {
-          packages.neovim = wrappedProgram ./nvim;
-          packages.lazygit = wrappedProgram ./lazygit;
-          packages.tmux = wrappedProgram ./tmux;
-          packages.spotify-player = wrappedProgram ./spotify-player;
+          packages = {
+            neovim = wrap ./nvim;
+            lazygit = wrap ./lazygit;
+            tmux = wrap ./tmux;
+            spotify-player = wrap ./spotify-player;
+            wezterm = wrap ./wezterm;
+            kitty = wrap ./kitty;
+          };
         };
     };
 }
