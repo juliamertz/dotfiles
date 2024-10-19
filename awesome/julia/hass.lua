@@ -1,4 +1,4 @@
-local utils = require("djor.utils")
+local utils = require("julia.utils")
 local awful = require("awful")
 local M = {}
 

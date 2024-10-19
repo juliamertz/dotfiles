@@ -3,19 +3,19 @@
 local gears = require("gears")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
-local utils = require("djor.utils")
+local utils = require("julia.utils")
 local awful = require("awful")
 local beautiful = require("beautiful")
-local bar = require("djor.bar")
-local style = require("djor.style")
-local keys = require("djor.keys")
-local launch = require("djor.launch")
+local bar = require("julia.bar")
+local style = require("julia.style")
+local keys = require("julia.keys")
+local launch = require("julia.launch")
 
 require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
 
-require("djor.errors")
-require("djor.keys")
+require("julia.errors")
+require("julia.keys")
 
 beautiful.init(style.theme)
 

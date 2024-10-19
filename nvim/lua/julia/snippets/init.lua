@@ -47,11 +47,11 @@ M.init = function()
     history = true,
   })
 
-  local lua = require("djor.snippets.lua")
-  local react = require("djor.snippets.react")
-  local go = require("djor.snippets.go")
-  local html = require("djor.snippets.html")
-  local common = require("djor.snippets.common")
+  local lua = require("julia.snippets.lua")
+  local react = require("julia.snippets.react")
+  local go = require("julia.snippets.go")
+  local html = require("julia.snippets.html")
+  local common = require("julia.snippets.common")
 
   M.add_snippets(lua, 'lua')
   M.add_snippets(react, 'typescriptreact')

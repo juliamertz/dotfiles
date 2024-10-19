@@ -9,7 +9,7 @@ local d = ls.dynamic_node
 local r = ls.restore_node
 local s = ls.snippet
 
-local utils = require('djor.snippets')
+local utils = require('julia.snippets')
 
 -- will replicate a given node index but capitalize the first letter
 local function same_capitalized(index)

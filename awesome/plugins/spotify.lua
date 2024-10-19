@@ -1,4 +1,4 @@
-local utils = require("djor.utils")
+local utils = require("julia.utils")
 local bling = require("plugins.bling")
 local scroller = require("plugins.text-scroller")
 local wibox = require("wibox")

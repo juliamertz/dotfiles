@@ -17,6 +17,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  spec = "djor.plugins",
+  spec = "julia.plugins",
   change_detection = { notify = false }
 })

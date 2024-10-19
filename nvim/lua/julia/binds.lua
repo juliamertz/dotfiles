@@ -1,4 +1,4 @@
-local utils = require('djor.utils')
+local utils = require('julia.utils')
 local undotree = require('undotree')
 
 local keymap = vim.keymap.set

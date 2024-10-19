@@ -1,7 +1,7 @@
 local naughty = require("naughty")
 local gears = require("gears")
 local awful = require("awful")
-local utils = require("djor.utils")
+local utils = require("julia.utils")
 local wibox = require("wibox")
 
 ---@class SystemMonitorConfig

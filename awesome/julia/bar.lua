@@ -5,8 +5,8 @@ local beautiful = require("beautiful")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
-local launch = require("djor.launch")
-local utils = require("djor.utils")
+local launch = require("julia.launch")
+local utils = require("julia.utils")
 
 local M = {}
 
@@ -55,7 +55,7 @@ M.launcher = awful.widget.launcher({
 
 menubar.utils.terminal = launch.apps.terminal
 
-local colors = require('djor.style').colors
+local colors = require('julia.style').colors
 local date_format = utils.html_text_style("%Y/%m/%d %H:%M:%S", colors.gold)
 local clock = wibox.widget.textclock(date_format, 1)
 

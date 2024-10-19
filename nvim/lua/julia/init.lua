@@ -1,8 +1,8 @@
 vim.g.mapleader = " "
 
-require("djor.lazy")
-require("djor.set")
-require("djor.binds")
+require("julia.lazy")
+require("julia.set")
+require("julia.binds")
 
 vim.filetype.add({
 	pattern = {

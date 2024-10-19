@@ -3,6 +3,7 @@
   stdenv,
   neovim,
   wrapPackage,
+  ...
 }:
 wrapPackage {
   name = "nvim";

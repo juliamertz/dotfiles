@@ -20,7 +20,7 @@ return {
 			local lsp = require("lsp-zero")
 			lsp.preset("recommended")
 
-			local binds = require("djor.binds")
+			local binds = require("julia.binds")
 
 			local lspconfig = require("lspconfig")
 			lspconfig.lua_ls.setup({

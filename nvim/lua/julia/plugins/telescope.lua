@@ -1,4 +1,4 @@
-local utils = require("djor.utils")
+local utils = require("julia.utils")
 
 return {
 	{

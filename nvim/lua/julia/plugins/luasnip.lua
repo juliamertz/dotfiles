@@ -1,4 +1,4 @@
-local snippets = require("djor.snippets.init")
+local snippets = require("julia.snippets.init")
 
 return {
   "L3MON4D3/LuaSnip",

@@ -1,7 +1,7 @@
 local naughty = require("naughty")
 local gears = require("gears")
 local inspect = require("plugins.inspect")
-local style = require("djor.style")
+local style = require("julia.style")
 local filesystem = require("gears.filesystem")
 
 local M = {

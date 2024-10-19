@@ -1,12 +1,12 @@
-local style = require("djor.style")
-local utils = require("djor.utils")
-local bar = require("djor.bar")
+local style = require("julia.style")
+local utils = require("julia.utils")
+local bar = require("julia.bar")
 local gears = require("gears")
 local awful = require("awful")
-local launch = require("djor.launch")
+local launch = require("julia.launch")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local home_assistant = require("djor.hass")
+local home_assistant = require("julia.hass")
 
 local modkey = "Mod4"
 local M = {
