@@ -8,6 +8,8 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
   };
 
   outputs =
@@ -15,6 +17,7 @@
       self,
       nixpkgs,
       flake-parts,
+      ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = nixpkgs.lib.systems.flakeExposed;
@@ -22,7 +25,7 @@
       perSystem =
         { pkgs, lib, ... }:
         let
-          wrappedProgram = path: pkgs.callPackage path { inherit wrapPackage; };
+          wrappedProgram = path: pkgs.callPackage path { inherit wrapPackage inputs; };
           wrapPackage =
             args:
             let
@@ -52,6 +55,8 @@
         {
           packages.neovim = wrappedProgram ./nvim;
           packages.lazygit = wrappedProgram ./lazygit;
+          packages.tmux = wrappedProgram ./tmux;
+          packages.spotify-player = wrappedProgram ./spotify-player;
         };
     };
 }
