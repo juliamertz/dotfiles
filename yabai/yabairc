@@ -21,7 +21,7 @@ yabai -m config window_border_blur off
 yabai -m config split_type auto
 yabai -m config auto_balance off
 yabai -m config layout bsp
-yabai -m config external_bar all:0:29
+yabai -m config external_bar all:0:0
 
 yabai -m config mouse_follows_focus on
 # yabai -m config focus_follows_mouse autofocus
