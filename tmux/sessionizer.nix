@@ -6,7 +6,7 @@ writeShellScriptBin "sessionizer" # sh
     if [[ $# -eq 1 ]]; then
         selected=$1
     else
-        selected=$(find ~/projects/2024 ~/dotfiles -mindepth 1 -maxdepth 1 -type d | fzf)
+        selected=$(find ~/projects/2024 ~/ -mindepth 1 -maxdepth 1 -type d | fzf)
     fi
 
     if [[ -z $selected ]]; then
