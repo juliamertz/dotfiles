@@ -10,6 +10,8 @@ let
   tmux = wrapPackage {
     name = "tmux";
     package = pkgs.tmux;
+    # If config home isn't set to the config most plugins won't work
+    # this is overriden back to the users home after initializaiton
     extraArgs = "--set XDG_CONFIG_HOME '${config}'";
     extraFlags = "-f ${config}/tmux/tmux.conf";
     dependencies = with pkgs; [ fzf ];
@@ -41,10 +43,10 @@ let
     sha256 = "sha256-dMqvr97EgtAm47cfYXRvxABPkDbpS0qHgsNXRVfa0IM=";
   };
   tmux-rosepine = pkgs.fetchFromGitHub {
-    owner = "juliamertz";
-    repo = "tmux-rosepine";
-    rev = "bb46f43bfbbeed3a7d479da07de28983c09ad4ce";
-    sha256 = "sha256-Na3TTEXWK+/UU4/lQdWmkxUnO6zioeQmg/5GaVsDVNY=";
+    owner = "rose-pine";
+    repo = "tmux";
+    rev = "5bf885fe2e181e9763d92d9c522b0526e901e449";
+    hash = "sha256-YnpWvW0iWANB0snVhLKBTnOXlD3LQfbeoSFeae7SJ0c=";
   };
 
   # scripts
@@ -66,31 +68,29 @@ let
         set -g @plugin 'tmux-plugins/tmux-sensible'
         set -g @plugin 'tmux-plugins/tmux-yank'
         set -g @plugin 'sainnhe/tmux-fzf'
-        set -g @plugin 'juliamertz/tmux-rosepine'
+        set -g @plugin 'rose-pine/tmux'
 
-        set -g @rosepine_flavour 'moon' 
-        set -g @rosepine_window_left_separator ""
-        set -g @rosepine_window_right_separator " "
-        set -g @rosepine_window_middle_separator " █"
-        set -g @rosepine_window_number_position "right"
-        set -g @rosepine_window_default_fill "number"
-        set -g @rosepine_window_default_text "#W"
-        set -g @rosepine_window_current_fill "number"
-        set -g @rosepine_window_current_text "#W"
-        set -g @rosepine_status_modules_right "host session"
-        set -g @rosepine_status_left_separator  " "
-        set -g @rosepine_status_right_separator ""
-        set -g @rosepine_status_right_separator_inverse "no"
-        set -g @rosepine_status_fill "icon"
-        set -g @rosepine_status_connect_separator "no"
-        set -g @rosepine_directory_text '#(dirs)'
-
+        # Theme
+        set -g @rose_pine_variant 'moon'
         set -g status-bg default
         set -g status-style bg=default
-        set-environment -g TMUX_PLUGIN_MANAGER_PATH '${plugins}'
 
+        set-environment -g TMUX_PLUGIN_MANAGER_PATH '${plugins}'
         run '${tpm}/tpm'
+
+        set-environment -g XDG_CONFIG_HOME "$HOME"
       '';
+
+  combineDerivations =
+    name: derivations:
+    let
+      copy = der: "cp -r ${der} $out/${der.pname}";
+      commands = map copy derivations;
+    in
+    runCommandNoCC name { } ''
+      mkdir $out
+      ${lib.concatStringsSep "\n" commands}
+    '';
 
   plugins =
     runCommandNoCC "tmux-plugins" { } # sh
@@ -100,8 +100,9 @@ let
         cp -r ${tmux-sensible} $out/tmux-sensible
         cp -r ${tmux-yank} $out/tmux-yank
         cp -r ${tmux-fzf} $out/tmux-fzf
-        cp -r ${tmux-rosepine} $out/tmux-rosepine
+        cp -r ${tmux-rosepine} $out/tmux
       '';
+
   config =
     runCommandNoCC "tmux-conf" { } # sh
       ''
