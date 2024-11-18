@@ -4,6 +4,11 @@ return {
     event = "BufRead",
   },
 
+  -- Colorbuddy
+  {
+    "tjdevries/colorbuddy.nvim",
+  },
+
   -- Nvim-Colorizer
   {
     "NvChad/nvim-colorizer.lua",
