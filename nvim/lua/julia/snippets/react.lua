@@ -14,7 +14,6 @@ local utils = require('julia.snippets')
 -- will replicate a given node index but capitalize the first letter
 local function same_capitalized(index)
   return ls.function_node(function(args)
-    vim.notify(vim.inspect(args))
     local val = args[1][1]
     args[1][1] = val:sub(1, 1):upper() .. val:sub(2)
 
