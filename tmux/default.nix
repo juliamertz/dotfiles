@@ -50,7 +50,7 @@ let
         set-environment -g TMUX_PLUGIN_MANAGER_PATH '${plugins.combined}'
         run '${plugins.tpm}/tpm'
 
-        set-environment -g XDG_CONFIG_HOME "$HOME"
+        set-environment -g XDG_CONFIG_HOME "$HOME/.config"
       '';
 
   config =
