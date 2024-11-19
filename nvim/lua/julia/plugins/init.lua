@@ -9,15 +9,36 @@ return {
     "tjdevries/colorbuddy.nvim",
   },
 
-  -- Nvim-Colorizer
   {
-    "NvChad/nvim-colorizer.lua",
-    event = "BufRead",
+    "uga-rosa/ccc.nvim",
     config = function()
-      require("colorizer").setup({
-      }, { names = false })
-    end,
+      local ccc = require("ccc")
+      -- local mapping = ccc.mapping
+
+      ccc.setup({
+        -- Your preferred settings
+        -- Example: enable highlighter
+        highlighter = {
+          auto_enable = true,
+          lsp = true,
+        },
+      })
+
+      local opts = { noremap = true, silent = true }
+      vim.keymap.set('n', '<leader>cc', ':CccConvert<CR>', opts)
+      vim.keymap.set('n', '<leader>cp', ':CccPick<CR>', opts)
+    end
   },
+
+  -- -- Nvim-Colorizer
+  -- {
+  --   "NvChad/nvim-colorizer.lua",
+  --   event = "BufRead",
+  --   config = function()
+  --     require("colorizer").setup({
+  --     }, { names = false })
+  --   end,
+  -- },
 
   -- Surround
   {
