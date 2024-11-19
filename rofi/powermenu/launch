@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dir="$HOME/.config/rofi/powermenu"
+: "${THEME:?Environment variable THEME is not set. Exiting.}"
 
 # CMDs
 uptime="`uptime -p | sed -e 's/up //g'`"
@@ -15,15 +15,13 @@ logout='󰗼'
 yes=''
 no=''
 
-# Rofi CMD
 rofi_cmd() {
 	rofi -dmenu \
 		-p "Uptime: $uptime" \
 		-mesg "Uptime: $uptime" \
-		-theme ${dir}/theme.rasi
+		-theme $THEME
 }
 
-# Confirmation CMD
 confirm_cmd() {
 	rofi -theme-str 'window {location: center; anchor: center; fullscreen: false; width: 350px;}' \
 		-theme-str 'mainbox {children: [ "message", "listview" ];}' \

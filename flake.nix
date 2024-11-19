@@ -42,6 +42,7 @@
             wezterm = ./wezterm;
             kitty = ./kitty;
             alacritty = ./alacritty;
+            rofi = ./rofi;
           };
         };
     };
