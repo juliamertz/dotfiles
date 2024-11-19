@@ -47,7 +47,7 @@ blinking = "On"
 shape = "Block"
 
 [font]
-size = 16
+size = 24
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
@@ -57,14 +57,15 @@ family = "JetBrainsMono Nerd Font"
 
 [font.italic]
 family = "JetBrainsMono Nerd Font"
+style = "Regular"
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
 
 [window]
 decorations = "buttonless"
-opacity = 0.65
-startup_mode = "Windowed"
+opacity = 1.00
+startup_mode = "Fullscreen"
 
 [window.padding]
 x = 15

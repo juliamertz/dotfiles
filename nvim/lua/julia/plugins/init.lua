@@ -14,7 +14,8 @@ return {
     "NvChad/nvim-colorizer.lua",
     event = "BufRead",
     config = function()
-      require("colorizer").setup({})
+      require("colorizer").setup({
+      }, { names = false })
     end,
   },
 

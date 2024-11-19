@@ -1,5 +1,5 @@
 {
-  description = "Programs I use wrapped with their configurations";
+  description = "My favourite programs with their configurations";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -22,20 +22,22 @@
       systems = nixpkgs.lib.systems.flakeExposed;
 
       perSystem =
-        { pkgs, ... }:
+        { pkgs, lib, ... }:
         let
           inherit (pkgs) callPackage;
+
           wrapPackage = callPackage ./wrapPackage.nix { };
-          wrap = p: callPackage p { inherit wrapPackage inputs; };
+          mkPackages = attrs: lib.mapAttrs (_: x: callPackage x { inherit inputs wrapPackage; }) attrs;
         in
         {
-          packages = {
-            neovim = wrap ./nvim;
-            lazygit = wrap ./lazygit;
-            tmux = wrap ./tmux;
-            spotify-player = wrap ./spotify-player;
-            wezterm = wrap ./wezterm;
-            kitty = wrap ./kitty;
+          packages = mkPackages {
+            neovim = ./nvim;
+            lazygit = ./lazygit;
+            tmux = ./tmux;
+            spotify-player = ./spotify-player;
+            wezterm = ./wezterm;
+            kitty = ./kitty;
+            alacritty = ./alacritty;
           };
         };
     };
