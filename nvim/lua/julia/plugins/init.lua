@@ -4,11 +4,24 @@ return {
     event = "BufRead",
   },
 
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    config = function ()
+      require("oil").setup({})
+      local opts = { noremap = true, silent = true }
+      vim.keymap.set('n', '<leader>ef', ':Oil<CR>', opts)
+    end
+  },
+
   -- Colorbuddy
+  -- Theme creation helper
   {
     "tjdevries/colorbuddy.nvim",
   },
 
+  --- Color highlighter and picker
   {
     "uga-rosa/ccc.nvim",
     config = function()
@@ -29,16 +42,6 @@ return {
       vim.keymap.set('n', '<leader>cp', ':CccPick<CR>', opts)
     end
   },
-
-  -- -- Nvim-Colorizer
-  -- {
-  --   "NvChad/nvim-colorizer.lua",
-  --   event = "BufRead",
-  --   config = function()
-  --     require("colorizer").setup({
-  --     }, { names = false })
-  --   end,
-  -- },
 
   -- Surround
   {
@@ -82,13 +85,13 @@ return {
     end,
   },
 
-  -- Indent blankline
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "VeryLazy",
-    main = "ibl",
-    opts = {},
-  },
+  -- -- Indent blankline
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   event = "VeryLazy",
+  --   main = "ibl",
+  --   opts = {},
+  -- },
 
   {
     "pmizio/typescript-tools.nvim",

@@ -1,4 +1,8 @@
-{ lib, symlinkJoin, makeWrapper }:
+{
+  lib,
+  symlinkJoin,
+  makeWrapper,
+}:
 args:
 let
   cfg = {

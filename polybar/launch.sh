@@ -5,7 +5,7 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 declare layout
-gap_state=$(/home/joris/.config/bspwm/gaps status)
+gap_state=$($XDG_CONFIG_HOME/bspwm/gaps status)
 
 if [[ $gap_state == "enabled" ]]; then
     layout="gaps"

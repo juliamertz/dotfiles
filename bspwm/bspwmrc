@@ -38,8 +38,6 @@ pgrep bspswallow || bspswallow &
 
 protonvpn-cli connect -f
 
-# /home/joris/.config/scripts/set-random-wallpaper.sh
-
 bspc monitor DP-0 -d 1 2 3 4
 bspc monitor HDMI-0 -d 5 6 7 8
 

@@ -118,7 +118,7 @@ M.globalkeys = gears.table.join(
 		awful.spawn(launch.rofi.launcher)
 	end, { description = "open launcher", group = "launcher" }),
 	awful.key({ modkey }, "Print", function()
-		awful.spawn([[scrot -M 0 -F "/home/joris/screenshots/$(date | tr ' ' '-').png"]])
+		awful.spawn([[scrot -M 0 -F "/home/julia/screenshots/$(date | tr ' ' '-').png"]])
 	end, { description = "open launcher", group = "launcher" }),
 	awful.key({}, "Print", function()
 		awful.spawn(launch.rofi.screenshotmenu)
