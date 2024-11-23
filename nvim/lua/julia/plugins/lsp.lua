@@ -23,32 +23,30 @@ return {
 			local binds = require("julia.binds")
 
 			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-					-- rust_analyzer = {
-					--   checkOnSave = {
-					--     command = "clippy",
-					--   },
-					--   cargo = {
-					--     allFeatures = true,
-					--   },
-					-- },
-				},
-			})
-
+			-- lspconfig.lua_ls.setup({
+			-- 	settings = {
+			-- 		Lua = {
+			-- 			completion = {
+			-- 				callSnippet = "Replace",
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
+			--
 			lspconfig.gopls.setup({})
 			lspconfig.htmx.setup({ filetypes = { "html", "htmlaskama", "htmldjango" } })
 			lspconfig.tailwindcss.setup({ filetypes = { "html", "htmlaskama", "htmldjango" } })
-			-- lspconfig.rust_analyzer.setup {
-			--   settings = {
-			--     ['rust-analyzer'] = {},
-			--   },
-			-- }
+
+      -- temporary fix for rust-analzyer throwing errors
+      for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+          local default_diagnostic_handler = vim.lsp.handlers[method]
+          vim.lsp.handlers[method] = function(err, result, context, config)
+              if err ~= nil and err.code == -32802 then
+                  return
+              end
+              return default_diagnostic_handler(err, result, context, config)
+          end
+      end
 
 			local cmp = require("cmp")
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -63,10 +61,6 @@ return {
 				format = require("lspkind").cmp_format({
 					before = require("tailwind-tools.cmp").lspkind_format,
 				}),
-			}
-
-			cmp.config.sources = {
-				{ name = "otter" },
 			}
 
 			cmp_mappings["<Tab>"] = nil
