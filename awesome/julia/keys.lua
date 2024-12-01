@@ -6,7 +6,6 @@ local awful = require("awful")
 local launch = require("julia.launch")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local home_assistant = require("julia.hass")
 
 local modkey = "Mod4"
 local M = {
@@ -57,18 +56,6 @@ M.globalkeys = gears.table.join(
 	awful.key({}, "XF86AudioMute", function()
 		awful.util.spawn("pamixer --toggle-mute")
 	end),
-	awful.key(
-		{ modkey },
-		"Prior",
-		home_assistant.next_scene,
-		{ description = "Cycle to next light scene", group = "client" }
-	),
-	awful.key(
-		{ modkey },
-		"Next",
-		home_assistant.previous_scene,
-		{ description = "Cycle to previous light scene", group = "client" }
-	),
 
 	-- Layout manipulation
 	awful.key({ modkey, "Shift" }, "j", function()

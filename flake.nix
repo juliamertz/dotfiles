@@ -22,9 +22,15 @@
       systems = nixpkgs.lib.systems.flakeExposed;
 
       perSystem =
-        { pkgs, lib, ... }:
+        {
+          pkgs,
+          lib,
+          config,
+          ...
+        }:
         let
           inherit (pkgs) callPackage;
+          inherit (config) packages;
 
           mkPackage =
             path:
@@ -44,6 +50,19 @@
             alacritty = mkPackage ./alacritty;
             rofi = mkPackage ./rofi;
             zsh = mkPackage ./zsh;
+            nushell = mkPackage ./nushell;
+          };
+
+          devShells.default = pkgs.mkShell {
+            packages = with packages; [
+              neovim
+              lazygit
+              tmux
+              zsh
+            ];
+            shellHook = ''
+              ${lib.getExe packages.zsh}
+            '';
           };
         };
     };

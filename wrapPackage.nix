@@ -19,10 +19,13 @@ symlinkJoin {
   inherit (cfg) name;
   paths = [ cfg.package ] ++ cfg.dependencies;
   buildInputs = [ makeWrapper ];
+
   postBuild = ''
     ${cfg.preWrap}
     wrapProgram $out/bin/${cfg.name} \
       --add-flags "${join cfg.extraFlags}" ${join cfg.extraArgs}
     ${cfg.postWrap}
   '';
+
+  meta.mainProgram = cfg.name;
 }
