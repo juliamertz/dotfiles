@@ -8,10 +8,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    pink-lavender = {
-      url = "github:juliamertz/pink-lavender";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
   };
 
@@ -43,6 +39,7 @@
             kitty = ./kitty;
             alacritty = ./alacritty;
             rofi = ./rofi;
+            zsh = ./zsh;
           };
         };
     };
