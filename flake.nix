@@ -26,20 +26,24 @@
         let
           inherit (pkgs) callPackage;
 
-          wrapPackage = callPackage ./wrapPackage.nix { };
-          mkPackages = attrs: lib.mapAttrs (_: x: callPackage x { inherit inputs wrapPackage; }) attrs;
+          mkPackage =
+            path:
+            callPackage path {
+              inherit inputs;
+              wrapPackage = callPackage ./wrapPackage.nix { };
+            };
         in
         {
-          packages = mkPackages {
-            neovim = ./nvim;
-            lazygit = ./lazygit;
-            tmux = ./tmux;
-            spotify-player = ./spotify-player;
-            wezterm = ./wezterm;
-            kitty = ./kitty;
-            alacritty = ./alacritty;
-            rofi = ./rofi;
-            zsh = ./zsh;
+          packages = {
+            neovim = mkPackage ./nvim;
+            lazygit = mkPackage ./lazygit;
+            tmux = mkPackage ./tmux;
+            spotify-player = mkPackage ./spotify-player;
+            wezterm = mkPackage ./wezterm;
+            kitty = mkPackage ./kitty;
+            alacritty = mkPackage ./alacritty;
+            rofi = mkPackage ./rofi;
+            zsh = mkPackage ./zsh;
           };
         };
     };
