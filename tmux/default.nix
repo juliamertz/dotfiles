@@ -28,6 +28,8 @@ let
       ''
         source-file ${./tmux.reset.conf}
 
+        set -g default-shell /run/current-system/sw/bin/zsh
+
         set -g @sessionx-zoxide-mode 'on'
         set -g prefix ^A
 
