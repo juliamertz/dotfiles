@@ -51,6 +51,7 @@
             rofi = mkPackage ./rofi;
             zsh = mkPackage ./zsh;
             nushell = mkPackage ./nushell;
+            fishies = pkgs.callPackage ./scripts/fishies.nix {};
           };
 
           devShells.default = pkgs.mkShell {

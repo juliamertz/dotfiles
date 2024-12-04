@@ -36,8 +36,8 @@ local tags = {
 
 local screen_idx = 1
 awful.screen.connect_for_each_screen(function(s)
-	for i = 1, 4 do
-		local tag_idx = (screen_idx - 1) * 4 + i
+	for i = 1, 5 do
+		local tag_idx = (screen_idx - 1) * 5 + i
 		local tag_name = tags[i] or tostring(tag_idx)
 
 		awful.tag.add(tag_name, {
