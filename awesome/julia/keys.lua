@@ -10,7 +10,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local modkey = "Mod4"
 local M = {
 	modkey = modkey,
-	tags_per_screen = 4,
+	tags_per_screen = 5,
 	screens_by_index = {},
 }
 
