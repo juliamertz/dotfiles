@@ -74,6 +74,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
+        "simple-terminal": "simple-terminal",
         "spotify-player": "spotify-player"
       }
     },
@@ -96,6 +97,22 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "simple-terminal": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723203296,
+        "narHash": "sha256-pW1b7nFFXPufNbvOLJf8lIZ9WEg2pMFne0Q/SkA5TdE=",
+        "ref": "refs/heads/master",
+        "rev": "a0274bc20e11d8672bb2953fdd1d3010c0e708c5",
+        "revCount": 1173,
+        "type": "git",
+        "url": "https://git.suckless.org/st/"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.suckless.org/st/"
       }
     },
     "spotify-player": {

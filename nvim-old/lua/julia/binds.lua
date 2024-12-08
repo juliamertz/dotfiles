@@ -7,6 +7,9 @@ local opts = {
   silent = true
 }
 
+keymap('n', "<C-<>", "<cmd>vertical resize -10<cr>", opts)
+keymap('n', "<C->>", "<cmd>vertical resize +10<cr>", opts)
+
 -- Pane navigation movements
 keymap('n', "<C-h>", "<C-w>h", opts)
 keymap('n', "<C-j>", "<C-w>j", opts)

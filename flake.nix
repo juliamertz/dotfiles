@@ -8,6 +8,10 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    simple-terminal = {
+      url = "git+https://git.suckless.org/st/";
+      flake = false;
+    };
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
   };
 
@@ -49,10 +53,11 @@
             wezterm = mkPackage ./wezterm;
             kitty = mkPackage ./kitty;
             alacritty = mkPackage ./alacritty;
+            st = mkPackage ./st;
             rofi = mkPackage ./rofi;
             zsh = mkPackage ./zsh;
             nushell = mkPackage ./nushell;
-            fishies = pkgs.callPackage ./scripts/fishies.nix {};
+            fishies = pkgs.callPackage ./scripts/fishies.nix { };
           };
 
           devShells.default = pkgs.mkShell {

@@ -9,11 +9,18 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			local telescope = require("telescope")
+
 			telescope.setup({
 				defaults = {
+					layout_strategy = "horizontal",
+          -- Make telescope pickers fullscreen
 					layout_config = {
-            -- TODO:
-						vertical = { width = 0.5 },
+						width = function(_, cols, _)
+							return cols
+						end,
+						height = function(_, _, rows)
+							return rows
+						end,
 					},
 				},
 			})
