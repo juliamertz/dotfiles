@@ -12,7 +12,6 @@ return {
 			telescope.setup({
 				defaults = {
 					layout_config = {
-            -- TODO:
 						vertical = { width = 0.5 },
 					},
 				},

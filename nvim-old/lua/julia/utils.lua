@@ -24,13 +24,6 @@ utils.len = function(str_or_tbl)
 	end
 end
 
-utils.keymap = function(mode, map, cmd)
-	vim.keymap.set(mode, map, cmd, {
-		noremap = true,
-		silent = true,
-	})
-end
-
 --- Wrap a function with arguments to be called later
 ---@param fn function
 ---@param args table|nil

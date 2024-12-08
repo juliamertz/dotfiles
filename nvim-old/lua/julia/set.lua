@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -22,6 +20,13 @@ vim.opt.updatetime = 50
 vim.wo.fillchars = "eob: " -- remove tilde from empty lines
 
 vim.o.cmdheight = 0
+
+-- Disable semantic lsp highlighting (which breaks treesitter highlights)
+for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+	vim.api.nvim_set_hl(0, group, {})
+end
+
+vim.cmd('cnoreabbrev W w')
 
 vim.opt.undofile = true
 vim.opt.undodir = os.getenv("HOME") .. "/.cache/nvim_undo"

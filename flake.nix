@@ -42,6 +42,7 @@
         {
           packages = {
             neovim = mkPackage ./nvim;
+            neovim-old = mkPackage ./nvim-old;
             lazygit = mkPackage ./lazygit;
             tmux = mkPackage ./tmux;
             spotify-player = mkPackage ./spotify-player;

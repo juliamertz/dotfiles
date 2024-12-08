@@ -1,14 +1,21 @@
 return {
-  "echasnovski/mini.icons",
-  opts = {},
-  lazy = true,
-  specs = {
-    { "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
-  },
-  init = function()
-    package.preload["nvim-web-devicons"] = function()
-      require("mini.icons").mock_nvim_web_devicons()
-      return package.loaded["nvim-web-devicons"]
-    end
-  end,
+	{
+		"echasnovski/mini.nvim",
+		dependencies = { "folke/snacks.nvim" },
+
+		config = function()
+			require("mini.icons").setup()
+			require("mini.surround").setup()
+			require("mini.pairs").setup()
+			require("mini.align").setup()
+
+			require("mini.files").setup()
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "MiniFilesActionRename",
+				callback = function(event)
+					Snacks.rename.on_rename_file(event.data.from, event.data.to)
+				end,
+			})
+		end,
+	},
 }

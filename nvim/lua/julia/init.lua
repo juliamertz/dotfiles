@@ -1,11 +1,4 @@
-vim.g.mapleader = " "
-
-require("julia.lazy")
 require("julia.set")
-require("julia.binds")
+require("julia.lazy")
+require("julia.patch")
 
-vim.filetype.add({
-	pattern = {
-		[".*/hypr/.*%.conf"] = "hyprlang",
-	},
-})
