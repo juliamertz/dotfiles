@@ -1,25 +1,25 @@
 return {
-	"folke/trouble.nvim",
+	'folke/trouble.nvim',
 	keys = {
 		{
-			"<leader>pr",
-			"<cmd>Trouble diagnostics toggle<cr>",
-			desc = "Diagnostics (Trouble)",
+			'<leader>pr',
+			'<cmd>Trouble diagnostics toggle<cr>',
+			desc = 'Diagnostics (Trouble)',
 		},
 		{
-			"<leader>vrr",
-			"<cmd>Trouble lsp_references toggle<cr>",
-			desc = "Symbols (Trouble)",
+			'<leader>vrr',
+			'<cmd>Trouble lsp_references toggle<cr>',
+			desc = 'Symbols (Trouble)',
 		},
 		{
-			"<leader>cs",
-			"<cmd>Trouble symbols toggle<cr>",
-			desc = "Symbols (Trouble)",
+			'<leader>cs',
+			'<cmd>Trouble symbols toggle<cr>',
+			desc = 'Symbols (Trouble)',
 		},
 		{
-			"<leader>td",
-			"<cmd>Trouble todo toggle<cr>",
-			desc = "Symbols (Trouble)",
+			'<leader>td',
+			'<cmd>Trouble todo toggle<cr>',
+			desc = 'Symbols (Trouble)',
 		},
 	},
 	opts = {
@@ -28,11 +28,11 @@ return {
 		open_no_results = true,
 		modes = {
 			symbols = {
-				desc = "document symbols",
-				mode = "lsp_document_symbols",
+				desc = 'document symbols',
+				mode = 'lsp_document_symbols',
 				focus = true,
 				win = {
-					position = "right",
+					position = 'right',
 					size = 0.4,
 				},
 			},

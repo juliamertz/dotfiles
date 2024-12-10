@@ -1,3 +1,3 @@
-require("julia")
+require 'julia'
 
 -- vim.cmd("colorscheme rose-pine")

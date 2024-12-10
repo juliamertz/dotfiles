@@ -1,69 +1,70 @@
-return {
+local keymap = require('julia.utils').keymap
 
+return {
 	{
-		"folke/lazydev.nvim",
-		ft = "lua", -- only load on lua files
+		'folke/lazydev.nvim',
+		ft = 'lua', -- only load on lua files
 		opts = {
 			library = {
 				-- See the configuration section for more details
 				-- Load luvit types when the `vim.uv` word is found
-				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				{ path = '${3rd}/luv/library', words = { 'vim%.uv' } },
 			},
 		},
 	},
 
 	{
-		"neovim/nvim-lspconfig",
+		'neovim/nvim-lspconfig',
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			'williamboman/mason-lspconfig.nvim',
+			'WhoIsSethDaniel/mason-tool-installer.nvim',
 
 			-- Nice lsp info messages
-			{ "j-hui/fidget.nvim", opts = {} },
+			{ 'j-hui/fidget.nvim', opts = {} },
 
 			-- Schema information
-			"b0o/SchemaStore.nvim",
+			'b0o/SchemaStore.nvim',
 		},
 		config = function()
 			local capabilities = nil
-			if pcall(require, "cmp_nvim_lsp") then
-				capabilities = require("cmp_nvim_lsp").default_capabilities()
+			if pcall(require, 'cmp_nvim_lsp') then
+				capabilities = require('cmp_nvim_lsp').default_capabilities()
 			end
 
-			local lspconfig = require("lspconfig")
+			local lspconfig = require 'lspconfig'
 
 			local servers = {
 				lua_ls = true,
 				rust_analyzer = true,
 				clangd = {
 					init_options = { clangdFileStatus = true },
-					filetypes = { "c" },
+					filetypes = { 'c' },
 				},
 			}
 
 			local servers_to_install = vim.tbl_filter(function(key)
 				local t = servers[key]
-				if type(t) == "table" then
+				if type(t) == 'table' then
 					return not t.manual_install
 				else
 					return t
 				end
 			end, vim.tbl_keys(servers))
 
-			require("mason").setup()
+			require('mason').setup()
 			local ensure_installed = {
-				"stylua",
-				"lua_ls",
+				'stylua',
+				'lua_ls',
 			}
 
 			vim.list_extend(ensure_installed, servers_to_install)
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+			require('mason-tool-installer').setup {
+				ensure_installed = ensure_installed,
+			}
 
 			for name, config in pairs(servers) do
-				if config == true then
-					config = {}
-				end
-				config = vim.tbl_deep_extend("force", {}, {
+				if config == true then config = {} end
+				config = vim.tbl_deep_extend('force', {}, {
 					capabilities = capabilities,
 				}, config)
 
@@ -74,20 +75,24 @@ return {
 				lua = true,
 			}
 
-			vim.api.nvim_create_autocmd("LspAttach", {
+			vim.api.nvim_create_autocmd('LspAttach', {
 				callback = function(args)
 					local bufnr = args.buf
-					local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
+					local client = assert(
+						vim.lsp.get_client_by_id(args.data.client_id),
+						'must have valid client'
+					)
 
-					vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
-					vim.keymap.set("n", "vrr", vim.lsp.buf.references, { buffer = 0 })
-					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
-					vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+					vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
+					local opts = { buffer = 0 }
+					keymap('n', 'gd', vim.lsp.buf.definition, opts)
+					keymap('n', 'vrr', vim.lsp.buf.references, opts)
+					keymap('n', 'gD', vim.lsp.buf.declaration, opts)
+					keymap('n', 'gT', vim.lsp.buf.type_definition, opts)
+					keymap('n', 'K', vim.lsp.buf.hover, opts)
 
-					vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
-					vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
+					keymap('n', '<space>cr', vim.lsp.buf.rename, opts)
+					keymap('n', '<space>ca', vim.lsp.buf.code_action, opts)
 
 					local filetype = vim.bo[bufnr].filetype
 					if disable_semantic_tokens[filetype] then
