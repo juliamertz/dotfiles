@@ -2,6 +2,7 @@
   ripgrep,
   stdenv,
   neovim,
+  gnumake,
   wrapPackage,
   ...
 }:
@@ -9,8 +10,9 @@ wrapPackage {
   name = "nvim";
   package = neovim;
   dependencies = [
-    ripgrep
     stdenv.cc
+    ripgrep # fast grep replacement
+    gnumake # for building of some plugins
   ];
   extraFlags = "-u ${./.}/init.lua";
   extraArgs = [

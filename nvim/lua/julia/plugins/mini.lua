@@ -1,20 +1,48 @@
+local keymap = require("julia.utils").keymap
+
 return {
 	{
-		'echasnovski/mini.nvim',
-		dependencies = { 'folke/snacks.nvim' },
+		"echasnovski/mini.nvim",
+		dependencies = { "folke/snacks.nvim" },
 
 		config = function()
-			require('mini.icons').setup()
-			require('mini.surround').setup()
-			require('mini.pairs').setup()
-			require('mini.align').setup()
+			require("mini.icons").setup()
+			require("mini.pairs").setup()
+			require("mini.align").setup()
 
-			require('mini.files').setup()
-			vim.api.nvim_create_autocmd('User', {
-				pattern = 'MiniFilesActionRename',
-				callback = function(event)
-					Snacks.rename.on_rename_file(event.data.from, event.data.to)
-				end,
+			require("mini.surround").setup({
+				mappings = {
+					add = "ys", -- Add surrounding in Normal and Visual modes
+					delete = "ds", -- Delete surrounding
+					replace = "cs", -- Replace surrounding
+
+					find = "", -- Find surrounding (to the right)
+					find_left = "", -- Find surrounding (to the left)
+					highlight = "", -- Highlight surrounding
+					update_n_lines = "", -- Update `n_lines`
+					suffix_last = "", -- Suffix to search with "prev" method
+					suffix_next = "", -- Suffix to search with "next" method
+				},
+			})
+
+			local files = require("mini.files")
+			files.setup()
+			keymap("n", "<C-b>", function()
+				local state = files.get_explorer_state()
+				if state == nil then
+					files.open()
+				else
+					files.close()
+				end
+			end)
+
+			require("mini.statusline").setup({
+				content = {
+					active = nil,
+					inactive = nil,
+				},
+				use_icons = true,
+				set_vim_settings = true,
 			})
 		end,
 	},

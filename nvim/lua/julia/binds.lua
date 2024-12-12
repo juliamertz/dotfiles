@@ -11,12 +11,8 @@ keymap('n', '<C-j>', '<C-w>j')
 keymap('n', '<C-k>', '<C-w>k')
 keymap('n', '<C-l>', '<C-w>l')
 
--- Yank to system clipboard
-keymap('n', '<C-y>', '"+y')
-
 -- Miscelanious
 keymap('n', '<leader>cb', utils.buf_kill)
--- keymap('n', '<leader>ut', undotree.toggle)
 
 -- local function yank_history()
 --   require('telescope').extensions.yank_history.yank_history({})

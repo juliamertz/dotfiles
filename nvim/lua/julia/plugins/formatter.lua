@@ -1,14 +1,27 @@
+local keymap = require('julia.utils').keymap
+
 return {
 	'stevearc/conform.nvim',
 	config = function()
 		local conform = require 'conform'
+		local function format()
+			conform.format {
+				async = true,
+				bufnr = 0,
+				lsp_fallback = true,
+			}
+		end
+
+		vim.api.nvim_create_user_command('Format', format, {})
+		keymap('n', '<leader>ff', format)
+
 		conform.setup {
 			formatters_by_ft = {
 				lua = { 'stylua' },
-				javascript = { { 'prettierd', 'prettier' } },
-				typescript = { { 'prettierd', 'prettier' } },
-				astro = { { 'prettierd', 'prettier' } },
-				typescriptreact = { 'rustywind', { 'prettierd', 'prettier' } },
+				javascript = { 'prettier' },
+				typescript = { 'prettier' },
+				astro = { 'prettier' },
+				typescriptreact = { 'rustywind', 'prettier' },
 				go = { 'gofumpt' },
 				markdown = { 'markdownlint' },
 				python = { 'ruff_format' },
@@ -19,24 +32,14 @@ return {
 				-- toml = { "taplo" },
 			},
 			formatters = {
-				taplo = {
-					command = 'taplo',
-					args = {
-						'fmt',
-						'--option',
-						'align_entries=true',
-						'$FILENAME',
-					},
-					stdin = false,
-				},
 				stylua = {
 					command = 'stylua',
 					args = {
 						'$FILENAME',
-						'--call-parentheses None',
-						'--collapse-simple-statement Always',
-						'--column-width 80',
-						'--quote-style AutoPreferSingle',
+						'--call-parentheses',
+						'None',
+						'--quote-style',
+						'AutoPreferSingle',
 					},
 					stdin = false,
 				},
@@ -45,22 +48,7 @@ return {
 					args = { '$FILENAME' },
 					stdin = false,
 				},
-				['sql-formatter'] = {
-					command = 'sql-formatter',
-					args = { '$FILENAME' },
-					stdin = true,
-				},
 			},
 		}
-
-		vim.api.nvim_create_autocmd('BufWritePre', {
-			callback = function(args)
-				require('conform').format {
-					bufnr = args.buf,
-					lsp_fallback = true,
-					quiet = true,
-				}
-			end,
-		})
 	end,
 }

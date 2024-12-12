@@ -19,8 +19,12 @@ return {
 					layout_strategy = 'horizontal',
 					-- Make telescope pickers fullscreen
 					layout_config = {
-						width = function(_, cols, _) return cols - 2 end,
-						height = function(_, _, rows) return rows - 2 end,
+						width = function(_, cols, _)
+							return cols - 2
+						end,
+						height = function(_, _, rows)
+							return rows - 2
+						end,
 					},
 				},
 			}
@@ -33,10 +37,8 @@ return {
 
 			local find_files = utils.wrap_fn(builtin.find_files, picker_opts)
 			local live_grep = utils.wrap_fn(builtin.live_grep, picker_opts)
-			local git_files = utils.wrap_fn(
-				builtin.git_files,
-				vim.tbl_extend('force', picker_opts, { show_untracked = true })
-			)
+			local git_files =
+				utils.wrap_fn(builtin.git_files, vim.tbl_extend('force', picker_opts, { show_untracked = true }))
 
 			keymap('n', '<leader>pf', git_files)
 			keymap('n', '<leader>af', find_files)
@@ -50,6 +52,8 @@ return {
 	{
 		'piersolenski/telescope-import.nvim',
 		dependencies = 'nvim-telescope/telescope.nvim',
-		config = function() require('telescope').load_extension 'import' end,
+		config = function()
+			require('telescope').load_extension 'import'
+		end,
 	},
 }
