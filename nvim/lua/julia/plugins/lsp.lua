@@ -3,11 +3,10 @@ local keymap = require('julia.utils').keymap
 return {
 	{
 		'folke/lazydev.nvim',
-		ft = 'lua', -- only load on lua files
+		event = 'BufEnter',
+		ft = 'lua',
 		opts = {
 			library = {
-				-- See the configuration section for more details
-				-- Load luvit types when the `vim.uv` word is found
 				{ path = '${3rd}/luv/library', words = { 'vim%.uv' } },
 			},
 		},
@@ -15,14 +14,11 @@ return {
 
 	{
 		'neovim/nvim-lspconfig',
+		event = 'BufEnter',
 		dependencies = {
+			{ 'j-hui/fidget.nvim', opts = {} },
 			'williamboman/mason-lspconfig.nvim',
 			'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-			-- Nice lsp info messages
-			{ 'j-hui/fidget.nvim', opts = {} },
-
-			-- Schema information
 			'b0o/SchemaStore.nvim',
 		},
 		config = function()
@@ -63,7 +59,9 @@ return {
 			}
 
 			for name, config in pairs(servers) do
-				if config == true then config = {} end
+				if config == true then
+					config = {}
+				end
 				config = vim.tbl_deep_extend('force', {}, {
 					capabilities = capabilities,
 				}, config)
@@ -78,10 +76,7 @@ return {
 			vim.api.nvim_create_autocmd('LspAttach', {
 				callback = function(args)
 					local bufnr = args.buf
-					local client = assert(
-						vim.lsp.get_client_by_id(args.data.client_id),
-						'must have valid client'
-					)
+					local client = assert(vim.lsp.get_client_by_id(args.data.client_id), 'must have valid client')
 
 					vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
 					local opts = { buffer = 0 }

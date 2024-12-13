@@ -1,14 +1,32 @@
-return {
-	{ "folke/todo-comments.nvim" },
+local keymap = require('julia.utils').keymap
 
+return {
 	{
-		"stevearc/oil.nvim",
+		'folke/todo-comments.nvim',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+	},
+	{
+		'stevearc/oil.nvim',
+		dependencies = { 'echasnovski/mini.icons' },
+		lazy = false,
 		opts = {},
-		dependencies = { { "echasnovski/mini.icons", opts = {} } },
-		config = function()
-			require("oil").setup({})
-			local opts = { noremap = true, silent = true }
-			vim.keymap.set("n", "<leader>ef", ":Oil<CR>", opts)
-		end,
+		keys = {
+			{ '<leader>ef', ':Oil<CR>', mode = 'n', desc = 'Open oil.nvim file browser' },
+		},
+	},
+	{
+		'MeanderingProgrammer/render-markdown.nvim',
+		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+		opts = {},
+	},
+	{
+		'nat-418/boole.nvim',
+		event = 'VeryLazy',
+		config = {
+			mappings = {
+				increment = '<C-s>',
+				decrement = '<C-x>',
+			},
+		},
 	},
 }

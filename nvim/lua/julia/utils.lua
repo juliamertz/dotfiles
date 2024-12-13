@@ -41,8 +41,12 @@ end
 ---@param args table|nil
 ---@return function
 utils.wrap_fn = function(fn, args)
-	if not args then return fn end
-	return function() fn(args) end
+	if not args then
+		return fn
+	end
+	return function()
+		fn(args)
+	end
 end
 
 -- https://github.com/LunarVim/LunarVim/blob/45f9825d1e666890ed37baf15a14707ae40e5cff/lua/lvim/core/bufferline.lua#L147-L219
@@ -60,48 +64,50 @@ function utils.buf_kill(kill_command, bufnr, force)
 	local fmt = string.format
 	local fnamemodify = vim.fn.fnamemodify
 
-	if bufnr == 0 or bufnr == nil then bufnr = api.nvim_get_current_buf() end
+	if bufnr == 0 or bufnr == nil then
+		bufnr = api.nvim_get_current_buf()
+	end
 
 	local bufname = api.nvim_buf_get_name(bufnr)
 
 	if not force then
 		local warning
 		if bo[bufnr].modified then
-			warning = fmt(
-				[[No write since last change for (%s)]],
-				fnamemodify(bufname, ':t')
-			)
+			warning = fmt([[No write since last change for (%s)]], fnamemodify(bufname, ':t'))
 		elseif api.nvim_buf_get_option(bufnr, 'buftype') == 'terminal' then
 			warning = fmt([[Terminal %s will be killed]], bufname)
 		end
 		if warning then
 			vim.ui.input({
-				prompt = string.format(
-					[[%s. Close it anyway? [y]es or [n]o (default: no): ]],
-					warning
-				),
+				prompt = string.format([[%s. Close it anyway? [y]es or [n]o (default: no): ]], warning),
 			}, function(choice)
-				if choice:match 'ye?s?' then force = true end
+				if choice:match 'ye?s?' then
+					force = true
+				end
 			end)
-			if not force then return end
+			if not force then
+				return
+			end
 		end
 	end
 
 	-- Get list of windows IDs with the buffer to close
-	local windows = vim.tbl_filter(
-		function(win) return api.nvim_win_get_buf(win) == bufnr end,
-		api.nvim_list_wins()
-	)
+	local windows = vim.tbl_filter(function(win)
+		return api.nvim_win_get_buf(win) == bufnr
+	end, api.nvim_list_wins())
 
-	if #windows == 0 then return end
+	if #windows == 0 then
+		return
+	end
 
-	if force then kill_command = kill_command .. '!' end
+	if force then
+		kill_command = kill_command .. '!'
+	end
 
 	-- Get list of active buffers
-	local buffers = vim.tbl_filter(
-		function(buf) return api.nvim_buf_is_valid(buf) and bo[buf].buflisted end,
-		api.nvim_list_bufs()
-	)
+	local buffers = vim.tbl_filter(function(buf)
+		return api.nvim_buf_is_valid(buf) and bo[buf].buflisted
+	end, api.nvim_list_bufs())
 
 	-- If there is only one buffer (which has to be the current one), vim will
 	-- create a new buffer on :bd.

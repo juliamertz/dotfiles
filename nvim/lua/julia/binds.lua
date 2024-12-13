@@ -13,17 +13,3 @@ keymap('n', '<C-l>', '<C-w>l')
 
 -- Miscelanious
 keymap('n', '<leader>cb', utils.buf_kill)
-
--- local function yank_history()
---   require('telescope').extensions.yank_history.yank_history({})
--- end
--- keymap('n', '<leader>pp', yank_history)
---
--- -- Yanky
--- vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
--- vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
--- vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
--- vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
---
--- vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
--- vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")

@@ -1,15 +1,15 @@
 return {
 	'rose-pine/neovim',
 	name = 'rose-pine',
-	config = function()
-		require('rose-pine').setup {
-			variant = 'moon',
-			styles = {
-				bold = false,
-				italic = false,
-				transparency = true,
-			},
-		}
+	opts = {
+		variant = 'moon',
+		styles = {
+			bold = false,
+			italic = false,
+			transparency = true,
+		},
+	},
+	init = function()
 		vim.cmd 'colorscheme rose-pine'
 	end,
 }

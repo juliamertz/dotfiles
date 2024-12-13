@@ -46,14 +46,8 @@ return {
 			keymap('n', '<leader>rf', builtin.lsp_references)
 			keymap('n', '<leader>gc', builtin.git_commits)
 			keymap('n', '<leader>ts', builtin.treesitter)
+			keymap('n', '<leader>pr', builtin.diagnostics)
 			keymap('n', '<leader>ht', builtin.help_tags)
-		end,
-	},
-	{
-		'piersolenski/telescope-import.nvim',
-		dependencies = 'nvim-telescope/telescope.nvim',
-		config = function()
-			require('telescope').load_extension 'import'
 		end,
 	},
 }

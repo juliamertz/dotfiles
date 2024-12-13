@@ -7,12 +7,20 @@ end
 
 -- Highlight yanked text
 vim.api.nvim_create_autocmd('TextYankPost', {
-  group = vim.api.nvim_create_augroup('highlight_yank', {}),
-  desc = 'Hightlight selection on yank',
-  pattern = '*',
-  callback = function()
-    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
-  end,
+	group = vim.api.nvim_create_augroup('highlight_yank', {}),
+	desc = 'Hightlight selection on yank',
+	pattern = '*',
+	callback = function()
+		vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
+	end,
+})
+
+-- Rebind ctrl-] to gd for manpages
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = 'man',
+	callback = function()
+		vim.keymap.set('n', 'gd', '<C-]>', { buffer = true })
+	end,
 })
 
 -- I often type too fast...
