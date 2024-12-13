@@ -9,7 +9,6 @@ source $INIT_PATH/zinit.zsh
 alias cat='bat -pp'
 alias lg='lazygit'
 alias sctl='sudo systemctl'
-alias md='mkdir -vp'
 alias sqlite='litecli'
 
 # Plugins
