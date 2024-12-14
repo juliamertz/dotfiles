@@ -21,6 +21,16 @@ return {
 			use_icons = true,
 			set_vim_settings = true,
 		},
+		init = function()
+			vim.api.nvim_create_autocmd('Filetype', {
+				callback = function(args)
+					local disabled_filetypes = { 'man', 'NvimTree' }
+					if vim.tbl_contains(disabled_filetypes, vim.bo[args.buf].filetype) then
+             vim.b[args.buf].ministatusline_disable = true
+					end
+				end,
+			})
+		end,
 	},
 	{
 		'echasnovski/mini.surround',
@@ -58,7 +68,7 @@ return {
 					end
 				end,
 				mode = 'n',
-				desc = 'Open oil.nvim file browser',
+				desc = 'Open mini.files file browser',
 			},
 		},
 	},
