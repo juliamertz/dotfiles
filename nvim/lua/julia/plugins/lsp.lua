@@ -20,19 +20,7 @@ return {
 			local lsp = require 'lsp-zero'
 			lsp.preset 'recommended'
 
-			local binds = require 'julia.binds'
-
 			local lspconfig = require 'lspconfig'
-			-- lspconfig.lua_ls.setup({
-			-- 	settings = {
-			-- 		Lua = {
-			-- 			completion = {
-			-- 				callSnippet = "Replace",
-			-- 			},
-			-- 		},
-			-- 	},
-			-- })
-			--
 			lspconfig.gopls.setup {}
 			lspconfig.htmx.setup { filetypes = { 'html', 'htmlaskama', 'htmldjango' } }
 			lspconfig.tailwindcss.setup { filetypes = { 'html', 'htmlaskama', 'htmldjango' } }
@@ -48,6 +36,26 @@ return {
 				end
 			end
 
+			local binds = {
+				lsp = {
+					definition = 'gd',
+					hover = 'K',
+					workspace_symbol = '<leader>vws',
+					open_float = '<leader>vd',
+					goto_next = '[d',
+					goto_prev = ']d',
+					code_action = '<leader>vca',
+					rename = '<leader>vrn',
+					signature_help = '<C-h>',
+				},
+				cmp = {
+					select_prev_item = '<C-p>',
+					select_next_item = '<C-n>',
+					confirm = '<C-y>',
+					complete = '<C-Space>',
+				},
+			}
+
 			local cmp = require 'cmp'
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 			local cmp_mappings = lsp.defaults.cmp_mappings {
@@ -55,12 +63,6 @@ return {
 				[binds.cmp.select_next_item] = cmp.mapping.select_next_item(cmp_select),
 				[binds.cmp.confirm] = cmp.mapping.confirm { select = true },
 				[binds.cmp.complete] = cmp.mapping.complete(),
-			}
-
-			cmp.config.formatting = {
-				format = require('lspkind').cmp_format {
-					before = require('tailwind-tools.cmp').lspkind_format,
-				},
 			}
 
 			cmp_mappings['<Tab>'] = nil
@@ -108,6 +110,7 @@ return {
 		opts = {},
 	},
 }
+--
 -- local keymap = require('julia.utils').keymap
 --
 -- return {
