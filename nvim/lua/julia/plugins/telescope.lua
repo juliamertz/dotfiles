@@ -20,10 +20,10 @@ return {
 					-- Make telescope pickers fullscreen
 					layout_config = {
 						width = function(_, cols, _)
-							return cols - 2
+							return cols
 						end,
 						height = function(_, _, rows)
-							return rows - 2
+							return rows
 						end,
 					},
 				},
@@ -46,7 +46,7 @@ return {
 			keymap('n', '<leader>rf', builtin.lsp_references)
 			keymap('n', '<leader>gc', builtin.git_commits)
 			keymap('n', '<leader>ts', builtin.treesitter)
-			keymap('n', '<leader>pr', builtin.diagnostics)
+			-- keymap('n', '<leader>pr', builtin.diagnostics)
 			keymap('n', '<leader>ht', builtin.help_tags)
 		end,
 	},

@@ -58,8 +58,11 @@
             packages = with packages; [
               neovim
               lazygit
+              wezterm
               tmux
               zsh
+              fishies
+              spotify-player
             ];
             shellHook = ''
               ${lib.getExe packages.zsh}

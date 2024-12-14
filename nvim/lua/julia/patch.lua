@@ -1,4 +1,4 @@
--- Path some annoying behaviours
+-- Patch some annoying behaviours
 
 -- Disable semantic lsp highlighting (which breaks treesitter highlights)
 for _, group in ipairs(vim.fn.getcompletion('@lsp', 'highlight')) do

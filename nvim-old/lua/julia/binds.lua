@@ -16,9 +16,6 @@ keymap('n', "<C-j>", "<C-w>j", opts)
 keymap('n', "<C-k>", "<C-w>k", opts)
 keymap('n', "<C-l>", "<C-w>l", opts)
 
--- Yank to system clipboard
-keymap('n', "<leader>y", '"+y', opts)
-
 -- Miscelanious
 keymap('n', "<leader>kk", "<cmd>CellularAutomaton make_it_rain<CR>", opts)
 keymap('n', "<leader>cb", utils.buf_kill, opts)

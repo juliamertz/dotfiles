@@ -14,9 +14,11 @@ alias md='mkdir -p'
 alias open='xdg-open'
 
 # Plugins
-if [ -z $(env | grep NVIM=) ]; then
+if command -v nvim > /dev/null; then
   plugin 'jeffreytse/zsh-vi-mode'
+  export MANPAGER='nvim +Man!'
 fi
+
 plugin 'romkatv/powerlevel10k'
 plugin 'zsh-users/zsh-syntax-highlighting'
 plugin 'zsh-users/zsh-completions'

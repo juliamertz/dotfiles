@@ -1,5 +1,3 @@
-local keymap = require('julia.utils').keymap
-
 return {
 	{
 		'folke/todo-comments.nvim',
