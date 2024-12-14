@@ -10,6 +10,8 @@ alias cat='bat -pp'
 alias lg='lazygit'
 alias sctl='sudo systemctl'
 alias sqlite='litecli'
+alias md='mkdir -p'
+alias open='xdg-open'
 
 # Plugins
 if [ -z $(env | grep NVIM=) ]; then
