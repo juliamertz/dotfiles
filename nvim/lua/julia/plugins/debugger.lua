@@ -15,7 +15,9 @@ return {
 
 			require('dapui').setup()
 			require('dap-go').setup()
-			require('nvim-dap-virtual-text').setup {}
+			require('nvim-dap-virtual-text').setup {
+				enabled = true,
+			}
 
 			local masonpath = vim.fn.stdpath 'data' .. '/mason'
 

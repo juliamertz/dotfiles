@@ -53,6 +53,7 @@ return {
 		event = 'BufRead',
 		opts = {},
 	},
+	--- Nicer lua lsp support
 	{
 		'folke/lazydev.nvim',
 		event = 'BufEnter',
@@ -62,5 +63,11 @@ return {
 				{ path = '${3rd}/luv/library', words = { 'vim%.uv' } },
 			},
 		},
+	},
+	--- Nicer rust lsp support
+	{
+		'mrcjkb/rustaceanvim',
+		version = '^5',
+		lazy = false,
 	},
 }
