@@ -1,4 +1,4 @@
-local wezterm = require("wezterm")
+local wezterm = require 'wezterm'
 local M = {}
 
 M.lookup_in_table = function(table, key)
@@ -11,17 +11,17 @@ end
 
 M.split = function(input, seperator)
 	if seperator == nil then
-		seperator = "%s"
+		seperator = '%s'
 	end
 	local t = {}
-	for str in string.gmatch(input, "([^" .. seperator .. "]+)") do
+	for str in string.gmatch(input, '([^' .. seperator .. ']+)') do
 		table.insert(t, str)
 	end
 	return t
 end
 
 M.len = function(str_or_tbl)
-	if type(str_or_tbl) == "table" then
+	if type(str_or_tbl) == 'table' then
 		for i, _ in pairs(str_or_tbl) do
 			return i
 		end

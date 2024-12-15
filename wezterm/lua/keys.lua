@@ -1,4 +1,4 @@
-local wezterm = require("wezterm")
+local wezterm = require 'wezterm'
 local M = {}
 
 M.value = {}
@@ -25,25 +25,25 @@ M.mod_group = function(opts)
 end
 
 M.builtins.adjustPaneSize = function(mods, size)
-	M.mod_group({
+	M.mod_group {
 		mods = mods,
-		keys = { "h", "j", "k", "l" },
-		actions = { "Left", "Down", "Up", "Right" },
+		keys = { 'h', 'j', 'k', 'l' },
+		actions = { 'Left', 'Down', 'Up', 'Right' },
 		action = function(direction)
-			return wezterm.action.AdjustPaneSize({ direction, size or 5 })
+			return wezterm.action.AdjustPaneSize { direction, size or 5 }
 		end,
-	})
+	}
 end
 
 M.builtins.activatePaneDirection = function(mods)
-	M.mod_group({
+	M.mod_group {
 		mods = mods,
-		keys = { "h", "j", "k", "l" },
-		actions = { "Left", "Down", "Up", "Right" },
+		keys = { 'h', 'j', 'k', 'l' },
+		actions = { 'Left', 'Down', 'Up', 'Right' },
 		action = function(direction)
 			return wezterm.action.ActivatePaneDirection(direction)
 		end,
-	})
+	}
 end
 
 M.builtins.activateTab = function(mods, start, finish)
