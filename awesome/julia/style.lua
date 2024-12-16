@@ -9,7 +9,7 @@ local colors = require("plugins.rose-pine").moon
 
 local theme = {
 	font = "JetBrains Mono 12",
-	wallpaper = "~/.config/background",
+	wallpaper = "~/wallpaper",
 
 	bg_normal = colors.base,
 	bg_focus = colors.surface,
