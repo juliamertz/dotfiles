@@ -20,13 +20,14 @@ local terminals = {
 }
 
 M.apps = {
-	terminal = { executable = "wezterm || kitty", class = "org.wezfurlong.wezterm" },
+	terminal = { executable = [[sh -c "wezterm || kitty"]], class = "org.wezfurlong.wezterm" },
 	music = { executable = "spotify", class = "Spotify" },
 	browser = { executable = "firefox", class = "firefox" },
 	file_manager = { executable = "thunar", class = "Thunar" },
 	editor = { executable = "nvim" },
 }
 
+--- TODO: fix this
 --- @return App|nil
 local function find_terminal()
 	for term, class in ipairs(terminals) do
