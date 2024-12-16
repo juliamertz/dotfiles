@@ -108,12 +108,4 @@ return {
     opts = {},
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
   },
-
-  {
-    'vyfor/cord.nvim',
-    enable = true,
-    build = './build || .\\build',
-    event = 'VeryLazy',
-    opts = {}, -- calls require('cord').setup()
-  },
 }
