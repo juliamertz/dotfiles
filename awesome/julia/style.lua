@@ -8,27 +8,27 @@ local gears = require("gears")
 local colors = require("plugins.rose-pine").moon
 
 local theme = {
-  font = "JetBrains Mono 12",
-  wallpaper = "~/.config/background",
+	font = "JetBrains Mono 12",
+	wallpaper = "~/.config/background",
 
-  bg_normal = colors.base,
-  bg_focus = colors.surface,
-  bg_urgent = colors.love,
-  bg_minimize = colors.highlightLow,
-  bg_systray = colors.base,
+	bg_normal = colors.base,
+	bg_focus = colors.surface,
+	bg_urgent = colors.love,
+	bg_minimize = colors.highlightLow,
+	bg_systray = colors.base,
 
-  fg_normal = colors.text,
-  fg_focus = colors.pine,
-  fg_urgent = colors.gold,
-  fg_minimize = colors.highlightHigh,
+	fg_normal = colors.text,
+	fg_focus = colors.pine,
+	fg_urgent = colors.gold,
+	fg_minimize = colors.highlightHigh,
 
-  useless_gap = dpi(2),
-  corner_radius = 5,
-  systray_icon_spacing = dpi(5),
-  border_width = dpi(3),
-  border_normal = colors.highlightLow,
-  border_focus = colors.love,
-  border_marked = colors.gold,
+	useless_gap = dpi(2),
+	corner_radius = 5,
+	systray_icon_spacing = dpi(5),
+	border_width = dpi(3),
+	border_normal = colors.highlightLow,
+	border_focus = colors.love,
+	border_marked = colors.gold,
 }
 
 local taglist_square_size = dpi(8)
@@ -43,21 +43,21 @@ theme.icon_theme = nil
 
 local Wallpaper = {}
 
-Wallpaper.images = { theme.wallpaper, }
+Wallpaper.images = { theme.wallpaper }
 
 function Wallpaper:init(s)
-  if beautiful.wallpaper then
-    local wallpaper = beautiful.wallpaper
+	if beautiful.wallpaper then
+		local wallpaper = beautiful.wallpaper
 
-    if type(wallpaper) == "function" then
-      wallpaper = wallpaper(s)
-    end
-    gears.wallpaper.maximized(wallpaper, s, true)
-  end
+		if type(wallpaper) == "function" then
+			wallpaper = wallpaper(s)
+		end
+		gears.wallpaper.maximized(wallpaper, s, true)
+	end
 end
 
 return {
-  theme = theme,
-  colors = colors,
-  wallpaper = Wallpaper,
+	theme = theme,
+	colors = colors,
+	wallpaper = Wallpaper,
 }
