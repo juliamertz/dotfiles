@@ -20,7 +20,7 @@ M.main_menu = awful.menu({
   items = {
     { "Awesome",       M.awesome_menu,      beautiful.awesome_icon },
     { "Application launcher", launch.rofi.launcher },
-    { "Open terminal", launch.apps.terminal },
+    { "Open terminal", launch.apps.terminal.executable },
   }
 })
 
