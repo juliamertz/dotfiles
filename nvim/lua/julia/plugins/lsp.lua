@@ -1,50 +1,53 @@
+local language_servers = { 'lua_ls', 'nil_ls', 'clangd', 'rust_analyzer' }
+
 return {
 	{
-		'williamboman/mason.nvim',
-		opts = { PATH = 'append' },
-		dependencies = { 'williamboman/mason-lspconfig.nvim' },
+		'williamboman/mason-lspconfig.nvim',
+		opts = { ensure_installed = language_servers },
+
+		dependencies = {
+			{
+				'williamboman/mason.nvim',
+				opts = { PATH = 'append' },
+			},
+		},
 	},
 	{
-		'VonHeikemen/lsp-zero.nvim',
-		event = 'BufRead',
-		branch = 'v2.x',
-		dependencies = {
-			{ 'neovim/nvim-lspconfig' },
-			{ 'onsails/lspkind.nvim' },
-			{ 'hrsh7th/nvim-cmp' },
-			{ 'hrsh7th/cmp-nvim-lsp' },
-			{ 'L3MON4D3/LuaSnip' },
-		},
-		config = function()
-			local lsp = require 'lsp-zero'
-			lsp.preset 'recommended'
+		'neovim/nvim-lspconfig',
+		dependencies = { 'saghen/blink.cmp' },
 
-			local cmp = require 'cmp'
-			local cmp_select = { behavior = cmp.SelectBehavior.Select }
-			lsp.setup_nvim_cmp {
-				mapping = lsp.defaults.cmp_mappings {
-					['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-					['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-					['<C-y>'] = cmp.mapping.confirm { select = true },
-					['<C-Space>'] = cmp.mapping.complete(),
-					['<Tab>'] = nil,
-					['<S-Tab>'] = nil,
-				},
-			}
+		opts = { servers = {} },
 
-			lsp.on_attach(function(_, bufnr)
-				local opts = { buffer = bufnr, remap = false }
+		config = function(_, options)
+			local lspconfig = require 'lspconfig'
+			local blink = require 'blink.cmp'
 
-				vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-				vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-				vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts)
-				vim.keymap.set('n', '<leader>vrn', vim.lsp.buf.rename, opts)
-				vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
-				vim.keymap.set('n', '<leader>vws', require('telescope.builtin').lsp_workspace_symbols, opts)
-			end)
+			local lspconfig_defaults = lspconfig.util.default_config
+			local cmp_capabilites = blink.get_lsp_capabilities()
+			lspconfig_defaults.capabilities =
+				vim.tbl_deep_extend('force', lspconfig_defaults.capabilities, cmp_capabilites)
 
-			vim.diagnostic.config { virtual_text = true }
-			lsp.setup()
+			for _, server in ipairs(language_servers) do
+				options.servers[server] = {}
+			end
+
+			for server, config in pairs(options.servers) do
+				lspconfig[server].setup {
+					capabilities = blink.get_lsp_capabilities(config.capabilities),
+				}
+			end
+
+			vim.api.nvim_create_autocmd('LspAttach', {
+				callback = function(event)
+					local opts = { buffer = event.buf, remap = false }
+					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+					vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts)
+					vim.keymap.set('n', '<leader>vrn', vim.lsp.buf.rename, opts)
+					vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
+					vim.keymap.set('n', '<leader>vws', require('telescope.builtin').lsp_workspace_symbols, opts)
+				end,
+			})
 		end,
 	},
 	{
@@ -52,6 +55,31 @@ return {
 		event = 'BufRead',
 		opts = {},
 	},
+
+	{
+		'saghen/blink.cmp',
+		lazy = false,
+		dependencies = 'rafamadriz/friendly-snippets',
+		version = 'v0.7.6',
+
+		opts = {
+			keymap = { preset = 'default' },
+			completion = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 200,
+				},
+			},
+			-- appearance = {
+			-- 	use_nvim_cmp_as_default = true,
+			-- 	nerd_font_variant = 'mono',
+			-- },
+			-- sources = {
+			-- 	default = { 'lsp', 'path', 'snippets', 'buffer' },
+			-- },
+		},
+	},
+
 	--- Nicer lua lsp support
 	{
 		'folke/lazydev.nvim',
@@ -62,11 +90,5 @@ return {
 				{ path = '${3rd}/luv/library', words = { 'vim%.uv' } },
 			},
 		},
-	},
-	--- Nicer rust lsp support
-	{
-		'mrcjkb/rustaceanvim',
-		version = '^5',
-		lazy = false,
 	},
 }
