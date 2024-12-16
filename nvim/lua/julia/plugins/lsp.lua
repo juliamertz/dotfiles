@@ -1,94 +1,110 @@
-local language_servers = { 'lua_ls', 'nil_ls', 'clangd', 'rust_analyzer' }
-
 return {
 	{
-		'williamboman/mason-lspconfig.nvim',
-		opts = { ensure_installed = language_servers },
-
+		"VonHeikemen/lsp-zero.nvim",
+		event = "BufRead",
+		branch = "v2.x",
 		dependencies = {
-			{
-				'williamboman/mason.nvim',
-				opts = { PATH = 'append' },
-			},
+			{ "onsails/lspkind.nvim" },
+			{ "neovim/nvim-lspconfig" }, -- Required
+			{ "williamboman/mason.nvim" }, -- Optional
+			{ "williamboman/mason-lspconfig.nvim" }, -- Optional
+			{ "hrsh7th/nvim-cmp" }, -- Required
+			{ "hrsh7th/cmp-nvim-lsp" }, -- Required
+			{ "L3MON4D3/LuaSnip" }, -- Required
+			{ "folke/neodev.nvim", opts = {} },
 		},
-	},
-	{
-		'neovim/nvim-lspconfig',
-		dependencies = { 'saghen/blink.cmp' },
+		config = function()
+			require("neodev").setup({})
+			require("mason").setup({ PATH = "append" })
 
-		opts = { servers = {} },
+			local lsp = require("lsp-zero")
+			lsp.preset("recommended")
 
-		config = function(_, options)
-			local lspconfig = require 'lspconfig'
-			local blink = require 'blink.cmp'
+			local binds = require("julia.binds")
 
-			local lspconfig_defaults = lspconfig.util.default_config
-			local cmp_capabilites = blink.get_lsp_capabilities()
-			lspconfig_defaults.capabilities =
-				vim.tbl_deep_extend('force', lspconfig_defaults.capabilities, cmp_capabilites)
+			local lspconfig = require("lspconfig")
+			-- lspconfig.lua_ls.setup({
+			-- 	settings = {
+			-- 		Lua = {
+			-- 			completion = {
+			-- 				callSnippet = "Replace",
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
+			--
+			lspconfig.gopls.setup({})
+			lspconfig.htmx.setup({ filetypes = { "html", "htmlaskama", "htmldjango" } })
+			lspconfig.tailwindcss.setup({ filetypes = { "html", "htmlaskama", "htmldjango" } })
 
-			for _, server in ipairs(language_servers) do
-				options.servers[server] = {}
-			end
+      -- temporary fix for rust-analzyer throwing errors
+      for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+          local default_diagnostic_handler = vim.lsp.handlers[method]
+          vim.lsp.handlers[method] = function(err, result, context, config)
+              if err ~= nil and err.code == -32802 then
+                  return
+              end
+              return default_diagnostic_handler(err, result, context, config)
+          end
+      end
 
-			for server, config in pairs(options.servers) do
-				lspconfig[server].setup {
-					capabilities = blink.get_lsp_capabilities(config.capabilities),
-				}
-			end
+			local cmp = require("cmp")
+			local cmp_select = { behavior = cmp.SelectBehavior.Select }
+			local cmp_mappings = lsp.defaults.cmp_mappings({
+				[binds.cmp.select_prev_item] = cmp.mapping.select_prev_item(cmp_select),
+				[binds.cmp.select_next_item] = cmp.mapping.select_next_item(cmp_select),
+				[binds.cmp.confirm] = cmp.mapping.confirm({ select = true }),
+				[binds.cmp.complete] = cmp.mapping.complete(),
+			})
 
-			vim.api.nvim_create_autocmd('LspAttach', {
-				callback = function(event)
-					local opts = { buffer = event.buf, remap = false }
-					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-					vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts)
-					vim.keymap.set('n', '<leader>vrn', vim.lsp.buf.rename, opts)
-					vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
-					vim.keymap.set('n', '<leader>vws', require('telescope.builtin').lsp_workspace_symbols, opts)
-				end,
+			cmp.config.formatting = {
+				format = require("lspkind").cmp_format({
+					before = require("tailwind-tools.cmp").lspkind_format,
+				}),
+			}
+
+			cmp_mappings["<Tab>"] = nil
+			cmp_mappings["<S-Tab>"] = nil
+
+			lsp.setup_nvim_cmp({ mapping = cmp_mappings })
+
+			lsp.on_attach(function(_, bufnr)
+				local opts = { buffer = bufnr, remap = false }
+
+				vim.keymap.set("n", binds.lsp.definition, vim.lsp.buf.definition, opts)
+				vim.keymap.set("n", binds.lsp.hover, vim.lsp.buf.hover, opts)
+				vim.keymap.set(
+					"n",
+					binds.lsp.workspace_symbol,
+					require("telescope.builtin").lsp_workspace_symbols,
+					opts
+				)
+				vim.keymap.set("n", binds.lsp.open_float, vim.diagnostic.open_float, opts)
+				vim.keymap.set("n", binds.lsp.goto_next, vim.diagnostic.goto_next, opts)
+				vim.keymap.set("n", binds.lsp.goto_prev, vim.diagnostic.goto_prev, opts)
+				vim.keymap.set("n", binds.lsp.code_action, vim.lsp.buf.code_action, opts)
+				vim.keymap.set("n", binds.lsp.rename, vim.lsp.buf.rename, opts)
+				vim.keymap.set("i", binds.lsp.signature_help, vim.lsp.buf.signature_help, opts)
+			end)
+
+			lsp.setup()
+
+			vim.diagnostic.config({
+				virtual_text = true,
 			})
 		end,
 	},
 	{
-		'nvimtools/none-ls.nvim',
-		event = 'BufRead',
+		"WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
+		config = function()
+			local tld = require("toggle_lsp_diagnostics")
+			tld.init({})
+			vim.keymap.set("n", "<leader>td", "<plug>(toggle-lsp-diag-vtext)")
+		end,
+	},
+	{
+		"nvimtools/none-ls.nvim",
+		event = "BufRead",
 		opts = {},
-	},
-
-	{
-		'saghen/blink.cmp',
-		lazy = false,
-		dependencies = 'rafamadriz/friendly-snippets',
-		version = 'v0.7.6',
-
-		opts = {
-			keymap = { preset = 'default' },
-			completion = {
-				documentation = {
-					auto_show = true,
-					auto_show_delay_ms = 200,
-				},
-			},
-			-- appearance = {
-			-- 	use_nvim_cmp_as_default = true,
-			-- 	nerd_font_variant = 'mono',
-			-- },
-			-- sources = {
-			-- 	default = { 'lsp', 'path', 'snippets', 'buffer' },
-			-- },
-		},
-	},
-
-	--- Nicer lua lsp support
-	{
-		'folke/lazydev.nvim',
-		event = 'BufEnter',
-		ft = 'lua',
-		opts = {
-			library = {
-				{ path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-			},
-		},
 	},
 }
