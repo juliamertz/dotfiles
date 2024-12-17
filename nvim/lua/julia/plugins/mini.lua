@@ -1,7 +1,7 @@
 return {
 	{
-		"echasnovski/mini.statusline",
-		version = "*",
+		'echasnovski/mini.statusline',
+		version = '*',
 		opts = {
 			content = {
 				active = nil,
@@ -11,9 +11,9 @@ return {
 			set_vim_settings = true,
 		},
 		init = function()
-			vim.api.nvim_create_autocmd("Filetype", {
+			vim.api.nvim_create_autocmd('Filetype', {
 				callback = function(args)
-					local disabled_filetypes = { "man", "NvimTree" }
+					local disabled_filetypes = { 'man', 'NvimTree' }
 					if vim.tbl_contains(disabled_filetypes, vim.bo[args.buf].filetype) then
 						vim.b[args.buf].ministatusline_disable = true
 					end
@@ -22,33 +22,49 @@ return {
 		end,
 	},
 	{
-		"echasnovski/mini.surround",
-		version = "*",
+		'echasnovski/mini.surround',
+		version = '*',
 		opts = {
 			mappings = {
-				add = "ys",
-				delete = "ds",
-				replace = "cs",
-				find = "",
-				find_left = "",
-				highlight = "",
-				update_n_lines = "",
-				suffix_last = "",
-				suffix_next = "",
+				add = 'ys',
+				delete = 'ds',
+				replace = 'cs',
+				find = '',
+				find_left = '',
+				highlight = '',
+				update_n_lines = '',
+				suffix_last = '',
+				suffix_next = '',
 			},
 		},
 	},
 	{
-		"echasnovski/mini.icons",
+		'echasnovski/mini.comment',
+		version = '*',
+		opts = {},
+	},
+	{
+		'echasnovski/mini-git',
+		version = '*',
+		main = 'mini.git',
+		opts = {},
+	},
+	{
+		'echasnovski/mini.diff',
+		version = '*',
+		opts = {},
+	},
+	{
+		'echasnovski/mini.icons',
 		opts = {},
 		lazy = true,
 		specs = {
-			{ "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
+			{ 'nvim-tree/nvim-web-devicons', enabled = false, optional = true },
 		},
 		init = function()
-			package.preload["nvim-web-devicons"] = function()
-				require("mini.icons").mock_nvim_web_devicons()
-				return package.loaded["nvim-web-devicons"]
+			package.preload['nvim-web-devicons'] = function()
+				require('mini.icons').mock_nvim_web_devicons()
+				return package.loaded['nvim-web-devicons']
 			end
 		end,
 	},

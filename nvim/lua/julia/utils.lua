@@ -1,5 +1,7 @@
 local utils = {}
 
+---@param tbl table
+---@return number
 utils.tbl_len = function(tbl)
 	local count = 0
 	for _ in pairs(tbl) do
@@ -8,20 +10,36 @@ utils.tbl_len = function(tbl)
 	return count
 end
 
+---@param str string
+---@return number
 utils.str_len = function(str)
 	local count = 0
-	for _ in string.gmatch(str, ".") do
+	for _ in string.gmatch(str, '.') do
 		count = count + 1
 	end
 	return count
 end
 
-utils.len = function(str_or_tbl)
-	if type(str_or_tbl) == "string" then
-		return utils.str_len(str_or_tbl)
+---@param val table|string
+---@return number
+utils.len = function(val)
+	if type(val) == 'string' then
+		return utils.str_len(val)
 	else
-		return utils.tbl_len(str_or_tbl)
+		return utils.tbl_len(val)
 	end
+end
+
+utils.keymap = function(mode, map, cmd, opts)
+	vim.keymap.set(
+		mode,
+		map,
+		cmd,
+		vim.tbl_extend('force', {
+			noremap = true,
+			silent = true,
+		}, opts or {})
+	)
 end
 
 --- Wrap a function with arguments to be called later
@@ -44,7 +62,7 @@ end
 ---@param bufnr? number defaults to the current buffer
 ---@param force? boolean defaults to false
 function utils.buf_kill(kill_command, bufnr, force)
-	kill_command = kill_command or "bd"
+	kill_command = kill_command or 'bd'
 
 	local api = vim.api
 	local bo = vim.bo
@@ -61,15 +79,15 @@ function utils.buf_kill(kill_command, bufnr, force)
 	if not force then
 		local warning
 		if bo[bufnr].modified then
-			warning = fmt([[No write since last change for (%s)]], fnamemodify(bufname, ":t"))
-		elseif api.nvim_buf_get_option(bufnr, "buftype") == "terminal" then
+			warning = fmt([[No write since last change for (%s)]], fnamemodify(bufname, ':t'))
+		elseif api.nvim_buf_get_option(bufnr, 'buftype') == 'terminal' then
 			warning = fmt([[Terminal %s will be killed]], bufname)
 		end
 		if warning then
 			vim.ui.input({
 				prompt = string.format([[%s. Close it anyway? [y]es or [n]o (default: no): ]], warning),
 			}, function(choice)
-				if choice:match("ye?s?") then
+				if choice:match 'ye?s?' then
 					force = true
 				end
 			end)
@@ -89,7 +107,7 @@ function utils.buf_kill(kill_command, bufnr, force)
 	end
 
 	if force then
-		kill_command = kill_command .. "!"
+		kill_command = kill_command .. '!'
 	end
 
 	-- Get list of active buffers
@@ -115,7 +133,7 @@ function utils.buf_kill(kill_command, bufnr, force)
 	-- Check if buffer still exists, to ensure the target buffer wasn't killed
 	-- due to options like bufhidden=wipe.
 	if api.nvim_buf_is_valid(bufnr) and bo[bufnr].buflisted then
-		vim.cmd(string.format("%s %d", kill_command, bufnr))
+		vim.cmd(string.format('%s %d', kill_command, bufnr))
 	end
 end
 

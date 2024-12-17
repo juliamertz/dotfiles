@@ -1,91 +1,113 @@
+local language_servers = { 'lua_ls', 'nil_ls', 'clangd' }
+
 return {
 	{
-		'VonHeikemen/lsp-zero.nvim',
-		event = 'BufRead',
-		branch = 'v2.x',
+		'williamboman/mason-lspconfig.nvim',
+		opts = { ensure_installed = language_servers },
+
 		dependencies = {
-			{ 'onsails/lspkind.nvim' },
-			{ 'neovim/nvim-lspconfig' }, -- Required
-			{ 'williamboman/mason.nvim' }, -- Optional
-			{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
-			{ 'hrsh7th/nvim-cmp' }, -- Required
-			{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
-			{ 'L3MON4D3/LuaSnip' }, -- Required
-			{ 'folke/neodev.nvim', opts = {} },
+			{
+				'williamboman/mason.nvim',
+				opts = { PATH = 'append' },
+			},
 		},
-		config = function()
-			require('neodev').setup {}
-			require('mason').setup { PATH = 'append' }
-
-			local lsp = require 'lsp-zero'
-			lsp.preset 'recommended'
-
-			local binds = require 'julia.binds'
-
-			local lspconfig = require 'lspconfig'
-			lspconfig.gopls.setup {}
-
-			-- temporary fix for rust-analzyer throwing errors
-			for _, method in ipairs { 'textDocument/diagnostic', 'workspace/diagnostic' } do
-				local default_diagnostic_handler = vim.lsp.handlers[method]
-				vim.lsp.handlers[method] = function(err, result, context, config)
-					if err ~= nil and err.code == -32802 then
-						return
-					end
-					return default_diagnostic_handler(err, result, context, config)
-				end
-			end
-
-			local cmp = require 'cmp'
-			local cmp_select = { behavior = cmp.SelectBehavior.Select }
-			local cmp_mappings = lsp.defaults.cmp_mappings {
-				[binds.cmp.select_prev_item] = cmp.mapping.select_prev_item(cmp_select),
-				[binds.cmp.select_next_item] = cmp.mapping.select_next_item(cmp_select),
-				[binds.cmp.confirm] = cmp.mapping.confirm { select = true },
-				[binds.cmp.complete] = cmp.mapping.complete(),
-				['<Tab>'] = nil,
-				['<S-Tab>'] = nil,
-			}
-
-			lsp.setup_nvim_cmp { mapping = cmp_mappings }
-
-			lsp.on_attach(function(_, bufnr)
-				local opts = { buffer = bufnr, remap = false }
-
-				vim.keymap.set('n', binds.lsp.definition, vim.lsp.buf.definition, opts)
-				vim.keymap.set('n', binds.lsp.hover, vim.lsp.buf.hover, opts)
-				vim.keymap.set(
-					'n',
-					binds.lsp.workspace_symbol,
-					require('telescope.builtin').lsp_workspace_symbols,
-					opts
-				)
-				vim.keymap.set('n', binds.lsp.open_float, vim.diagnostic.open_float, opts)
-				vim.keymap.set('n', binds.lsp.goto_next, vim.diagnostic.goto_next, opts)
-				vim.keymap.set('n', binds.lsp.goto_prev, vim.diagnostic.goto_prev, opts)
-				vim.keymap.set('n', binds.lsp.code_action, vim.lsp.buf.code_action, opts)
-				vim.keymap.set('n', binds.lsp.rename, vim.lsp.buf.rename, opts)
-				vim.keymap.set('i', binds.lsp.signature_help, vim.lsp.buf.signature_help, opts)
-			end)
-
-			lsp.setup()
-
-			vim.diagnostic.config {
-				virtual_text = true,
-			}
-		end,
 	},
 	{
-		'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
-		config = function()
-			local tld = require 'toggle_lsp_diagnostics'
-			tld.init {}
-			vim.keymap.set('n', '<leader>td', '<plug>(toggle-lsp-diag-vtext)')
+		'neovim/nvim-lspconfig',
+		dependencies = { 'saghen/blink.cmp' },
+
+		opts = { servers = { rust_analyzer = {}, } },
+
+		config = function(_, options)
+			local lspconfig = require 'lspconfig'
+			local blink = require 'blink.cmp'
+
+			local lspconfig_defaults = lspconfig.util.default_config
+			local cmp_capabilites = blink.get_lsp_capabilities()
+			lspconfig_defaults.capabilities =
+				vim.tbl_deep_extend('force', lspconfig_defaults.capabilities, cmp_capabilites)
+
+			for _, server in ipairs(language_servers) do
+				options.servers[server] = {}
+			end
+
+			for server, config in pairs(options.servers) do
+				lspconfig[server].setup {
+					capabilities = blink.get_lsp_capabilities(config.capabilities),
+				}
+			end
+
+			vim.api.nvim_create_autocmd('LspAttach', {
+				callback = function(event)
+					local opts = { buffer = event.buf, remap = false }
+					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+					vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts)
+					vim.keymap.set('n', '<leader>vrn', vim.lsp.buf.rename, opts)
+					vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
+					vim.keymap.set('n', '<leader>vws', require('telescope.builtin').lsp_workspace_symbols, opts)
+				end,
+			})
 		end,
 	},
 	{
 		'nvimtools/none-ls.nvim',
 		event = 'BufRead',
 		opts = {},
+	},
+
+	{
+		'L3MON4D3/LuaSnip',
+		version = 'v2.*',
+		build = 'make install_jsregexp',
+		config = function()
+			local luasnip = require 'luasnip'
+			luasnip.setup {}
+			require('julia.snippets.init').init()
+		end,
+	},
+
+	{
+		'saghen/blink.cmp',
+		lazy = false,
+		dependencies = {
+			{ 'L3MON4D3/LuaSnip', version = 'v2.*' },
+			{ 'rafamadriz/friendly-snippets' },
+		},
+
+		version = 'v0.7.6',
+
+		opts = {
+			keymap = { preset = 'default' },
+			completion = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 200,
+				},
+			},
+
+			snippets = {
+				expand = function(snippet)
+					require('luasnip').lsp_expand(snippet)
+				end,
+				active = function(filter)
+					if filter and filter.direction then
+						return require('luasnip').jumpable(filter.direction)
+					end
+					return require('luasnip').in_snippet()
+				end,
+				jump = function(direction)
+					require('luasnip').jump(direction)
+				end,
+			},
+
+			sources = {
+				default = { 'lsp', 'path', 'luasnip', 'buffer' },
+			},
+
+			appearance = {
+				nerd_font_variant = 'mono',
+			},
+		},
 	},
 }

@@ -1,1 +1,1 @@
-require("julia")
+require 'julia'

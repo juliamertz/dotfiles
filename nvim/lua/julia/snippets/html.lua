@@ -1,5 +1,5 @@
-local ls = require("luasnip")
-local fmt = require("luasnip.extras.fmt").fmt
+local ls = require 'luasnip'
+local fmt = require('luasnip.extras.fmt').fmt
 local sn = ls.snippet_node
 local t = ls.text_node
 local i = ls.insert_node
@@ -10,7 +10,10 @@ local r = ls.restore_node
 local s = ls.snippet
 
 return {
-  boilerplate = s({ trig = "!", }, fmt([[
+	boilerplate = s(
+		{ trig = '!' },
+		fmt(
+			[[
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -24,5 +27,8 @@ return {
       <div>{}</div>
     </body>
   </html>
-  ]], { i(1), i(2) })),
+  ]],
+			{ i(1), i(2) }
+		)
+	),
 }

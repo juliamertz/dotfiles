@@ -7,7 +7,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.opt.wrap = false
-vim.opt.selection = "exclusive"
+vim.opt.selection = 'exclusive'
 vim.opt.swapfile = false
 
 vim.opt.hlsearch = false
@@ -17,18 +17,26 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 12
 
 vim.opt.updatetime = 50
-vim.wo.fillchars = "eob: " -- remove tilde from empty lines
+vim.wo.fillchars = 'eob: ' -- remove tilde from empty lines
 
 vim.o.cmdheight = 0
 
+vim.opt.undofile = true
+vim.opt.undodir = os.getenv 'HOME' .. '/.cache/nvim_undo'
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 10000
+
 -- Disable semantic lsp highlighting (which breaks treesitter highlights)
-for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+for _, group in ipairs(vim.fn.getcompletion('@lsp', 'highlight')) do
 	vim.api.nvim_set_hl(0, group, {})
 end
 
-vim.cmd('cnoreabbrev W w')
-
-vim.opt.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. "/.cache/nvim_undo"
-vim.opt.undolevels = 1000
-vim.opt.undoreload = 10000
+-- Highlight yanked text
+vim.api.nvim_create_autocmd('TextYankPost', {
+	group = vim.api.nvim_create_augroup('highlight_yank', {}),
+	desc = 'Hightlight selection on yank',
+	pattern = '*',
+	callback = function()
+		vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
+	end,
+})
