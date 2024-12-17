@@ -1,7 +1,6 @@
 {
   pkgs,
   weechat,
-  writeShellScriptBin,
   symlinkJoin,
   makeWrapper,
   ...
@@ -23,6 +22,14 @@ let
             /set logger.file.path ~/.weechat/log
             /set logger.file.flush_delay 1
 
+            /bar hide buflist
+            /bar hide title
+
+            /alias add bc /buffer close
+
+            /filter add hide_quit irc.* irc_quit *
+            /filter add hide_part irc.* irc_part *
+            
             /set weechat.color.chat_bg default
             /set weechat.color.chat_fg white
             /set weechat.color.chat_nick_self 214
@@ -38,11 +45,7 @@ let
             /set weechat.look.prefix_action "🌟"
             /set weechat.look.prefix_error "💢"
             /set weechat.bar.input_items ",input_text"
-            /bar hide buflist
-            /bar hide title
             /set irc.color.nicks ""
-            /filter add hide_quit irc.* irc_quit *
-            /filter add hide_part irc.* irc_part *
           '';
       };
   };
