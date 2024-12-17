@@ -24,8 +24,6 @@ return {
 
 			local lspconfig = require 'lspconfig'
 			lspconfig.gopls.setup {}
-			-- lspconfig.htmx.setup({ filetypes = { "html", "htmlaskama", "htmldjango" } })
-			-- lspconfig.tailwindcss.setup({ filetypes = { "html", "htmlaskama", "htmldjango" } })
 
 			-- temporary fix for rust-analzyer throwing errors
 			for _, method in ipairs { 'textDocument/diagnostic', 'workspace/diagnostic' } do
