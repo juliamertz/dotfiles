@@ -45,6 +45,7 @@
             lazygit = mkPackage ./lazygit;
             tmux = mkPackage ./tmux;
             spotify-player = mkPackage ./spotify-player;
+            weechat = mkPackage ./weechat;
             wezterm = mkPackage ./wezterm;
             kitty = mkPackage ./kitty;
             alacritty = mkPackage ./alacritty;
