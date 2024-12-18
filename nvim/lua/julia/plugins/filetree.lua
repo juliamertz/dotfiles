@@ -1,7 +1,7 @@
 return {
 	'nvim-tree/nvim-tree.lua',
-	dependencies = { 'nvim-tree/nvim-web-devicons' },
 	event = 'VeryLazy',
+	dependencies = { 'echasnovski/mini.icons' },
 
 	keys = {
 		{ '<C-b>', ':NvimTreeToggle<CR>', mode = 'n', desc = 'Toggle file tree' },

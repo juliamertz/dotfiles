@@ -3,7 +3,6 @@ return {
 		'rose-pine/neovim',
 		name = 'rose-pine',
 		opts = {
-			variant = 'moon',
 			styles = {
 				bold = false,
 				italic = false,
@@ -11,10 +10,11 @@ return {
 			},
 		},
 		init = function()
-			vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-			vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-			vim.cmd 'hi Normal guibg=none ctermbg=none'
-			vim.cmd 'colorscheme rose-pine'
+			vim.cmd [[
+        highlight Normal guibg=NONE ctermbg=none
+        highlight NormalFloat guibg=NONE
+        colorscheme rose-pine-moon
+      ]]
 		end,
 	},
 }
