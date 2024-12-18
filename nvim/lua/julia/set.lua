@@ -40,3 +40,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 		vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
 	end,
 })
+
+-- Disable line numbers in embedded terminals
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = vim.api.nvim_create_augroup('termopen', { clear = true }),
+  callback = function ()
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+  end
+})
