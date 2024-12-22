@@ -2,7 +2,7 @@
 with pkgs;
 {
   # script from rwxrobs github dot-template
-  twitch = writeShellScriptBin "weechat-configure-twitch" ''
+  twitch = writeShellScriptBin "weechat-configure" ''
     #!/usr/bin/env bash
 
     tokenurl=https://antiscuff.com/oauth
