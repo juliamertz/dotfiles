@@ -11,3 +11,13 @@
     (#set! injection.language "sql")
   ))
 )
+
+; Injects Javascript highlighting into `Script()` structs for maud
+(call_expression
+  function: (identifier) @name (#eq? @name "Script")
+  arguments: (arguments (raw_string_literal 
+    (string_content) @injection.content)
+    (#set! injection.language "javascript")
+  )
+)
+

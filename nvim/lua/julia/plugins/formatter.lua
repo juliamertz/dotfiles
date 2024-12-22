@@ -35,7 +35,7 @@ return {
 		formatters = {
 			taplo = {
 				command = 'taplo',
-				args = { 'fmt', '--option', 'align_entries=true', '$FILENAME' },
+				args = { 'fmt', '$FILENAME' },
 				stdin = false,
 			},
 			stylua = {

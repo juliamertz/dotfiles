@@ -1,4 +1,4 @@
-local language_servers = { 'lua_ls', 'nil_ls', 'clangd' }
+local language_servers = { 'lua_ls', 'nil_ls', 'clangd', 'denols' }
 
 return {
 	{
@@ -16,7 +16,7 @@ return {
 		'neovim/nvim-lspconfig',
 		dependencies = { 'saghen/blink.cmp' },
 
-		opts = { servers = { rust_analyzer = {}, } },
+		opts = { servers = {  } },
 
 		config = function(_, options)
 			local lspconfig = require 'lspconfig'
@@ -35,6 +35,17 @@ return {
 				lspconfig[server].setup {
 					capabilities = blink.get_lsp_capabilities(config.capabilities),
 				}
+			end
+
+			-- temporary fix for rust-analzyer throwing errors
+			for _, method in ipairs { 'textDocument/diagnostic', 'workspace/diagnostic' } do
+				local default_diagnostic_handler = vim.lsp.handlers[method]
+				vim.lsp.handlers[method] = function(err, result, context, config)
+					if err ~= nil and (err.code == -32802 or err.code == -32603) then
+						return
+					end
+					return default_diagnostic_handler(err, result, context, config)
+				end
 			end
 
 			vim.api.nvim_create_autocmd('LspAttach', {
