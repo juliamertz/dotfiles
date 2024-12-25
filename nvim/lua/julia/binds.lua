@@ -10,10 +10,17 @@ keymap('n', '<C-l>', '<C-w>l')
 -- misc
 keymap('n', '<leader>cb', utils.buf_kill)
 
--- override pane resize step size
-local step_size = 10
-keymap('n', '<C-w>>', '<cmd>vertical resize -' .. step_size .. '<cr>')
-keymap('n', '<C-w><', '<cmd>vertical resize +' .. step_size .. '<cr>')
+local function vresize(step)
+	vim.cmd('vertical resize ' .. step)
+end
+
+keymap('n', '<C-w>>', function()
+	vresize('-' .. vim.o.columns / 10)
+end)
+
+keymap('n', '<C-w><', function()
+	vresize('+' .. vim.o.columns / 10)
+end)
 
 -- Rebind ctrl-] to gd for manpages
 vim.api.nvim_create_autocmd('FileType', {
