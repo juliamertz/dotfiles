@@ -21,6 +21,7 @@ return {
 			})
 		end,
 	},
+
 	{
 		'echasnovski/mini.surround',
 		version = '*',
@@ -38,22 +39,20 @@ return {
 			},
 		},
 	},
+
 	{
 		'echasnovski/mini.comment',
 		version = '*',
 		opts = {},
 	},
+
 	{
 		'echasnovski/mini-git',
 		version = '*',
 		main = 'mini.git',
 		opts = {},
 	},
-	{
-		'echasnovski/mini.diff',
-		version = '*',
-		opts = {},
-	},
+
 	{
 		'echasnovski/mini.icons',
 		opts = {},

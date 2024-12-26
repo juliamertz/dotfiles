@@ -2,8 +2,8 @@ return {
 	'jiaoshijie/undotree',
 	dependencies = 'nvim-lua/plenary.nvim',
 
-keys = {
-		{ '<leader>ut', ':UndoTreeToggle<CR>',	 desc = 'Toggle undotree pane' },
+	keys = {
+		{ '<leader>ut', ':UndoTreeToggle<CR>', desc = 'Toggle undotree pane' },
 	},
 
 	opts = {
