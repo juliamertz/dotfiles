@@ -9,6 +9,7 @@ keymap('n', '<C-l>', '<C-w>l')
 
 -- misc
 keymap('n', '<leader>cb', utils.buf_kill)
+keymap('t', '<esc><esc>', '<c-\\><c-n>')
 
 local function vresize(step)
 	vim.cmd('vertical resize ' .. step)
@@ -22,9 +23,9 @@ keymap('n', '<C-w><', function()
 	vresize('+' .. vim.o.columns / 10)
 end)
 
--- Rebind ctrl-] to gd for manpages
+-- Rebind ctrl-] to gd for man/help pages
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = 'man',
+	pattern = { 'man', 'help' },
 	callback = function()
 		vim.keymap.set('n', 'gd', '<C-]>', { buffer = true })
 	end,
