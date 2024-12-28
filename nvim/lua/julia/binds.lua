@@ -1,4 +1,5 @@
 local utils = require 'julia.utils'
+-- local docs = require 'julia.modules.docs'
 local keymap = utils.keymap
 
 -- Pane navigation movements
@@ -10,6 +11,7 @@ keymap('n', '<C-l>', '<C-w>l')
 -- misc
 keymap('n', '<leader>cb', utils.buf_kill)
 keymap('t', '<esc><esc>', '<c-\\><c-n>')
+-- keymap('n', '<leader>sd', docs.open_deps)
 
 local function vresize(step)
 	vim.cmd('vertical resize ' .. step)

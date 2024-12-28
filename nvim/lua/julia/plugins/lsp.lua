@@ -1,4 +1,4 @@
-local language_servers = { 'lua_ls', 'nil_ls', 'clangd', 'denols', 'gopls', 'rnix', 'nil_ls' }
+local language_servers = { 'lua_ls', 'nil_ls', 'clangd', 'denols', 'gopls', 'rnix', 'nil_ls', 'zls' }
 
 return {
 	{
