@@ -1,23 +1,8 @@
 {
   pkgs,
-  lib,
-  runCommandNoCC,
+  combineDerivations,
   ...
 }:
-let
-  combineDerivations =
-    name: derivations:
-    let
-      copy =
-        der: # sh
-        "cp -r ${der} $out/${der.repo}";
-      commands = map copy derivations;
-    in
-    runCommandNoCC name { } ''
-      mkdir $out
-      ${lib.concatStringsSep "\n" commands}
-    '';
-in
 rec {
   combined = combineDerivations "plugins" [
     tpm

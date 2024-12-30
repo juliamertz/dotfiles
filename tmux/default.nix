@@ -5,6 +5,7 @@
   wrapPackage,
   runCommandNoCC,
   writeText,
+  combineDerivations,
   ...
 }:
 let
@@ -17,7 +18,7 @@ let
     extraFlags = "-f ${config}/tmux/tmux.conf";
     dependencies = with pkgs; [ fzf ];
   };
-  plugins = callPackage ./plugins.nix { };
+  plugins = callPackage ./plugins.nix { inherit combineDerivations; };
 
   # scripts
   sessionizer = callPackage ./sessionizer.nix { };

@@ -30,7 +30,7 @@
             path:
             callPackage path {
               inherit inputs;
-              wrapPackage = callPackage ./wrapPackage.nix { };
+              inherit (callPackage ./helpers.nix { }) wrapPackage combineDerivations;
             };
         in
         {
