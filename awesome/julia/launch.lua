@@ -1,37 +1,37 @@
-local utils = require("julia.utils")
-local gears = require("gears")
-local awful = require("awful")
+local utils = require 'julia.utils'
+local gears = require 'gears'
+local awful = require 'awful'
 
 local M = {}
 
 M.rofi = {
-	launcher = utils.config_path() .. "rofi/launcher/launcher.sh",
-	powermenu = utils.config_path() .. "rofi/powermenu/powermenu.sh",
-	audiomenu = utils.config_path() .. "rofi/audiomenu/start.py",
-	screenshotmenu = utils.config_path() .. "rofi/screenshotmenu/start.sh",
-	displaymenu = utils.config_path() .. "rofi/displaymenu/start.sh",
+	launcher = utils.config_path() .. 'rofi/launcher/launcher.sh',
+	powermenu = utils.config_path() .. 'rofi/powermenu/powermenu.sh',
+	audiomenu = utils.config_path() .. 'rofi/audiomenu/start.py',
+	screenshotmenu = utils.config_path() .. 'rofi/screenshotmenu/start.sh',
+	displaymenu = utils.config_path() .. 'rofi/displaymenu/start.sh',
 }
 
 local terminals = {
-	wezterm = "org.wezfurlong",
-	kitty = "kitty",
-	alacritty = "Alacritty",
-	xterm = "",
+	wezterm = 'org.wezfurlong',
+	kitty = 'kitty',
+	alacritty = 'Alacritty',
+	xterm = '',
 }
 
 M.apps = {
-	terminal = { executable = [[sh -c "wezterm || kitty"]], class = "org.wezfurlong.wezterm" },
-	music = { executable = "spotify", class = "Spotify" },
-	browser = { executable = "firefox", class = "firefox" },
-	file_manager = { executable = "thunar", class = "Thunar" },
-	editor = { executable = "nvim" },
+	terminal = { executable = [[sh -c "wezterm || kitty"]], class = 'org.wezfurlong.wezterm' },
+	music = { executable = 'spotify', class = 'Spotify' },
+	browser = { executable = 'firefox', class = 'firefox' },
+	file_manager = { executable = 'thunar', class = 'Thunar' },
+	editor = { executable = 'nvim' },
 }
 
 --- TODO: fix this
 --- @return App|nil
 local function find_terminal()
 	for term, class in ipairs(terminals) do
-		awful.spawn.easy_async_with_shell("which " .. term, function(path)
+		awful.spawn.easy_async_with_shell('which ' .. term, function(path)
 			if path ~= nil then
 				return { executable = path, class = class }
 			end
@@ -90,9 +90,9 @@ function App:focus()
 	local found = focus_process(self.class)
 	if not found then
 		local pid = awful.spawn(self.executable)
-		local timer = gears.timer({})
+		local timer = gears.timer {}
 
-		timer = gears.timer({
+		timer = gears.timer {
 			timeout = 0.1,
 			autostart = true,
 			callback = function()
@@ -100,7 +100,7 @@ function App:focus()
 					timer:stop()
 				end
 			end,
-		})
+		}
 	end
 end
 

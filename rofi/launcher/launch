@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 rofi \
-    -show drun \
-    -theme $HOME/.config/rofi/launcher/theme.rasi
+	-show drun \
+	-theme $HOME/.config/rofi/launcher/theme.rasi

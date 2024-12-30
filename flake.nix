@@ -49,17 +49,32 @@
             fishies = ./fishies;
           };
 
-          devShells.default = pkgs.mkShell {
-            packages = with packages; [
-              neovim
-              kitty
-              tmux
-              zsh
-            ];
-            shellHook = ''
-              ${lib.getExe packages.zsh}
-            '';
-          };
+          devShells.default =
+            let
+              format =
+                with pkgs;
+                writeShellScriptBin "format" ''
+                  ${lib.getExe nixfmt-rfc-style} ./**/*.nix
+                  ${lib.getExe shfmt} -w .
+                  ${lib.getExe taplo} format ./**/*.toml
+                  ${lib.getExe stylua} . \
+                      --call-parentheses None \
+                      --quote-style AutoPreferSingle
+                '';
+            in
+            pkgs.mkShell {
+              packages = with packages; [
+                neovim
+                kitty
+                tmux
+                zsh
+
+                format
+              ];
+              shellHook = ''
+                ${lib.getExe packages.zsh}
+              '';
+            };
         };
     };
 }

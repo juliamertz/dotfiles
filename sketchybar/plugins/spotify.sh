@@ -4,9 +4,9 @@ track=$(spotify status track)
 status=$(spotify status)
 
 if [[ "$status" == *"paused"* ]]; then
-  ICON="􀊆"
+	ICON="􀊆"
 else
-    ICON="󰺢"
+	ICON="󰺢"
 fi
 
 sketchybar --set $NAME icon="$ICON" label="${track}"

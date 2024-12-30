@@ -1,15 +1,15 @@
-local themes_path = require("gears.filesystem").get_themes_dir()
-local theme_assets = require("beautiful.theme_assets")
-local xresources = require("beautiful.xresources")
+local themes_path = require('gears.filesystem').get_themes_dir()
+local theme_assets = require 'beautiful.theme_assets'
+local xresources = require 'beautiful.xresources'
 local dpi = xresources.apply_dpi
-local beautiful = require("beautiful")
-local gears = require("gears")
+local beautiful = require 'beautiful'
+local gears = require 'gears'
 
-local colors = require("plugins.rose-pine").moon
+local colors = require('plugins.rose-pine').moon
 
 local theme = {
-	font = "JetBrains Mono 12",
-	wallpaper = "~/wallpaper",
+	font = 'JetBrains Mono 12',
+	wallpaper = '~/wallpaper',
 
 	bg_normal = colors.base,
 	bg_focus = colors.surface,
@@ -49,7 +49,7 @@ function Wallpaper:init(s)
 	if beautiful.wallpaper then
 		local wallpaper = beautiful.wallpaper
 
-		if type(wallpaper) == "function" then
+		if type(wallpaper) == 'function' then
 			wallpaper = wallpaper(s)
 		end
 		gears.wallpaper.maximized(wallpaper, s, true)

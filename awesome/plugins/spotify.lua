@@ -1,7 +1,7 @@
-local utils = require("julia.utils")
-local bling = require("plugins.bling")
-local scroller = require("plugins.text-scroller")
-local wibox = require("wibox")
+local utils = require 'julia.utils'
+local bling = require 'plugins.bling'
+local scroller = require 'plugins.text-scroller'
+local wibox = require 'wibox'
 local playerctl = bling.signal.playerctl.lib()
 
 ---@class SpotifyScroller
@@ -40,14 +40,14 @@ local M = {
 ---@param state table
 function M:format_status(state)
 	if not state.title or not state.artist then
-		local msg = "No song playing"
+		local msg = 'No song playing'
 		if self.formatter then
 			return self.formatter(msg)
 		end
 		return msg
 	end
 
-	return state.title .. " - " .. state.artist
+	return state.title .. ' - ' .. state.artist
 end
 
 ---@protected
@@ -74,13 +74,13 @@ end
 ---@return nil
 function M:create_scroller(content, callback)
 	if #content > self.scroll.max_width and self.scroll.enabled then
-		self.scroll._scroller = scroller:create({
+		self.scroll._scroller = scroller:create {
 			str = content,
 			max_width = self.scroll.max_width,
 			speed = self.scroll.speed,
 			scroller = scroller.bounce_scroll,
 			callback = callback,
-		})
+		}
 	else
 		self.scroll._scroller = nil
 		callback(content)
@@ -92,13 +92,13 @@ end
 function M:widget(opts)
 	M:apply_config(opts)
 
-	local widget = wibox.widget({
-		markup = M:format_status({}),
+	local widget = wibox.widget {
+		markup = M:format_status {},
 		widget = wibox.widget.textbox,
-	})
+	}
 
-	playerctl:connect_signal("metadata", function(_, title, artist, _, album, new, player_name)
-		if player_name ~= "spotify_player" then
+	playerctl:connect_signal('metadata', function(_, title, artist, _, album, new, player_name)
+		if player_name ~= 'spotify_player' then
 			return
 		end
 

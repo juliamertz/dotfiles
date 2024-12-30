@@ -1,5 +1,5 @@
 seek_duration_secs = 10
-modal_search = true 
+modal_search = true
 client_id_cmd = { command = "cat", args = ["/run/secrets/spotify_client_id"] }
 
 theme = "dracula"

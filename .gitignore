@@ -2,13 +2,5 @@ fish/completions
 fish/conf.d
 fish/functions
 tmux/plugins
-litecli
-pulse
-qBittorrent
-zsh/.zcompdump
-Thunar
-go/telemetry/local
-gtk-3.0
-mimeapps.list
-sunshine
 result
+.direnv

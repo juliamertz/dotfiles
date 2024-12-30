@@ -1,21 +1,21 @@
 -- pcall(require, "luarocks.loader")
 
-local gears = require("gears")
-local xresources = require("beautiful.xresources")
+local gears = require 'gears'
+local xresources = require 'beautiful.xresources'
 local dpi = xresources.apply_dpi
-local utils = require("julia.utils")
-local awful = require("awful")
-local beautiful = require("beautiful")
-local bar = require("julia.bar")
-local style = require("julia.style")
-local keys = require("julia.keys")
-local launch = require("julia.launch")
+local utils = require 'julia.utils'
+local awful = require 'awful'
+local beautiful = require 'beautiful'
+local bar = require 'julia.bar'
+local style = require 'julia.style'
+local keys = require 'julia.keys'
+local launch = require 'julia.launch'
 
-require("awful.autofocus")
-require("awful.hotkeys_popup.keys")
+require 'awful.autofocus'
+require 'awful.hotkeys_popup.keys'
 
-require("julia.errors")
-require("julia.keys")
+require 'julia.errors'
+require 'julia.keys'
 
 beautiful.init(style.theme)
 
@@ -30,8 +30,8 @@ local layout_master_width_factors = {
 }
 
 local tags = {
-	"TERM",
-	"WEB",
+	'TERM',
+	'WEB',
 }
 
 local screen_idx = 1
@@ -76,14 +76,14 @@ awful.rules.rules = {
 		rule_any = {
 			instance = {},
 			class = {
-				"Arandr",
-				"feh",
+				'Arandr',
+				'feh',
 			},
 			name = {
-				"Event Tester",
+				'Event Tester',
 			},
 			role = {
-				"pop-up",
+				'pop-up',
 			},
 		},
 		properties = {
@@ -93,7 +93,7 @@ awful.rules.rules = {
 	},
 
 	{
-		rule = { class = "Alacritty" },
+		rule = { class = 'Alacritty' },
 		callback = function(c)
 			c.floating = true
 			c.width = 1600
@@ -104,7 +104,7 @@ awful.rules.rules = {
 
 	{
 		rule = { class = launch.apps.terminal.class },
-		properties = { screen = 1, tag = "TERM" },
+		properties = { screen = 1, tag = 'TERM' },
 	},
 	-- {
 	--   rule = { class = launch.apps.browser.class },
@@ -112,7 +112,7 @@ awful.rules.rules = {
 	-- },
 	{
 		rule = { class = launch.apps.music.class },
-		properties = { screen = 1, tag = "3" },
+		properties = { screen = 1, tag = '3' },
 	},
 	{
 		rule = { class = launch.apps.browser.class },
@@ -145,12 +145,12 @@ local function set_corner_radius(client)
 end
 
 -- Corner rounding
-client.connect_signal("manage", set_corner_radius)
-client.connect_signal("property::maximized", set_corner_radius)
+client.connect_signal('manage', set_corner_radius)
+client.connect_signal('property::maximized', set_corner_radius)
 
 function mouse_follows_focus()
 	local c = client.focus
-	gears.timer({
+	gears.timer {
 		timeout = 0.1,
 		autostart = true,
 		single_shot = true,
@@ -162,23 +162,23 @@ function mouse_follows_focus()
 				mouse.coords({ x = x, y = y }, true)
 			end
 		end,
-	})
+	}
 end
 
 -- Mouse follows focus
-client.connect_signal("focus", mouse_follows_focus)
+client.connect_signal('focus', mouse_follows_focus)
 
 -- Focus follows mouse
-client.connect_signal("mouse::enter", function(c)
-	c:emit_signal("request::activate", "mouse_enter", { raise = false })
+client.connect_signal('mouse::enter', function(c)
+	c:emit_signal('request::activate', 'mouse_enter', { raise = false })
 end)
 
-client.connect_signal("focus", function(c)
+client.connect_signal('focus', function(c)
 	c.border_color = beautiful.border_focus
 end)
-client.connect_signal("unfocus", function(c)
+client.connect_signal('unfocus', function(c)
 	c.border_color = beautiful.border_normal
 end)
-screen.connect_signal("property::geometry", style.wallpaper.init)
+screen.connect_signal('property::geometry', style.wallpaper.init)
 
-awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+awful.spawn.with_shell '~/.config/awesome/autorun.sh'

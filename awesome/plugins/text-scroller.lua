@@ -1,5 +1,5 @@
-local utils = require("julia.utils")
-local gears = require("gears")
+local utils = require 'julia.utils'
+local gears = require 'gears'
 
 ---@class TextScroller
 ---@field public callback function
@@ -50,12 +50,12 @@ function M:start(scroller, callback)
 		return
 	end
 
-	local timer = gears.timer({
+	local timer = gears.timer {
 		call_now = true,
 		timeout = self.speed,
-	})
+	}
 
-	timer:connect_signal("timeout", function()
+	timer:connect_signal('timeout', function()
 		self.state = scroller(self)
 		callback(self.state)
 	end)

@@ -7,23 +7,23 @@ xmodmap -e "clear lock"
 xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
 xmodmap -e "keycode 66 = Escape NoSymbol Escape"
 
-xrandr --output HDMI-0  \
-       --rotate left    \
-       --mode 2560x1440 \
-       --rate 74.92     \
-       --pos 0x0
+xrandr --output HDMI-0 \
+	--rotate left \
+	--mode 2560x1440 \
+	--rate 74.92 \
+	--pos 0x0
 
-xrandr --output DP-0    \
-       --rotate normal  \
-       --mode 2560x1440 \
-       --rate 164.83    \
-       --pos 1440x388   \
-       --primary 
+xrandr --output DP-0 \
+	--rotate normal \
+	--mode 2560x1440 \
+	--rate 164.83 \
+	--pos 1440x388 \
+	--primary
 
-pgrep -x sxhkd > /dev/null || SXHKD_SHELL="sh" sxhkd &
-pgrep -x picom > /dev/null || picom -b
-pgrep -x gummy > /dev/null || gummy start &
-pgrep -x mactype > /dev/null || mactype &
+pgrep -x sxhkd >/dev/null || SXHKD_SHELL="sh" sxhkd &
+pgrep -x picom >/dev/null || picom -b
+pgrep -x gummy >/dev/null || gummy start &
+pgrep -x mactype >/dev/null || mactype &
 
 ~/.config/polybar/launch.sh
 
@@ -32,7 +32,7 @@ nm-applet &
 
 feh --bg-fill ~/.config/background
 
-/usr/lib/xfce-polkit/xfce-polkit & 
+/usr/lib/xfce-polkit/xfce-polkit &
 
 pgrep bspswallow || bspswallow &
 
@@ -41,18 +41,18 @@ protonvpn-cli connect -f
 bspc monitor DP-0 -d 1 2 3 4
 bspc monitor HDMI-0 -d 5 6 7 8
 
-bspc config border_width          3
-bspc config window_gap            10
+bspc config border_width 3
+bspc config window_gap 10
 bspc config focus_follows_pointer true
 bspc config pointer_follows_focus true
 
-bspc config ignore_ewmh_struts      true
-bspc config -m "DP-0" top_padding   40
+bspc config ignore_ewmh_struts true
+bspc config -m "DP-0" top_padding 40
 bspc config -m "HDMI-0" top_padding 0
 
 bspc config -m "DP-0" split_ratio 0.40
 bspc config borderless_monocle true
-bspc config gapless_monocle    true
+bspc config gapless_monocle true
 
 bspc rule -a Pavucontrol state=floating
 bspc rule -a Galculator state=floating

@@ -127,7 +127,7 @@ local rust_resolver = {
 }
 
 ---@type docs.Resolver[]
-M.resolvers = { rust_resolver, go_resolver, }
+M.resolvers = { rust_resolver, go_resolver }
 
 ---@param path string|nil
 ---@return docs.Resolver|nil
