@@ -1,5 +1,6 @@
 {
   ripgrep,
+  dasel,
   stdenv,
   neovim,
   wrapPackage,
@@ -11,6 +12,7 @@ wrapPackage {
   dependencies = [
     ripgrep
     stdenv.cc
+    dasel
   ];
   extraFlags = "-u ${./.}/init.lua";
   extraArgs = [

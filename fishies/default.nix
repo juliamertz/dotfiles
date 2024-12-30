@@ -22,7 +22,6 @@ stdenvNoCC.mkDerivation rec {
       hash = "sha256-LABkYGb0yt1sKcKpZ7KW/BqDEyScRBNLAwzC7UZNgFI=";
     }
   }";
-
   installPhase = ''
     mkdir -p $out/bin
     cp $src $out/bin/fishies

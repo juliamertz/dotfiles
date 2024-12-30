@@ -29,7 +29,7 @@ let
 
             /filter add hide_quit irc.* irc_quit *
             /filter add hide_part irc.* irc_part *
-            
+
             /set weechat.color.chat_bg default
             /set weechat.color.chat_fg white
             /set weechat.color.chat_nick_self 214

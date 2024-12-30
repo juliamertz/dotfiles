@@ -12,15 +12,9 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      flake-parts,
-      ...
-    }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = nixpkgs.lib.systems.flakeExposed;
-
+    { self, ... }@inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = inputs.nixpkgs.lib.systems.flakeExposed;
       perSystem =
         {
           pkgs,
@@ -40,30 +34,27 @@
             };
         in
         {
-          packages = {
-            neovim = mkPackage ./nvim;
-            lazygit = mkPackage ./lazygit;
-            tmux = mkPackage ./tmux;
-            spotify-player = mkPackage ./spotify-player;
-            weechat = mkPackage ./weechat;
-            wezterm = mkPackage ./wezterm;
-            kitty = mkPackage ./kitty;
-            alacritty = mkPackage ./alacritty;
-            rofi = mkPackage ./rofi;
-            zsh = mkPackage ./zsh;
-            nushell = mkPackage ./nushell;
-            fishies = pkgs.callPackage ./scripts/fishies.nix {};
+          packages = lib.mapAttrs (_: p: mkPackage p) {
+            neovim = ./nvim;
+            lazygit = ./lazygit;
+            tmux = ./tmux;
+            spotify-player = ./spotify-player;
+            weechat = ./weechat;
+            wezterm = ./wezterm;
+            kitty = ./kitty;
+            alacritty = ./alacritty;
+            rofi = ./rofi;
+            zsh = ./zsh;
+            nushell = ./nushell;
+            fishies = ./fishies;
           };
 
           devShells.default = pkgs.mkShell {
             packages = with packages; [
               neovim
-              lazygit
-              wezterm
+              kitty
               tmux
               zsh
-              fishies
-              spotify-player
             ];
             shellHook = ''
               ${lib.getExe packages.zsh}
