@@ -106,11 +106,11 @@
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1734283829,
-        "narHash": "sha256-gMbea8u7ddidoSlvCBA2Ag8C1nbW2i5W0PWaqjN91Mw=",
+        "lastModified": 1735582381,
+        "narHash": "sha256-iBVaz87hrGt8OsH5LIwS5nj9ie53in2+j9Ui3bIKNdA=",
         "owner": "juliamertz",
         "repo": "spotify-player",
-        "rev": "7a5f3a1159d9314865c77f04957dbaef6693d8b4",
+        "rev": "963b7bf2f41debb8ff929fa0cc4956a65dd0fbd5",
         "type": "github"
       },
       "original": {

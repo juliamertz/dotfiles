@@ -1,6 +1,6 @@
 seek_duration_secs = 10
 modal_search = true
-client_id_cmd = { command = "cat", args = ["/run/secrets/spotify_client_id"] }
+client_id_command = { command = "cat", args = ["/run/secrets/spotify_client_id"] }
 
 theme = "dracula"
 client_port = 8080
