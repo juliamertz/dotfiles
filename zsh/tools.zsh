@@ -24,6 +24,13 @@ function plugin {
     exit 1
   fi
 
+  local entry_file=$ZPLUGINDIR/$repo/$repo.plugin.zsh
+
+  if [[ $ZPLUGINDIR == /nix/store/* ]]; then
+    source $entry_file
+    return 
+  fi
+
   if [[ ! -d $ZPLUGINDIR/$repo ]]; then
     if [[ ! -d $ZPLUGINDIR ]]; then
       mkdir -vp $ZPLUGINDIR
@@ -31,7 +38,6 @@ function plugin {
     git clone https://github.com/$owner/$repo $ZPLUGINDIR/$repo
   fi
 
-  local entry_file=$ZPLUGINDIR/$repo/$repo.plugin.zsh
   if [[ ! -f $entry_file ]]; then
     echo Warning plugin $repo is missing an entry file
   fi
