@@ -63,6 +63,7 @@ wrapPackage {
     "--set ZDOTDIR '${./.}'"
     "--set ZRUNTIMEDEPS '${mkDeps runtimeDependencies}/bin'"
     "--set ZPLUGINDIR '${pluginPackages}'"
+    "--set ATUIN_CONFIG_DIR '${../atuin}'"
     "--set EDITOR nvim"
   ];
 }
