@@ -1,34 +1,59 @@
-ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
-INIT_PATH=$ZDOTDIR/init
+export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
+export ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.local/share/zsh/plugins}
+export ZDIR=$ZDOTDIR
+export KERNEL=$(uname -s)
 
-source $INIT_PATH/prompt.zsh
-source $INIT_PATH/tools.zsh
-source $INIT_PATH/zinit.zsh
+autoload -Uz compinit && compinit
+
+source $ZDIR/tools.zsh
+
+# Add to PATH
+add_path $HOME/.cargo/bin
+add_path $HOME/.local/bin
+[[ -v ZRUNTIMEDEPS ]] && add_path $ZRUNTIMEDEPS
+
+# Initialize plugins
+plugin jeffreytse zsh-vi-mode
+plugin zsh-users zsh-syntax-highlighting
+plugin zsh-users zsh-autosuggestions
+plugin Aloxaf fzf-tab
+plugin zsh-users zsh-completions
+
+# Shell integration hooks
+try_hook fzf --zsh
+try_hook zoxide init zsh
+try_hook direnv hook zsh
+try_hook /opt/homebrew/bin/brew shellenv
+try_hook atuin init zsh --disable-up-arrow
+
+# Key bindings
+bindkey '^r' search-hist
 
 # Aliases
 alias cat='bat -pp'
-alias lg='lazygit'
-alias sctl='sudo systemctl'
-alias sqlite='litecli'
 alias md='mkdir -p'
-alias open='xdg-open'
+alias ll='ls -l'
+alias la='ls -la'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias hist='atuin search -i'
+alias grep='grep --colour=auto'
+alias mkexe='chmod +x'
+alias mkmine='chown $(whoami) -R'
+alias lg='lazygit'
+alias spt='spotify_player'
+alias sqlite='litecli'
 
-# Plugins
+# Linux specific aliases
+if [[ $KERNEL == "Linux" ]]; then
+  alias open='xdg-open'
+  alias sctl='sudo systemctl'
+fi
+
+# Use Neovim as manpager when available
 if command -v nvim > /dev/null; then
-  plugin 'jeffreytse/zsh-vi-mode'
   export MANPAGER='nvim +Man!'
 fi
 
-plugin 'romkatv/powerlevel10k'
-plugin 'zsh-users/zsh-syntax-highlighting'
-plugin 'zsh-users/zsh-completions'
-plugin 'zsh-users/zsh-autosuggestions'
-plugin 'Aloxaf/fzf-tab'
-plugin 'hlissner/zsh-autopair'
-
-add_path $HOME/.cargo/bin
-add_path $HOME/.local/bin
-add_path $HOME/.local/share/flatpak/exports/shar
-add_path /var/lib/flatpak/exports/share
-
-source $INIT_PATH/cleanup.zsh
+# Initialize prompt
+source $ZDIR/prompt.zsh

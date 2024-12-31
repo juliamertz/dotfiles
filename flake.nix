@@ -63,13 +63,9 @@
                 '';
             in
             pkgs.mkShell {
-              packages = with packages; [
-                neovim
-                kitty
-                tmux
-                zsh
-
+              packages = [
                 format
+                pkgs.nurl
               ];
               shellHook = ''
                 ${lib.getExe packages.zsh}
