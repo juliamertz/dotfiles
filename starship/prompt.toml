@@ -1,0 +1,55 @@
+# newline printing should be handled by zsh precmd
+add_newline = false
+
+format = """
+$directory$git_branch$git_status $cmd_duration$fill$nix_shell$username$hostname$time
+$character"""
+
+# Spacing in between prompt parts
+[fill]
+symbol =" "
+
+[character]
+success_symbol = "[;](purple)"
+error_symbol = "[;](red)"
+vicmd_symbol = "[:](white)"
+
+# Modules
+[cmd_duration]
+min_time = 500
+format = "[took $duration](bright-black)"
+
+[directory]
+style = "blue"
+truncate_to_repo = false
+format = "[$path]($style)[$read_only]($read_only_style)"
+disabled = false
+
+[git_branch]
+format = " [$symbol$branch](green) "
+symbol = "" # 
+
+[nix_shell]
+symbol = ''
+format = '[$symbol $state](blue) '
+
+[git_status]
+format = '([$all_status$ahead_behind]($style))'
+
+[username]
+show_always = false
+style_user = "white"
+style_root = "red"
+format = "[$user]($style)"
+disabled = false
+
+[hostname]
+ssh_only = true
+format = "[@](bright-black)[$hostname](dimmed white) "
+disabled = false
+
+[time]
+disabled = true
+use_12hr = true
+style = "bright-black"
+format = "[$time]($style)"

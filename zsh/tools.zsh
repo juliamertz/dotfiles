@@ -5,7 +5,7 @@ function add_path {
 	fi
 }
 
-# Evaluate shell if if it's in PATH
+# Evaluate shell hook if it's in PATH
 function try_hook {
   if [[ -f $(which $1) ]]; then 
     eval "$($@)" 
@@ -20,7 +20,7 @@ function plugin {
   local repo=$2
 
   if [[ ! -v ZPLUGINDIR ]]; then
-    echo "Error: plugin called without 'ZPLUGINDIR' variable set"
+    echo "Error `plugin` function called without 'ZPLUGINDIR' variable set"
     exit 1
   fi
 
@@ -44,3 +44,29 @@ function plugin {
 
   source $entry_file
 }
+
+function ansi_color_escape() {
+	print -n "\x1b[${1}m"
+}
+
+function ansi_color_code() {
+	case "$1" in
+    "black") echo 30;;
+    "brblack") echo 90;;
+    "red") echo 31;;
+    "green") echo 32;;
+    "yellow") echo 33;;
+    "blue") echo 34;;
+    "magenta") echo 35;;
+    "cyan") echo 36;;
+    "white") echo 37;;
+    "default") echo 39;;
+    "reset") echo 0;;
+    *) ;;
+	esac
+}
+
+function clr() {
+  ansi_color_escape $(ansi_color_code $1)
+}
+

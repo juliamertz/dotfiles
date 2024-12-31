@@ -4,7 +4,6 @@ export ZDIR=$ZDOTDIR
 export KERNEL=$(uname -s)
 
 autoload -Uz compinit && compinit
-
 source $ZDIR/tools.zsh
 
 # Add to PATH
