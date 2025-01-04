@@ -37,6 +37,8 @@ return {
 				}
 			end
 
+      lspconfig.gleam.setup {}
+
 			-- temporary fix for rust-analzyer throwing errors
 			for _, method in ipairs { 'textDocument/diagnostic', 'workspace/diagnostic' } do
 				local default_diagnostic_handler = vim.lsp.handlers[method]

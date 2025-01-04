@@ -11,7 +11,7 @@ local s = ls.snippet
 
 return {
 	if_err = s(
-		{ trig = 'if_err', snippetType = 'autosnippet' },
+		{ trig = 'iferr' },
 		fmt(
 			[[
       if err != nil {{

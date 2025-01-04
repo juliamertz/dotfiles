@@ -47,33 +47,12 @@ M.init = function()
 		history = true,
 	}
 
-	local lua = require 'julia.snippets.lua'
-	local react = require 'julia.snippets.react'
-	local go = require 'julia.snippets.go'
-	local html = require 'julia.snippets.html'
-	local common = require 'julia.snippets.common'
-
-	M.add_snippets(lua, 'lua')
-	M.add_snippets(react, 'typescriptreact')
-	M.add_snippets(go, 'go')
-	M.add_snippets(common, 'all')
-	M.add_snippets(html, { 'html', 'htmldjango' })
-
-	vim.keymap.set('n', '<leader>ee', function()
-		M.insert_snippet(go.if_err)
-	end, opts)
-
-	vim.keymap.set('n', '<leader>us', function()
-		if vim.bo.filetype == 'typescriptreact' then
-			M.insert_snippet(react.usestate)
-		end
-	end, opts)
-
-	vim.keymap.set('n', '<leader>ue', function()
-		if vim.bo.filetype == 'typescriptreact' then
-			M.insert_snippet(react.useeffect)
-		end
-	end, opts)
+	M.add_snippets(require 'julia.snippets.lua', 'lua')
+	M.add_snippets(require 'julia.snippets.react', 'typescriptreact')
+	M.add_snippets(require 'julia.snippets.go', 'go')
+	M.add_snippets(require 'julia.snippets.rust', 'rust')
+	M.add_snippets(require 'julia.snippets.common', 'all')
+	M.add_snippets(require 'julia.snippets.html', { 'html', 'htmldjango' })
 
 	vim.keymap.set({ 'i' }, '<C-K>', function()
 		luasnip.expand()
