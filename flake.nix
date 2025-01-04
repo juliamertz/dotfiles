@@ -45,6 +45,7 @@
             alacritty = ./alacritty;
             rofi = ./rofi;
             zsh = ./zsh;
+            bash = ./bash;
             nushell = ./nushell;
             fishies = ./fishies;
           };
