@@ -2,14 +2,14 @@ export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 export ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.local/share/zsh/plugins}
 export ZDIR=$ZDOTDIR
 export KERNEL=$(uname -s)
-
 autoload -Uz compinit && compinit
+
 source $ZDIR/tools.zsh
 
 # Add to PATH
 add_path $HOME/.cargo/bin
 add_path $HOME/.local/bin
-[[ -v ZRUNTIMEDEPS ]] && add_path $ZRUNTIMEDEPS
+add_path $ZRUNTIMEDEPS
 
 # Initialize plugins
 plugin jeffreytse zsh-vi-mode
@@ -31,6 +31,8 @@ bindkey '^r' search-hist
 # Aliases
 alias cat='bat -pp'
 alias md='mkdir -p'
+alias vim='nvim'
+alias vi='nvim'
 alias ll='ls -l'
 alias la='ls -la'
 alias ..='cd ..'
