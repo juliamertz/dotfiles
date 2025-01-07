@@ -1,6 +1,5 @@
-fish/completions
-fish/conf.d
-fish/functions
-tmux/plugins
-result
 .direnv
+
+# build outputs
+result
+devshell

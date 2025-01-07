@@ -1,0 +1,34 @@
+name: "Build dev shell binary"
+on:
+  push:
+    branches:
+    - main
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          extra-conf: |
+            extra-experimental-features = nix-command flakes pipe-operators
+
+      - name: Set up cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+      
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Nix bundle
+        run: |
+          nix bundle --bundler github:DavHau/nix-portable \
+              -o devshell \
+              .#devShells.x86_64-linux.minimal
+  

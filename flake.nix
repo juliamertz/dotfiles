@@ -3,75 +3,115 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
+    devshell.url = "github:numtide/devshell";
 
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
   };
 
   outputs =
-    { self, ... }@inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = inputs.nixpkgs.lib.systems.flakeExposed;
-      perSystem =
-        {
-          pkgs,
-          lib,
-          config,
-          ...
-        }:
-        let
-          inherit (pkgs) callPackage;
-          inherit (config) packages;
+    {
+      self,
+      devshell,
+      nixpkgs,
+      ...
+    }@inputs:
+    let
+      allSystems = linuxSystems ++ darwinSystems;
+      linuxSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      darwinSystems = [
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
 
+      perSystem =
+        s: f:
+        nixpkgs.lib.genAttrs s (
+          system:
+          f {
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [ devshell.overlays.default ];
+            };
+          }
+        );
+    in
+    rec {
+      packages = perSystem allSystems (
+        { pkgs }:
+        let
           mkPackage =
             path:
-            callPackage path {
+            pkgs.callPackage path {
               inherit inputs;
-              inherit (callPackage ./helpers.nix { }) wrapPackage combineDerivations;
+              inherit (pkgs.callPackage ./helpers.nix { }) wrapPackage combineDerivations;
             };
         in
+        pkgs.lib.mapAttrs (_: p: mkPackage p) {
+          neovim = ./nvim;
+          lazygit = ./lazygit;
+          tmux = ./tmux;
+          spotify-player = ./spotify-player;
+          weechat = ./weechat;
+          wezterm = ./wezterm;
+          kitty = ./kitty;
+          alacritty = ./alacritty;
+          rofi = ./rofi;
+          zsh = ./zsh;
+          bash = ./bash;
+          nushell = ./nushell;
+          fishies = ./fishies;
+        }
+      );
+
+      devShells = perSystem linuxSystems (
+        { pkgs }:
+        let
+          inherit (pkgs) lib system;
+        in
         {
-          packages = lib.mapAttrs (_: p: mkPackage p) {
-            neovim = ./nvim;
-            lazygit = ./lazygit;
-            tmux = ./tmux;
-            spotify-player = ./spotify-player;
-            weechat = ./weechat;
-            wezterm = ./wezterm;
-            kitty = ./kitty;
-            alacritty = ./alacritty;
-            rofi = ./rofi;
-            zsh = ./zsh;
-            bash = ./bash;
-            nushell = ./nushell;
-            fishies = ./fishies;
+          # shell for working in this repository
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              pkgs.nurl
+              (writeShellScriptBin "format" ''
+                ${lib.getExe nixfmt-rfc-style} ./**/*.nix
+                ${lib.getExe shfmt} -w .
+                ${lib.getExe taplo} format ./**/*.toml
+                ${lib.getExe stylua} . \
+                    --call-parentheses None \
+                    --quote-style AutoPreferSingle
+              '')
+              (writeShellScriptBin "build-devshell" ''
+                nix bundle --bundler github:DavHau/nix-portable \
+                  -o devshell \
+                  .#devShells.${system}.minimal
+              '')
+            ];
+            shellHook = ''
+              ${lib.getExe packages.${system}.zsh}
+            '';
           };
 
-          devShells.default =
-            let
-              format =
-                with pkgs;
-                writeShellScriptBin "format" ''
-                  ${lib.getExe nixfmt-rfc-style} ./**/*.nix
-                  ${lib.getExe shfmt} -w .
-                  ${lib.getExe taplo} format ./**/*.toml
-                  ${lib.getExe stylua} . \
-                      --call-parentheses None \
-                      --quote-style AutoPreferSingle
-                '';
-            in
-            pkgs.mkShell {
-              packages = [
-                format
-                pkgs.nurl
-              ];
-              shellHook = ''
-                ${lib.getExe packages.zsh}
+          # numtide shells that can be bundled with https://github.com/DavHau/nix-portable
+          minimal = pkgs.devshell.mkShell {
+            packages = with packages.${system}; [
+              neovim
+              zsh
+              lazygit
+              tmux
+              kitty
+            ];
+            devshell.startup.interactive.text = # sh
+              ''
+                # skip default numtide shell
+                ${pkgs.lib.getExe packages.${system}.zsh}
+                exit 0
               '';
-            };
-        };
+          };
+        }
+      );
     };
 }
