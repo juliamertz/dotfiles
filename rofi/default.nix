@@ -1,4 +1,4 @@
-{ pkgs, list, ... }:
+{ pkgs, lib, ... }:
 let
   inherit (pkgs) runCommandNoCC writeShellScriptBin rofi;
   mkMenu =
