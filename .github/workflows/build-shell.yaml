@@ -1,11 +1,12 @@
 name: "Build dev shell binary"
 on:
-  push:
-    branches:
-    - main
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #   - main
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   lint:
@@ -28,7 +29,14 @@ jobs:
 
       - name: Nix bundle
         run: |
+          # https://github.com/DavHau/nix-portable?tab=readme-ov-file#bundle-whole-dev-environment
           nix bundle --bundler github:DavHau/nix-portable \
-              -o devshell \
+              -o result \
               .#devShells.x86_64-linux.minimal
+
+          cp ./result/bin/devshell ./devshell && chmod +w ./devshell
   
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload devshell ./devshell --clobber
