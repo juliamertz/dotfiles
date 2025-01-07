@@ -30,7 +30,7 @@ jobs:
       - name: Nix bundle
         run: |
           # https://github.com/DavHau/nix-portable?tab=readme-ov-file#bundle-whole-dev-environment
-          nix bundle --bundler github:DavHau/nix-portable \
+          nix bundle --bundler github:DavHau/nix-portable#zstd-max \
               -o result \
               .#devShells.x86_64-linux.minimal
 
