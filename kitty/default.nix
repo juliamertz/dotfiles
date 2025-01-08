@@ -1,7 +1,7 @@
 {
   wrapPackage,
   writeText,
-  pkgs,
+  kitty,
   ...
 }:
 let
@@ -32,6 +32,6 @@ let
 in
 wrapPackage {
   name = "kitty";
-  package = pkgs.kitty;
+  package = kitty;
   extraFlags = "--config ${config}";
 }

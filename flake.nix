@@ -61,7 +61,6 @@
           rofi = ./rofi;
           zsh = ./zsh;
           bash = ./bash;
-          fishies = ./fishies;
         }
       );
 

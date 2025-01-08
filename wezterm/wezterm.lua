@@ -7,7 +7,7 @@ local act = wezterm.action
 
 local config = {
 	font = wezterm.font 'JetBrains Mono',
-	font_size = os.get { linux = 22.0, macos = 14.0 },
+	font_size = os.get { linux = 24.0, macos = 14.0 },
 	max_fps = os.get { linux = 165, macos = 60 },
 	colors = rosepine.colors(),
 	window_frame = rosepine.window_frame(),
@@ -16,7 +16,7 @@ local config = {
 	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
 	keys = keys.value,
-	front_end = 'WebGpu',
+	-- front_end = 'WebGpu',
 }
 
 config.leader = { key = 'a', mods = 'ALT', timeout_milliseconds = 2000 }
