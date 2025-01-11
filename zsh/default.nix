@@ -51,6 +51,7 @@ let
 
   runtimeDependencies = with pkgs; [
     bat
+    bat-extras.batman
     atuin
     starship
     jq

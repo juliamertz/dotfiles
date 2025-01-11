@@ -16,9 +16,9 @@ function try_hook {
 # It will check if the plugin directory is missing and then clone it
 # Then it sources the plugins entrypoint
 function plugin {
-  local owner=$1
-  local repo=$2
-
+  local owner=$(echo $1 | cut -d'/' -f1)
+  local repo=$(echo $1 | cut -d'/' -f2)
+ 
   if [[ ! -v ZPLUGINDIR ]]; then
     echo "Error `plugin` function called without 'ZPLUGINDIR' variable set"
     exit 1

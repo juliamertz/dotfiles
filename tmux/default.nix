@@ -12,9 +12,6 @@ let
   tmux = wrapPackage {
     name = "tmux";
     package = pkgs.tmux;
-    # If config home isn't set to the config most plugins won't work
-    # this is overriden back to the users home after initializaiton
-    extraArgs = "--set XDG_CONFIG_HOME '${config}'";
     extraFlags = "-f ${config}/tmux/tmux.conf";
     dependencies = with pkgs; [ fzf ];
   };

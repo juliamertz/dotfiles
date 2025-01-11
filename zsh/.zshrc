@@ -1,8 +1,12 @@
+autoload -Uz compinit && compinit
+
 export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 export ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.local/share/zsh/plugins}
 export ZDIR=$ZDOTDIR
 export KERNEL=$(uname -s)
-autoload -Uz compinit && compinit
+export XDG_CONFIG_HOME=~/.config
+export XDG_CACHE_HOME=~/.cache
+export BROWSER="firefox"
 
 source $ZDIR/tools.zsh
 
@@ -12,11 +16,11 @@ add_path $HOME/.local/bin
 add_path $ZRUNTIMEDEPS
 
 # Initialize plugins
-plugin jeffreytse zsh-vi-mode
-plugin zsh-users zsh-syntax-highlighting
-plugin zsh-users zsh-autosuggestions
-plugin Aloxaf fzf-tab
-plugin zsh-users zsh-completions
+plugin jeffreytse/zsh-vi-mode
+plugin zsh-users/zsh-syntax-highlighting
+plugin zsh-users/zsh-autosuggestions
+plugin Aloxaf/fzf-tab
+plugin zsh-users/zsh-completions
 
 # Shell integration hooks
 try_hook fzf --zsh
@@ -30,6 +34,7 @@ bindkey '^r' search-hist
 
 # Aliases
 alias cat='bat -pp'
+alias man='batman'
 alias md='mkdir -p'
 alias vim='nvim'
 alias vi='nvim'
