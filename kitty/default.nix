@@ -5,17 +5,18 @@
   ...
 }:
 let
-  config = writeText "kitty.conf" ''
-    include         ${./themes/rose-pine-moon.conf}
+  config = writeText "kitty.conf" # sh
+  ''
+    include ${./themes/rose-pine-moon.conf}
 
-    font_size        22.00
-    font_family      JetBrainsMono Nerd Font Mono
+    font_size 22.00
+    font_family JetBrainsMono Nerd Font Mono
 
     hide_window_decorations titlebar-only
-    window_padding_width    10 10 0 10
-    tab_bar_style           fade
-    tab_title_template      {index}
-    background_opacity      0.70
+    window_padding_width 10 10 0 10
+    tab_bar_style fade
+    tab_title_template {index}
+    background_opacity 0.85
 
     map alt+1 goto_tab 1
     map alt+2 goto_tab 2
@@ -28,6 +29,7 @@ let
     map alt+9 goto_tab 9
     map alt+t launch --cwd=current --type=tab
     map alt+w close_tab
+    map ctrl+shift+escape no_op
   '';
 in
 wrapPackage {
