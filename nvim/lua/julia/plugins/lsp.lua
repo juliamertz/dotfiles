@@ -1,4 +1,13 @@
-local language_servers = { 'lua_ls', 'clangd', 'denols', 'gopls', 'nil_ls', 'zls' }
+local language_servers = {
+	'lua_ls',
+	'clangd',
+	'denols',
+	'gopls',
+	'nil_ls',
+	'zls',
+	'volar',
+	'ts_ls',
+}
 
 return {
 	{
@@ -37,7 +46,7 @@ return {
 				}
 			end
 
-      lspconfig.gleam.setup {}
+			lspconfig.gleam.setup {}
 
 			-- temporary fix for rust-analzyer throwing errors
 			for _, method in ipairs { 'textDocument/diagnostic', 'workspace/diagnostic' } do
