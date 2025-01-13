@@ -46,7 +46,11 @@
             path:
             pkgs.callPackage path {
               inherit inputs;
-              inherit (pkgs.callPackage ./helpers.nix { }) wrapPackage combineDerivations;
+              inherit (pkgs.callPackage ./helpers.nix { })
+                wrapPackage
+                combineDerivations
+                combinePkgs
+                ;
             };
         in
         pkgs.lib.mapAttrs (_: p: mkPackage p) {
