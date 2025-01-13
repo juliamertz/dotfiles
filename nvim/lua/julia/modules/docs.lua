@@ -77,57 +77,60 @@ local go_resolver = {
 	end,
 }
 
----@type docs.Resolver
-local rust_resolver = {
-	filename = 'Cargo.toml',
-
-	parse = function(path)
-		if vim.fn.executable 'dasel' ~= 1 then
-			vim.notify('dasel is not in your path!', vim.log.levels.ERROR)
-			return
-		end
-
-		local jq_filter = [[
-      . | to_entries
-        | map (if (.value | type == "object") and (.value.package) then .value.package else .key end)
-        | .[]
-    ]]
-		-- transform dependencies to json and get package field or key name
-		local command = "dasel .dependencies -f Cargo.toml -w json | jq '" .. jq_filter .. "'"
-
-		-- parse dependency names
-		local cmd = vim.system({
-			'sh',
-			'-c',
-			command,
-		}, { text = true }):wait()
-
-		if cmd.code ~= 0 then
-			vim.notify(
-				'error returned by dasel while parsing ' .. path .. ': ' .. cmd.stderr, --
-				vim.log.levels.ERROR
-			)
-			return
-		end
-
-		-- collect and clean names
-		local dependencies = {}
-		for dep in string.gmatch(cmd.stdout, '%S+') do
-			local name = dep:gsub('"', '', 2)
-			table.insert(dependencies, name)
-		end
-
-		return dependencies
-	end,
-
-	get_url = function(name, version)
-		local tag = version or 'latest'
-		return 'https://docs.rs/' .. name .. '/' .. tag .. '/' .. name
-	end,
-}
+-- ---@type docs.Resolver
+-- local rust_resolver = {
+-- 	filename = 'Cargo.toml',
+--
+-- 	parse = function(path)
+-- 		if vim.fn.executable 'dasel' ~= 1 then
+-- 			vim.notify('dasel is not in your path!', vim.log.levels.ERROR)
+-- 			return
+-- 		end
+--
+-- 		local jq_filter = [[
+--       . | to_entries
+--         | map (if (.value | type == "object") and (.value.package) then .value.package else .key end)
+--         | .[]
+--     ]]
+-- 		-- transform dependencies to json and get package field or key name
+-- 		local command = "dasel .dependencies -f Cargo.toml -w json | jq '" .. jq_filter .. "'"
+--
+-- 		-- parse dependency names
+-- 		local cmd = vim.system({
+-- 			'sh',
+-- 			'-c',
+-- 			command,
+-- 		}, { text = true }):wait()
+--
+-- 		if cmd.code ~= 0 then
+-- 			vim.notify(
+-- 				'error returned by dasel while parsing ' .. path .. ': ' .. cmd.stderr, --
+-- 				vim.log.levels.ERROR
+-- 			)
+-- 			return
+-- 		end
+--
+-- 		-- collect and clean names
+-- 		local dependencies = {}
+-- 		for dep in string.gmatch(cmd.stdout, '%S+') do
+-- 			local name = dep:gsub('"', '', 2)
+-- 			table.insert(dependencies, name)
+-- 		end
+--
+-- 		return dependencies
+-- 	end,
+--
+-- 	get_url = function(name, version)
+-- 		local tag = version or 'latest'
+-- 		return 'https://docs.rs/' .. name .. '/' .. tag .. '/' .. name
+-- 	end,
+-- }
 
 ---@type docs.Resolver[]
-M.resolvers = { rust_resolver, go_resolver }
+M.resolvers = {
+	-- rust_resolver,
+	go_resolver,
+}
 
 ---@param path string|nil
 ---@return docs.Resolver|nil

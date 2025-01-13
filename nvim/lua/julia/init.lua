@@ -1,6 +1,6 @@
 vim.g.mapleader = ' '
 
-require 'julia.lazy'
+require 'julia.plugin'
 require 'julia.set'
 require 'julia.binds'
 

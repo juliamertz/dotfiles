@@ -1,22 +1,42 @@
 {
   ripgrep,
-  dasel,
   stdenv,
   neovim,
   wrapPackage,
+  vimPlugins,
+  linkFarm,
   ...
 }:
+let
+  mapPlugins =
+    p:
+    map (v: {
+      name = v.pname;
+      path = v;
+    }) p;
+
+  plugins =
+    with vimPlugins;
+    [
+      rose-pine
+      nvim-tree-lua
+      # lazy-nvim
+    ]
+    |> mapPlugins
+    |> linkFarm "neovim-plugins";
+in
 wrapPackage {
   name = "nvim";
   package = neovim;
   dependencies = [
     ripgrep
     stdenv.cc
-    dasel
   ];
   extraFlags = "-u ${./.}/init.lua";
   extraArgs = [
     "--set XDG_CONFIG_HOME '${../.}'"
+    "--set NVIM_PLUGIN_DIR '${plugins}'"
+    "--set LAZYPATH '${vimPlugins.lazy-nvim}'"
     "--argv0 'nvim'"
   ];
   postWrap = # sh

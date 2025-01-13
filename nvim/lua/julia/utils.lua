@@ -1,5 +1,24 @@
 local utils = {}
 
+---@param path string
+---@param callback function
+utils.iter_dir = function(path, callback)
+	local dir = vim.loop.fs_scandir(path)
+	if not dir then
+		print('Failed to open directory: ' .. path)
+		return
+	end
+
+	while true do
+		local name, type = vim.loop.fs_scandir_next(dir)
+		if not name then
+			break
+		end
+
+		callback(name, type)
+	end
+end
+
 ---@param tbl table
 ---@return number
 utils.tbl_len = function(tbl)
@@ -8,6 +27,14 @@ utils.tbl_len = function(tbl)
 		count = count + 1
 	end
 	return count
+end
+
+utils.split_str = function(content, delimiter)
+	local result = {}
+	for part in string.gmatch(content, '[^' .. delimiter .. ']+') do
+		table.insert(result, part)
+	end
+	return result
 end
 
 ---@param str string

@@ -1,5 +1,5 @@
 return {
-	'nvim-tree/nvim-tree.lua',
+	name = 'nvim-tree',
 	event = 'VeryLazy',
 	dependencies = { 'echasnovski/mini.icons' },
 
