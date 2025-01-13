@@ -44,8 +44,6 @@ return {
 				no_ignore = true,
 			}
 
-      vim.notify('hi from telescope setup')
-
 			local find_files = utils.wrap_fn(builtin.find_files, picker_opts)
 			local live_grep = utils.wrap_fn(builtin.live_grep, picker_opts)
 			local git_files =

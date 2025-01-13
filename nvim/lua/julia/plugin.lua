@@ -1,9 +1,8 @@
 local utils = require 'julia.utils'
+local _path = vim.env.NVIM_PLUGINPATH
 
-local plugin_path = vim.env.NVIM_PLUGIN_DIR
+local plugin_path = vim.env.NVIM_PLUGINPATH
 local spec_path = vim.fn.stdpath 'config' .. '/lua/julia/plugins'
-
-print(plugin_path)
 
 ---@class plugin.Spec
 ---@field name string
@@ -44,15 +43,26 @@ local function setup_plugin_spec(spec)
 
 	local name = spec.name
 	if name == nil then
-		vim.notify('missing name in spec: ' .. vim.inspect(spec), vim.log.levels.ERROR)
-		return
-	else
-		name = name:gsub('.nvim', '')
-		-- print(vim.inspect(spec))
+		for i, val in ipairs(spec) do
+			if i == 1 and type(val) == 'string' then
+				name = utils.split_str(val, '/')[2]
+			end
+			break
+		end
+
+		if name == nil then
+			vim.notify('missing name in spec: ' .. vim.inspect(spec), vim.log.levels.ERROR)
+			return
+		end
 	end
 
-	print(name)
-	require(name).setup(spec.opts or {})
+	name = name:gsub('.nvim', '')
+
+	if spec.config then
+		spec.config(require(name))
+	else
+		require(name).setup(spec.opts or {})
+	end
 
 	if spec.init then
 		spec.init()
@@ -93,16 +103,13 @@ utils.iter_dir(plugin_path, function(name, type)
 		path = vim.loop.fs_realpath(path) or path
 	end
 
-	print(path)
 	vim.opt.rtp:prepend(path)
 end)
 
+-- visit each spec file in plugin directory and attempt setup
 utils.iter_dir(spec_path, function(filename, _)
 	local name = filename:gsub('.lua', '')
 	local module = require('julia.plugins.' .. name)
 	setup_specs(module)
 end)
 
-setup_specs(require 'julia.plugins.theme')
-
--- require 'snacks.nvim'

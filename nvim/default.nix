@@ -3,40 +3,53 @@
   stdenv,
   neovim,
   wrapPackage,
-  combinePkgs,
   vimPlugins,
-  linkFarm,
+  linkFarmFromDrvs,
   ...
 }:
 let
-  # mapPlugins =
-  #   p:
-  #   map (v: {
-  #     name = v.pname;
-  #     path = v;
-  #   }) p;
-
   plugins =
-    with vimPlugins;
-    [
+    linkFarmFromDrvs "neovim-plugins"
+    <| (with vimPlugins; [
       rose-pine
-      nvim-tree-lua
       harpoon2
       telescope-nvim
       conform-nvim
       snacks-nvim
-      todo-comments-nvim
       trouble-nvim
-      plenary-nvim
       lazydev-nvim
+      nvim-tree-lua
       oil-nvim
-      render-markdown-nvim
       noice-nvim
       nui-nvim
-    ]
-    |> combinePkgs "nvim-plugins";
-    # |> mapPlugins
-    # |> linkFarm "neovim-plugins";
+      ccc-nvim
+      plenary-nvim
+      render-markdown-nvim
+      todo-comments-nvim
+      mini-statusline
+      mini-surround
+      mini-git
+      mini-icons
+      nvim-treesitter
+    ]);
+
+  parsers =
+    linkFarmFromDrvs "treesitter-parsers"
+    <| (with vimPlugins.nvim-treesitter.builtGrammars; [
+      zig
+      rust
+      scss
+      json
+      yaml
+      sql
+      go
+      vim
+      vimdoc
+      lua
+      javascript
+      nix
+    ]);
+
 in
 wrapPackage {
   name = "nvim";
@@ -48,8 +61,8 @@ wrapPackage {
   extraFlags = "-u ${./.}/init.lua";
   extraArgs = [
     "--set XDG_CONFIG_HOME '${../.}'"
-    "--set NVIM_PLUGIN_DIR '${plugins}'"
-    "--set LAZYPATH '${vimPlugins.lazy-nvim}'"
+    "--set NVIM_PLUGINPATH '${plugins}'"
+    "--set NVIM_PARSERPATH '${parsers}'"
     "--argv0 'nvim'"
   ];
   postWrap = # sh

@@ -19,19 +19,6 @@
       ${lib.concatStringsSep "\n" commands}
     '';
 
-  combinePkgs =
-    name: derivations:
-    let
-      copy =
-        der: # sh
-        "cp -r ${der} $out/${der.pname}";
-      commands = map copy derivations;
-    in
-    runCommandNoCC name { } ''
-      mkdir $out
-      ${lib.concatStringsSep "\n" commands}
-    '';
-
   wrapPackage =
     args:
     let

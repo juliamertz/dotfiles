@@ -39,3 +39,11 @@ vim.api.nvim_create_autocmd('TermOpen', {
 		vim.opt.relativenumber = false
 	end,
 })
+
+-- add detection for hyprlang
+vim.filetype.add {
+	pattern = {
+		['.*/hypr/.*%.conf'] = 'hyprlang',
+	},
+}
+
