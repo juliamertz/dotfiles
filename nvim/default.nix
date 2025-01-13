@@ -20,7 +20,17 @@ let
     [
       rose-pine
       nvim-tree-lua
-      # lazy-nvim
+      harpoon2
+      telescope-nvim
+      conform-nvim
+      snacks-nvim
+      todo-comments-nvim
+      trouble-nvim
+      plenary-nvim
+      lazydev-nvim
+      oil-nvim
+      render-markdown-nvim
+      noice-nvim
     ]
     |> mapPlugins
     |> linkFarm "neovim-plugins";

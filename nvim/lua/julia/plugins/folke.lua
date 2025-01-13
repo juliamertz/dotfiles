@@ -1,6 +1,6 @@
 return {
 	{
-		'folke/snacks.nvim',
+		name = 'snacks.nvim',
 		priority = 1000,
 		lazy = false,
 
@@ -23,12 +23,12 @@ return {
 	},
 
 	{
-		'folke/todo-comments.nvim',
+		name ='todo-comments.nvim',
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		opts = {},
 	},
 
-	'folke/noice.nvim',
+	name = 'noice.nvim',
 	dependencies = { 'MunifTanjim/nui.nvim' },
 	event = 'VeryLazy',
 	opts = {
@@ -47,7 +47,7 @@ return {
 	},
 
 	{
-		'folke/trouble.nvim',
+		name = 'trouble.nvim',
 		keys = {
 			{
 				'<leader>pr',
@@ -89,7 +89,7 @@ return {
 	},
 
 	{
-		'folke/lazydev.nvim',
+		name = 'lazydev.nvim',
 		event = 'BufEnter',
 		ft = 'lua',
 		opts = {
