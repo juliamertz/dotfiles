@@ -1,5 +1,5 @@
 return {
-	'stevearc/conform.nvim',
+	name = 'conform.nvim',
 	event = 'BufEnter',
 
 	keys = {

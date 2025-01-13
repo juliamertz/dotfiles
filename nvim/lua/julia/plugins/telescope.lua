@@ -3,13 +3,13 @@ local keymap = utils.keymap
 
 return {
 	{
-		'nvim-telescope/telescope.nvim',
+		name = 'telescope.nvim',
 		branch = 'master',
 		cmd = 'Telescope',
 		event = 'BufWinEnter',
 		dependencies = {
 			'nvim-lua/plenary.nvim',
-			{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+			-- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 		},
 		config = function()
 			local telescope = require 'telescope'
@@ -27,22 +27,24 @@ return {
 						end,
 					},
 				},
-				extensions = {
-					fzf = {
-						fuzzy = true,
-						override_generic_sorter = true,
-						override_file_sorter = true,
-					},
-				},
+				-- extensions = {
+				-- 	fzf = {
+				-- 		fuzzy = true,
+				-- 		override_generic_sorter = true,
+				-- 		override_file_sorter = true,
+				-- 	},
+				-- },
 			}
 
-			telescope.load_extension 'fzf'
+			-- telescope.load_extension 'fzf'
 
 			local builtin = require 'telescope.builtin'
 			local picker_opts = {
 				hidden = true,
 				no_ignore = true,
 			}
+
+      vim.notify('hi from telescope setup')
 
 			local find_files = utils.wrap_fn(builtin.find_files, picker_opts)
 			local live_grep = utils.wrap_fn(builtin.live_grep, picker_opts)

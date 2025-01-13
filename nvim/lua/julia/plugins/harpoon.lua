@@ -1,8 +1,7 @@
 local keymap = require('julia.utils').keymap
 
 return {
-	'ThePrimeagen/harpoon',
-	branch = 'harpoon2',
+	name = 'harpoon',
 	config = function()
 		local harpoon = require 'harpoon'
 		harpoon:setup()

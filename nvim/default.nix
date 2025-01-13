@@ -3,17 +3,18 @@
   stdenv,
   neovim,
   wrapPackage,
+  combinePkgs,
   vimPlugins,
   linkFarm,
   ...
 }:
 let
-  mapPlugins =
-    p:
-    map (v: {
-      name = v.pname;
-      path = v;
-    }) p;
+  # mapPlugins =
+  #   p:
+  #   map (v: {
+  #     name = v.pname;
+  #     path = v;
+  #   }) p;
 
   plugins =
     with vimPlugins;
@@ -31,9 +32,11 @@ let
       oil-nvim
       render-markdown-nvim
       noice-nvim
+      nui-nvim
     ]
-    |> mapPlugins
-    |> linkFarm "neovim-plugins";
+    |> combinePkgs "nvim-plugins";
+    # |> mapPlugins
+    # |> linkFarm "neovim-plugins";
 in
 wrapPackage {
   name = "nvim";

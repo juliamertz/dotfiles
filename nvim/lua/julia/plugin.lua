@@ -3,6 +3,8 @@ local utils = require 'julia.utils'
 local plugin_path = vim.env.NVIM_PLUGIN_DIR
 local spec_path = vim.fn.stdpath 'config' .. '/lua/julia/plugins'
 
+print(plugin_path)
+
 ---@class plugin.Spec
 ---@field name string
 ---@field init? function
@@ -16,11 +18,21 @@ end
 
 ---@param keymap table
 local function apply_keymap(keymap)
-	vim.keymap.set(keymap.mode, keymap[1], keymap[2], {
-		desc = keymap.desc or 'no description',
-		noremap = true,
-		silent = true,
-	})
+	local function set_map(mode)
+		vim.keymap.set(mode, keymap[1], keymap[2], {
+			desc = keymap.desc or 'no description',
+			noremap = true,
+			silent = true,
+		})
+	end
+
+	if type(keymap.mode) == 'table' then
+		for _, mode in ipairs(keymap.mode) do
+			set_map(mode)
+		end
+	else
+		set_map(keymap.mode or 'n')
+	end
 end
 
 ---@param spec plugin.Spec
@@ -30,14 +42,17 @@ local function setup_plugin_spec(spec)
 		return
 	end
 
-  if spec.name == nil then
-    vim.notify('missing name in spec: ' .. vim.inspect(spec), vim.log.levels.ERROR)
-    return
-  else
-    print(vim.inspect(spec))
-  end
+	local name = spec.name
+	if name == nil then
+		vim.notify('missing name in spec: ' .. vim.inspect(spec), vim.log.levels.ERROR)
+		return
+	else
+		name = name:gsub('.nvim', '')
+		-- print(vim.inspect(spec))
+	end
 
-	require(spec.name).setup(spec.opts or {})
+	print(name)
+	require(name).setup(spec.opts or {})
 
 	if spec.init then
 		spec.init()
@@ -78,6 +93,7 @@ utils.iter_dir(plugin_path, function(name, type)
 		path = vim.loop.fs_realpath(path) or path
 	end
 
+	print(path)
 	vim.opt.rtp:prepend(path)
 end)
 
@@ -88,3 +104,5 @@ utils.iter_dir(spec_path, function(filename, _)
 end)
 
 setup_specs(require 'julia.plugins.theme')
+
+-- require 'snacks.nvim'
