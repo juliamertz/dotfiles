@@ -28,13 +28,17 @@
     scrolloff = 12;
 
     updatetime = 50;
-    # vim.wo.fillchars = "eob: "; # remove tilde from empty lines
-    # vim.o.cmdheight = 0;
 
     undofile = true;
     undolevels = 1000;
     undoreload = 10000;
   };
+
+  extraConfigLua = # lua
+    ''
+      vim.wo.fillchars = "eob: "; -- remove tilde from empty lines
+      vim.o.cmdheight = 0;
+    '';
 
   # improve lua performance
   luaLoader.enable = true;
