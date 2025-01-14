@@ -29,17 +29,18 @@
     };
   };
 
-  #  TODO:
-  # init = function()
-  # 	vim.api.nvim_create_user_command('UndoTreeToggle', function()
-  # 		require('undotree').toggle()
-  # 	end, {})
-  # end,
+  extraConfigLua = # lua
+    ''
+      vim.api.nvim_create_user_command('UndoTreeToggle', function()
+        require('undotree').toggle()
+      end, {})
+    '';
 
   keymaps = [
     {
       key = "<leader>ut";
       action = ":UndoTreeToggle<CR>";
+      # action.__raw = "require('undotree').toggle()";
       options.desc = "Toggle undotree pane";
     }
   ];
