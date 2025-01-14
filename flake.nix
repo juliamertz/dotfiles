@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     devshell.url = "github:numtide/devshell";
 
+    nixvim.url = "github:nix-community/nixvim";
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
   };
 

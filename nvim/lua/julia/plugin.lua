@@ -1,5 +1,4 @@
 local utils = require 'julia.utils'
-local _path = vim.env.NVIM_PLUGINPATH
 
 local plugin_path = vim.env.NVIM_PLUGINPATH
 local spec_path = vim.fn.stdpath 'config' .. '/lua/julia/plugins'
