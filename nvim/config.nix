@@ -35,7 +35,7 @@
   };
 
   extraConfigLuaPre = builtins.readFile ./config.lua;
-  extraConfigLua = # lua
+  extraConfigLua =
     ''
       vim.wo.fillchars = "eob: "; -- remove tilde from empty lines
       vim.o.cmdheight = 0;

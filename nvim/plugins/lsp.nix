@@ -89,7 +89,7 @@
       };
     };
 
-    # language tailored lsp integrations
+    # language tailored editor integrations
     lazydev.enable = true; # lua
     rustaceanvim.enable = true; # rust
   };

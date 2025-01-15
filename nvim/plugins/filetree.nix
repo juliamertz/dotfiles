@@ -1,7 +1,6 @@
 {
   plugins.nvim-tree = {
     enable = true;
-
     extraOptions = {
       sort_by = "extension";
       view = {
