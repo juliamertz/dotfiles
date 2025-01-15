@@ -55,6 +55,7 @@ let
     atuin
     starship
     jq
+    fzf
     zoxide
   ];
 in
