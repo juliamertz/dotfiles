@@ -14,7 +14,6 @@ keymap('n', '<C-h>', '<C-w>h')
 keymap('n', '<C-j>', '<C-w>j')
 keymap('n', '<C-k>', '<C-w>k')
 keymap('n', '<C-l>', '<C-w>l')
-
 keymap('t', '<esc><esc>', '<c-\\><c-n>')
 
 local function vresize(step)
@@ -24,7 +23,6 @@ end
 keymap('n', '<C-w>>', function()
 	vresize('-' .. vim.o.columns / 10)
 end)
-
 keymap('n', '<C-w><', function()
 	vresize('+' .. vim.o.columns / 10)
 end)

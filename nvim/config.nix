@@ -35,11 +35,10 @@
   };
 
   extraConfigLuaPre = builtins.readFile ./config.lua;
-  extraConfigLua =
-    ''
-      vim.wo.fillchars = "eob: "; -- remove tilde from empty lines
-      vim.o.cmdheight = 0;
-    '';
+  extraConfigLua = ''
+    vim.wo.fillchars = "eob: "; -- remove tilde from empty lines
+    vim.o.cmdheight = 0;
+  '';
 
   # improve lua performance
   luaLoader.enable = true;
@@ -50,4 +49,9 @@
     nvimRuntime = true;
     plugins = true;
   };
+
+  # FIX: this doesn't work
+  # https://nix-community.github.io/nixvim/NeovimOptions/extraFiles/index.html#extrafiles
+  # include custom treesitter queries
+  # extraFiles."queries/go/injections.scm".source = ./queries/go/injections.scm;
 }

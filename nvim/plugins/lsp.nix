@@ -8,7 +8,6 @@
           "gd" = "definition";
           "K" = "hover";
           "<leader>vrn" = "rename";
-          # "<leader>vws".__raw = "require('telescope.builtin').lsp_workspace_symbols, opts)";
         };
       };
 

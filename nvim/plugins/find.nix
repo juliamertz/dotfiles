@@ -14,13 +14,17 @@
         action = "files";
         options.desc = "Find files";
       };
-      "<leader>ht" = {
-        action = "help_tags";
-        options.desc = "Help Pages";
-      };
       "<leader>gs" = {
         action = "live_grep";
-        options.desc = "Live Grep";
+        options.desc = "Live grep";
+      };
+      "<leader>vws" = {
+        action = "lsp_workspace_symbols";
+        options.desc = "Find workspace symbol";
+      };
+      "<leader>ht" = {
+        action = "help_tags";
+        options.desc = "Help pages";
       };
     };
   };
