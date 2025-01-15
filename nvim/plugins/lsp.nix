@@ -21,7 +21,16 @@
         clangd.enable = true;
         denols.enable = true;
         gopls.enable = true;
-        nil_ls.enable = true;
+        nil_ls = {
+          enable = true;
+          settings = {
+            nix = {
+              flake = {
+                autoArchive = true;
+              };
+            };
+          };
+        };
         zls.enable = true;
         volar.enable = true;
         ts_ls.enable = true;

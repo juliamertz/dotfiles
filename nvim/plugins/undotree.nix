@@ -29,12 +29,11 @@
     };
   };
 
-  extraConfigLua = # lua
-    ''
-      vim.api.nvim_create_user_command('UndoTreeToggle', function()
-        require('undotree').toggle()
-      end, {})
-    '';
+  extraConfigLua = ''
+    vim.api.nvim_create_user_command('UndoTreeToggle', function()
+      require('undotree').toggle()
+    end, {})
+  '';
 
   keymaps = [
     {
