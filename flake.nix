@@ -6,6 +6,7 @@
     devshell.url = "github:numtide/devshell";
 
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
   outputs =

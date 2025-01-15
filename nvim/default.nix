@@ -1,24 +1,15 @@
 {
-  ripgrep,
-  dasel,
-  stdenv,
-  neovim,
-  wrapPackage,
+  inputs,
+  system,
+  pkgs,
   ...
 }:
-wrapPackage {
-  name = "nvim";
-  package = neovim;
-  dependencies = [
-    ripgrep
-    stdenv.cc
-    dasel
-  ];
-  extraFlags = "-u ${./.}/init.lua";
-  extraArgs = [
-    "--set XDG_CONFIG_HOME '${../.}'"
-    "--argv0 'nvim'"
-  ];
-  postWrap = # sh
-    "ln -sf $out/bin/nvim $out/bin/vim ";
-}
+let
+  nixvim = inputs.nixvim.legacyPackages.${system};
+  nixvimModule = {
+    inherit pkgs;
+    module = import ./config.nix;
+    extraSpecialArgs = { inherit (pkgs) vimPlugins; };
+  };
+in
+nixvim.makeNixvimWithModule nixvimModule
