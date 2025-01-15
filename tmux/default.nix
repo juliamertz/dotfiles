@@ -1,26 +1,11 @@
 {
-  pkgs,
-  lib,
-  callPackage,
+  tmux,
+  tmuxPlugins,
   wrapPackage,
-  runCommandNoCC,
   writeText,
-  combineDerivations,
   ...
 }:
 let
-  tmux = wrapPackage {
-    name = "tmux";
-    package = pkgs.tmux;
-    extraFlags = "-f ${config}/tmux/tmux.conf";
-    dependencies = with pkgs; [ fzf ];
-  };
-  plugins = callPackage ./plugins.nix { inherit combineDerivations; };
-
-  # scripts
-  sessionizer = callPackage ./sessionizer.nix { };
-
-  # configuration
   tmuxConf =
     writeText "tmux.conf" # sh
       ''
@@ -31,14 +16,12 @@ let
         set -g @sessionx-zoxide-mode 'on'
         set -g prefix ^A
 
-        bind-key -r f run-shell "tmux neww ${lib.getExe sessionizer}"
+        bind-key -r f run-shell "tmux neww ${../scripts/tmux-sessionizer}"
 
         # Plugins
-        set -g @plugin 'tmux-plugins/tpm'
-        set -g @plugin 'tmux-plugins/tmux-sensible'
-        set -g @plugin 'tmux-plugins/tmux-yank'
-        set -g @plugin 'sainnhe/tmux-fzf'
-        set -g @plugin 'rose-pine/tmux'
+        source ${tmuxPlugins.sensible}/share/tmux-plugins/sensible/sensible.tmux
+        source ${tmuxPlugins.yank}/share/tmux-plugins/yank/yank.tmux
+        source ${tmuxPlugins.rose-pine}/share/tmux-plugins/rose-pine/rose-pine.tmux
 
         # Theme
         set -g @rose_pine_variant 'moon'
@@ -46,22 +29,10 @@ let
         set -g @rose_pine_bar_bg_disabled_color_option 'default'
         set -g status-bg default
         set -g status-style bg=default
-
-        set-environment -g TMUX_PLUGIN_MANAGER_PATH '${plugins.combined}'
-        run '${plugins.tpm}/tpm'
-
-        set-environment -g XDG_CONFIG_HOME "$HOME/.config"
-      '';
-
-  config =
-    runCommandNoCC "tmux-conf" { } # sh
-      ''
-        mkdir -p $out/tmux
-        cp -r ${tmuxConf} $out/tmux/tmux.conf
-        cp -r ${./tmux.reset.conf} $out/tmux
-
-        mkdir $out/tmux/plugins
-        cp -r ${plugins.combined}/* $out/tmux/plugins
       '';
 in
-tmux
+wrapPackage {
+  name = "tmux";
+  package = tmux;
+  extraFlags = "-f ${tmuxConf}";
+}
