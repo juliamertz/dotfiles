@@ -1,67 +1,47 @@
 {
-  pkgs,
-  lib,
-  callPackage,
+  tmux,
+  tmuxPlugins,
   wrapPackage,
   runCommandNoCC,
   writeText,
-  combineDerivations,
   ...
 }:
 let
-  tmux = wrapPackage {
-    name = "tmux";
-    package = pkgs.tmux;
-    extraFlags = "-f ${config}/tmux/tmux.conf";
-    dependencies = with pkgs; [ fzf ];
-  };
-  plugins = callPackage ./plugins.nix { inherit combineDerivations; };
-
-  # scripts
-  sessionizer = callPackage ./sessionizer.nix { };
-
-  # configuration
+  sourcePlugin = p: "run-shell ${p}/share/tmux-plugins/${p.pluginName}/${p.pluginName}.tmux";
   tmuxConf =
     writeText "tmux.conf" # sh
       ''
         source-file ${./tmux.reset.conf}
 
         set -g default-shell /run/current-system/sw/bin/zsh
-
         set -g @sessionx-zoxide-mode 'on'
         set -g prefix ^A
 
-        bind-key -r f run-shell "tmux neww ${lib.getExe sessionizer}"
+        bind-key -r f run-shell "tmux neww ${../scripts/tmux-sessionizer}"
 
-        # Plugins
-        set -g @plugin 'tmux-plugins/tpm'
-        set -g @plugin 'tmux-plugins/tmux-sensible'
-        set -g @plugin 'tmux-plugins/tmux-yank'
-        set -g @plugin 'sainnhe/tmux-fzf'
-        set -g @plugin 'rose-pine/tmux'
-
-        # Theme
         set -g @rose_pine_variant 'moon'
         set -g @rose_pine_bar_bg_disable 'on'
         set -g @rose_pine_bar_bg_disabled_color_option 'default'
         set -g status-bg default
         set -g status-style bg=default
 
-        set-environment -g TMUX_PLUGIN_MANAGER_PATH '${plugins.combined}'
-        run '${plugins.tpm}/tpm'
+        ${sourcePlugin tmuxPlugins.sensible}
+        ${sourcePlugin tmuxPlugins.yank}
+        ${sourcePlugin tmuxPlugins.rose-pine}
 
         set-environment -g XDG_CONFIG_HOME "$HOME/.config"
       '';
 
-  config =
-    runCommandNoCC "tmux-conf" { } # sh
-      ''
-        mkdir -p $out/tmux
-        cp -r ${tmuxConf} $out/tmux/tmux.conf
-        cp -r ${./tmux.reset.conf} $out/tmux
-
-        mkdir $out/tmux/plugins
-        cp -r ${plugins.combined}/* $out/tmux/plugins
-      '';
+  config = runCommandNoCC "tmux-conf" { } ''
+    mkdir -p $out/tmux
+    cp -r ${tmuxConf} $out/tmux/tmux.conf
+  '';
 in
-tmux
+wrapPackage {
+  name = "tmux";
+  package = tmux;
+  # If config home isn't set to the config most plugins won't work
+  # this should overriden back to the users home after initializaiton
+  extraArgs = "--set XDG_CONFIG_HOME '${config}'";
+  extraFlags = "-f ${config}/tmux/tmux.conf";
+}
