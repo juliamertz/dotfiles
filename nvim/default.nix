@@ -1,5 +1,4 @@
 {
-  vimPlugins,
   inputs,
   system,
   pkgs,
@@ -10,7 +9,7 @@ let
   nixvimModule = {
     inherit pkgs;
     module = import ./config.nix;
-    extraSpecialArgs = { inherit vimPlugins; };
+    extraSpecialArgs = { inherit (pkgs) vimPlugins; };
   };
 in
 nixvim.makeNixvimWithModule nixvimModule

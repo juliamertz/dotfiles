@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ vimPlugins, ... }:
 {
   plugins.harpoon = {
     enable = true;
-    package = pkgs.vimPlugins.harpoon2;
+    package = vimPlugins.harpoon2;
   };
 
   extraConfigLua = # lua
