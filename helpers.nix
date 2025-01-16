@@ -4,8 +4,15 @@
   symlinkJoin,
   runCommandNoCC,
   makeWrapper,
+  inputs,
 }:
-{
+rec {
+  mkProgram =
+    path:
+    pkgs.callPackage path {
+      inherit inputs wrapPackage combineDerivations;
+    };
+
   combineDerivations =
     name: derivations:
     let
@@ -48,5 +55,4 @@
 
       meta.mainProgram = cfg.name;
     };
-
 }

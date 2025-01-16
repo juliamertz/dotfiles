@@ -5,16 +5,16 @@ this is my workflow described and exported from one single repo through the powe
 ## Running with nix
 
 if you want to try a specific program all you need is the [nix](https://nixos.org/) package manager or [nix-portable](https://github.com/DavHau/nix-portable) if you can't / don't want to install nix.
-for a full list of exported programs you can run have a look in [flake.nix](./flake.nix). 
+for a full list of exported programs you can run, have a look in [flake.nix](./flake.nix). 
 
-```bash
+```sh
 # run neovim config without installing
 nix run github:juliamertz/dotfiles#neovim
 ```
 
-to get a full fledged dev-environment with tmux, neovim, lazygit and a terminal emulator:
+to enter a full fledged development environment with tmux, neovim, lazygit and a terminal emulator:
 
-```bash
+```sh
 nix develop github:juliamertz/dotfiles#minimal
 ```
 
