@@ -28,12 +28,14 @@ keymap('n', '<C-w><', function()
 end)
 
 -- I often type too fast...
-vim.cmd 'cnoreabbrev W w'
-vim.cmd 'cnoreabbrev Wa wa'
-vim.cmd 'cnoreabbrev Wq wq'
-vim.cmd 'cnoreabbrev Wqa wqa'
-vim.cmd 'cnoreabbrev Q q'
-vim.cmd 'cnoreabbrev Qa qa'
+vim.cmd [[
+  cnoreabbrev W w
+  cnoreabbrev Wa wa
+  cnoreabbrev Wq wq
+  cnoreabbrev Wqa wqa
+  cnoreabbrev Q q
+  cnoreabbrev Qa qa
+]]
 
 -- Disable semantic lsp highlighting (which breaks treesitter highlights)
 for _, group in ipairs(vim.fn.getcompletion('@lsp', 'highlight')) do
