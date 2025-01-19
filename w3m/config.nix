@@ -221,7 +221,7 @@ writeText "config" # sh
   preserve_timestamp 1
 
   # keymap file
-  # keymap_file ${callPackage ./keymap.nix {}}
+  keymap_file ${callPackage ./keymap.nix {}}
 
   # =============================
   # DIRECTORY SETTINGS
