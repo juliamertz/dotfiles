@@ -82,13 +82,14 @@
           enabled = true;
           window.border = "rounded";
         };
+
+        # snippets = { preset = "luasnip"; };
         sources = {
           default = [
             "lsp"
             "buffer"
-            "luasnip"
-            "path"
             "snippets"
+            "path"
           ];
           providers = {
             lsp.score_offset = 4;
