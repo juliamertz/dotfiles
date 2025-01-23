@@ -10,7 +10,7 @@
 }:
 let
   sourcePlugin = p: "run-shell ${p}/share/tmux-plugins/${p.pluginName}/${p.pluginName}.tmux";
-  tmuxSessionizer = callPackage ../scripts/tmux-sessionizer.nix { } |> lib.getExe;
+  tmuxSessionizer = lib.getExe (callPackage ../scripts/tmux-sessionizer.nix { });
 
   tmuxConf =
     writeText "tmux.conf" # sh

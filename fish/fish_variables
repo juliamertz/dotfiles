@@ -1,8 +1,0 @@
-# This file contains fish universal variable definitions.
-# VERSION: 3.0
-SETUVAR __fish_initialized:3400
-SETUVAR fish_color_cwd_root:red
-SETUVAR fish_color_history_current:\x2d\x2dbold
-SETUVAR fish_color_status:red
-SETUVAR fish_greeting:
-SETUVAR fish_user_paths:/home/julia/\x2ecargo/bin

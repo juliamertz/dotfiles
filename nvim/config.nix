@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  imports = builtins.readDir ./plugins |> lib.mapAttrsToList (name: _: ./plugins + "/${name}");
+  imports = lib.mapAttrsToList (name: _: ./plugins + "/${name}") (builtins.readDir ./plugins);
 
   vimAlias = true;
   globals = {

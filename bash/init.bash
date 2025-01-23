@@ -1,12 +1,14 @@
+#!/usr/bin/env bash
+
 export PLUGINDIR=${PLUGINDIR:-$HOME/.local/share/zsh/plugins}
 export DIR=$DOTDIR
 export KERNEL=$(uname -s)
 
-source $DIR/tools.bash # Helpers functions such as add_path, try_hook, plugin etc..
+source "$DIR/tools.bash" # Helpers functions such as add_path, try_hook, plugin etc..
 
-add_path $RUNTIMEDEPS
-add_path $HOME/.cargo/bin
-add_path $HOME/.local/bin
+add_path "$RUNTIMEDEPS"
+add_path "$HOME/.cargo/bin"
+add_path "$HOME/.local/bin"
 
 try_hook fzf --bash
 try_hook starship init bash
@@ -16,7 +18,7 @@ try_hook atuin init bash --disable-up-arrow
 [[ $KERNEL == "Darwin" ]] && try_hook /opt/homebrew/bin/brew shellenv
 
 # Plugins
-source $(bash $RUNTIMEDEPS/blesh-share)/ble.sh # bash line editor
+source "$(bash "$RUNTIMEDEPS"/blesh-share)/ble.sh" # bash line editor
 
 # Aliases
 alias cat='bat -pp'

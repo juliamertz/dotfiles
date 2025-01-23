@@ -2,9 +2,8 @@
 {
   plugins.treesitter = {
     enable = true;
-    # grammarPackages = config.plugins.treesitter.package.passthru.allGrammars;
     grammarPackages = with vimPlugins.nvim-treesitter.builtGrammars; [
-      # programming language
+      # programming languages
       lua
       nix
       zig
