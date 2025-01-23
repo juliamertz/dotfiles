@@ -10,6 +10,7 @@ let
   package = inputs.spotify-player.packages.${pkgs.system}.default;
   overlay = package.overrideAttrs (_: {
     buildNoDefaultFeatures = true;
+    meta.mainProgram = "spotify_player";
     cargoBuildFeatures =
       [
         "image"
@@ -26,7 +27,6 @@ let
 in
 wrapPackage {
   package = overlay;
-  name = "spotify_player";
   extraFlags = "--config-folder ${./.}";
   postWrap = # sh
     ''

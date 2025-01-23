@@ -59,7 +59,6 @@ let
   ];
 in
 wrapPackage {
-  name = "bash";
   package = pkgs.bashInteractive;
   extraArgs = [
     "--set DOTDIR '${./.}'"

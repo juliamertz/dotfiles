@@ -29,11 +29,12 @@
             wezterm = ./wezterm;
             kitty = ./kitty;
             alacritty = ./alacritty;
-            rofi = ./rofi;
+            # rofi = ./rofi;
             zsh = ./zsh;
             bash = ./bash;
             w3m = ./w3m;
             eww = ./eww;
+            btop = ./btop;
             zathura = ./zathura;
           };
 

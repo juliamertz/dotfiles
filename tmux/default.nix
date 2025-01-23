@@ -42,7 +42,6 @@ let
   '';
 in
 wrapPackage {
-  name = "tmux";
   package = tmux;
   # If config home isn't set to the config most plugins won't work
   # this should overriden back to the users home after initializaiton

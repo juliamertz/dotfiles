@@ -4,21 +4,29 @@
     enable = true;
     # grammarPackages = config.plugins.treesitter.package.passthru.allGrammars;
     grammarPackages = with vimPlugins.nvim-treesitter.builtGrammars; [
-      bash
-      json
+      # programming language
       lua
-      make
-      markdown
       nix
-      regex
-      toml
-      vimdoc
-      xml
-      yaml
       zig
       rust
+      go
       javascript
+      typescript
       python
+
+      # config formats
+      json
+      xml
+      toml
+      yaml
+
+      # scripting
+      bash
+      make
+      regex
+
+      markdown
+      vimdoc
     ];
 
     nixvimInjections = true;

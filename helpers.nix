@@ -39,16 +39,17 @@ rec {
         } args
       );
 
+      inherit (cfg.package.meta)mainProgram;
       join = value: if builtins.isList value then lib.concatStringsSep " " value else value;
     in
     symlinkJoin {
-      inherit (cfg) name;
+      name = mainProgram;
       paths = [ cfg.package ] ++ cfg.dependencies;
       buildInputs = [ makeWrapper ];
 
       postBuild = ''
         ${cfg.preWrap}
-        wrapProgram $out/bin/${cfg.name} \
+        wrapProgram $out/bin/${mainProgram} \
           --add-flags "${join cfg.extraFlags}" ${join cfg.extraArgs}
         ${cfg.postWrap}
       '';
