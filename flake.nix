@@ -34,6 +34,7 @@
             bash = ./bash;
             w3m = ./w3m;
             eww = ./eww;
+            zathura = ./zathura;
           };
 
           devShells = import ./shells.nix {
