@@ -62,7 +62,7 @@ rec {
         ${cfg.postWrap}
       '';
 
-      inherit (cfg.package) meta;
+      meta.mainProgram = mainProgram;
     };
 
   # Filter out default.nix and non-.nix files
