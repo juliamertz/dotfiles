@@ -4,24 +4,22 @@
   wrapPackage,
   runCommandNoCC,
   writeText,
-  callPackage,
-  lib,
+  packages,
   ...
 }:
 let
   sourcePlugin = p: "run-shell ${p}/share/tmux-plugins/${p.pluginName}/${p.pluginName}.tmux";
-  tmuxSessionizer = lib.getExe (callPackage ../scripts/tmux-sessionizer.nix { });
 
   tmuxConf =
     writeText "tmux.conf" # sh
       ''
         source-file ${./tmux.reset.conf}
 
-        set -g default-shell /run/current-system/sw/bin/zsh
+        set -g default-shell ${packages.zsh}/bin/zsh
         set -g @sessionx-zoxide-mode 'on'
         set -g prefix ^A
 
-        bind-key -r f run-shell "tmux neww ${tmuxSessionizer}"
+        bind-key -r f run-shell "tmux neww ${packages.scripts}/bin/sessionizer"
 
         set -g @rose_pine_variant 'moon'
         set -g @rose_pine_bar_bg_disable 'on'

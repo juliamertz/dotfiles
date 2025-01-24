@@ -5,6 +5,7 @@
   runCommandNoCC,
   makeWrapper,
   inputs,
+  packages,
 }:
 rec {
   mkProgram =
@@ -16,6 +17,7 @@ rec {
         combineDerivations
         readNixFiles
         mkImports
+        packages
         ;
     };
 

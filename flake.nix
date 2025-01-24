@@ -17,8 +17,18 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = nixpkgs.lib.systems.flakeExposed;
       perSystem =
-        { pkgs, lib, ... }:
-        let helpers = pkgs.callPackage ./helpers.nix { inherit inputs; }; in
+        {
+          pkgs,
+          lib,
+          config,
+          ...
+        }:
+        let
+          helpers = pkgs.callPackage ./helpers.nix {
+            inherit inputs;
+            inherit (config) packages;
+          };
+        in
         rec {
           packages = lib.mapAttrs (_: p: helpers.mkProgram p) {
             neovim = ./nvim;
