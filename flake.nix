@@ -36,6 +36,8 @@
             eww = ./eww;
             btop = ./btop;
             zathura = ./zathura;
+
+            scripts = ./scripts;
           };
 
           devShells = import ./shells.nix {

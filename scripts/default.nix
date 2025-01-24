@@ -1,12 +1,14 @@
-{ pkgs }:
+{
+  readNixFiles,
+  symlinkJoin,
+  callPackage,
+  ...
+}:
 let
-  inherit (pkgs) lib;
+  scripts = map (name: ./. + "/${name}") (readNixFiles ./.);
+  packages = (map (p: callPackage p { }) scripts);
 in
-lib.mapAttrs (_: path: pkgs.callPackage path { }) {
-  comma = ./comma.nix;
-  wake = ./wake.nix;
-  deref = ./deref.nix;
-  steamgame = ./steamgame.nix;
-  dev = ./dev.nix;
-  fishies = ./fishies.nix;
+symlinkJoin {
+  name = "scripts";
+  paths = packages;
 }

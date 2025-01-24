@@ -10,7 +10,13 @@ rec {
   mkProgram =
     path:
     pkgs.callPackage path {
-      inherit inputs wrapPackage combineDerivations;
+      inherit
+        inputs
+        wrapPackage
+        combineDerivations
+        readNixFiles
+        mkImports
+        ;
     };
 
   combineDerivations =
@@ -39,7 +45,7 @@ rec {
         } args
       );
 
-      inherit (cfg.package.meta)mainProgram;
+      inherit (cfg.package.meta) mainProgram;
       join = value: if builtins.isList value then lib.concatStringsSep " " value else value;
     in
     symlinkJoin {
@@ -54,6 +60,17 @@ rec {
         ${cfg.postWrap}
       '';
 
-      meta.mainProgram = cfg.name;
+      inherit (cfg.package) meta;
     };
+
+  # Filter out default.nix and non-.nix files
+  readNixFiles =
+    path:
+    let
+      isNix = name: name != "default.nix" && builtins.match ".*\\.nix" name != null;
+      files = builtins.readDir path;
+    in
+    builtins.filter isNix (builtins.attrNames files);
+
+  mkImports = path: files: map (name: path + "/${name}") files;
 }

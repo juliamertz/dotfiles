@@ -2,7 +2,7 @@
 writeShellScriptBin "hass" ''
   #!/usr/bin/env bash
 
-  BASE_URL=${BASE_URL: -"192.168.0.100:8123"}
+  BASE_URL=''${BASE_URL: -"192.168.0.100:8123"}
 
   if [[ ! -v HASS_TOKEN ]] && [[ ! -f /run/secrets/hass_token ]]; then
     echo HASS_TOKEN not provided
