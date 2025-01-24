@@ -49,21 +49,24 @@ let
       })
     ];
 
-  runtimeDependencies = with pkgs; [
-    bat
-    bat-extras.batman
-    atuin
-    starship
-    jq
-    fzf
-    zoxide
-  ];
+  runtimeDependencies =
+    with pkgs;
+    [
+      bat
+      bat-extras.batman
+      atuin
+      starship
+      jq
+      fzf
+      zoxide
+    ];
+    config = pkgs.callPackage ./config.nix {};
 in
 wrapPackage {
   name = "zsh";
   package = pkgs.zsh;
   extraArgs = [
-    "--set ZDOTDIR '${./.}'"
+    "--set ZDOTDIR '${config}'"
     "--set ZRUNTIMEDEPS '${mkDeps runtimeDependencies}/bin'"
     "--set ZPLUGINDIR '${pluginPackages}'"
     "--set ATUIN_CONFIG_DIR '${../atuin}'"
