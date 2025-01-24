@@ -60,6 +60,7 @@ let
 in
 wrapPackage {
   package = pkgs.bashInteractive;
+  extraFlags = "--rcfile ${./init.bash}";
   extraArgs = [
     "--set DOTDIR '${./.}'"
     "--set RUNTIMEDEPS '${mkDeps runtimeDependencies}/bin'"
