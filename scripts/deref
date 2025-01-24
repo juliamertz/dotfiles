@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+if test -h "$1"; then
+  target=$(readlink -f "$1")
+  cp -vr "$target" "$1" && rm -v "$1"
+fi
