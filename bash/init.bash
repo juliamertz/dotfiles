@@ -37,11 +37,11 @@ alias sqlite='litecli'
 
 # Linux specific aliases
 if [[ $KERNEL == "Linux" ]]; then
-  alias open='xdg-open'
-  alias sctl='sudo systemctl'
+	alias open='xdg-open'
+	alias sctl='sudo systemctl'
 fi
 
 # Use Neovim as manpager when available
-if command -v nvim > /dev/null; then
-  export MANPAGER='nvim +Man!'
+if command -v nvim >/dev/null; then
+	export MANPAGER='nvim +Man!'
 fi

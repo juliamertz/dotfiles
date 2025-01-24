@@ -7,42 +7,42 @@ function add_path {
 
 # Evaluate shell hook if it's in PATH
 function try_hook {
-  if [[ -f $(which $1) ]]; then 
-    eval "$($@)" 
-  fi
+	if [[ -f $(which $1) ]]; then
+		eval "$($@)"
+	fi
 }
 
 # Checks if ZPLUGINDIR is set
 # It will check if the plugin directory is missing and then clone it
 # Then it sources the plugins entrypoint
 function plugin {
-  local owner=$1
-  local repo=$2
+	local owner=$1
+	local repo=$2
 
-  if [[ ! -v PLUGINDIR ]]; then
-    echo "Error `plugin` function called without 'PLUGINDIR' variable set"
-    exit 1
-  fi
+	if [[ ! -v PLUGINDIR ]]; then
+		echo "Error $(plugin) function called without 'PLUGINDIR' variable set"
+		exit 1
+	fi
 
-  local entry_file=$ZPLUGINDIR/$repo/$repo.plugin.zsh
+	local entry_file=$ZPLUGINDIR/$repo/$repo.plugin.zsh
 
-  if [[ $PLUGINDIR == /nix/store/* ]]; then
-    source $entry_file
-    return 
-  fi
+	if [[ $PLUGINDIR == /nix/store/* ]]; then
+		source $entry_file
+		return
+	fi
 
-  if [[ ! -d $PLUGINDIR/$repo ]]; then
-    if [[ ! -d $PLUGINDIR ]]; then
-      mkdir -vp $PLUGINDIR
-    fi
-    git clone https://github.com/$owner/$repo $ZPLUGINDIR/$repo
-  fi
+	if [[ ! -d $PLUGINDIR/$repo ]]; then
+		if [[ ! -d $PLUGINDIR ]]; then
+			mkdir -vp $PLUGINDIR
+		fi
+		git clone https://github.com/$owner/$repo $ZPLUGINDIR/$repo
+	fi
 
-  if [[ ! -f $entry_file ]]; then
-    echo Warning plugin $repo is missing an entry file
-  fi
+	if [[ ! -f $entry_file ]]; then
+		echo Warning plugin $repo is missing an entry file
+	fi
 
-  source $entry_file
+	source $entry_file
 }
 
 function ansi_color_escape() {
@@ -51,22 +51,21 @@ function ansi_color_escape() {
 
 function ansi_color_code() {
 	case "$1" in
-    "black") echo 30;;
-    "brblack") echo 90;;
-    "red") echo 31;;
-    "green") echo 32;;
-    "yellow") echo 33;;
-    "blue") echo 34;;
-    "magenta") echo 35;;
-    "cyan") echo 36;;
-    "white") echo 37;;
-    "default") echo 39;;
-    "reset") echo 0;;
-    *) ;;
+	"black") echo 30 ;;
+	"brblack") echo 90 ;;
+	"red") echo 31 ;;
+	"green") echo 32 ;;
+	"yellow") echo 33 ;;
+	"blue") echo 34 ;;
+	"magenta") echo 35 ;;
+	"cyan") echo 36 ;;
+	"white") echo 37 ;;
+	"default") echo 39 ;;
+	"reset") echo 0 ;;
+	*) ;;
 	esac
 }
 
 function clr() {
-  ansi_color_escape $(ansi_color_code $1)
+	ansi_color_escape $(ansi_color_code $1)
 }
-

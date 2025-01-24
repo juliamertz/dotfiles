@@ -5,7 +5,7 @@ this is my workflow described and exported from one single repo through the powe
 ## Running with nix
 
 if you want to try a specific program all you need is the [nix](https://nixos.org/) package manager or [nix-portable](https://github.com/DavHau/nix-portable) if you can't / don't want to install nix.
-for a full list of exported programs you can run, have a look in [flake.nix](./flake.nix). 
+for a full list of exported programs you can run, have a look in [flake.nix](./flake.nix).
 
 ```sh
 # run neovim config without installing
@@ -41,7 +41,7 @@ Then you can add these programs to your environment like this
 
 ```nix
 { inputs, pkgs, ... }:
-let 
+let
   dotfiles = inputs.dotfiles.packages.${pkgs.system};
 in
 {
@@ -66,5 +66,3 @@ these can simply be accessed like this, it's up to you how this is included in y
   };
 }
 ```
-
-

@@ -10,7 +10,10 @@ let
     name: path: screen:
     writeShellApplication {
       name = "widget";
-      runtimeInputs = with pkgs; [ jq socat ];
+      runtimeInputs = with pkgs; [
+        jq
+        socat
+      ];
       text = ''
         ${lib.getExe eww} --config ${path} open ${name} --screen ${builtins.toString screen}
       '';

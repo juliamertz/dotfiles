@@ -7,7 +7,7 @@ $character"""
 
 # Spacing in between prompt parts
 [fill]
-symbol =" "
+symbol = " "
 
 [character]
 success_symbol = "[;](purple)"
@@ -28,7 +28,7 @@ disabled = false
 
 [git_branch]
 format = " [$symbol$branch](green) "
-symbol = "" # 
+symbol = ""                          # 
 
 [nix_shell]
 symbol = ''
