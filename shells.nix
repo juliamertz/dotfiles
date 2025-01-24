@@ -30,6 +30,7 @@ in
       let
         format = writeShellScriptBin "format" ''
           ${lib.getExe nixfmt-rfc-style} ./**/*.nix
+          ${lib.getExe nodePackages.prettier} -w **/*.md
           ${lib.getExe shfmt} -w .
           ${lib.getExe taplo} format ./**/*.toml
           ${lib.getExe stylua} . \
