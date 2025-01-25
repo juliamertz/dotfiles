@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-#!nix-shell -i sh -p fzf
 
 if test $# -eq 1; then
   selected=$1

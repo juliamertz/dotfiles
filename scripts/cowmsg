@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-#!nix-shell -i sh -p cowsay fortune
-
-# this script is just here to test if shebang2nix is working correctly
-
-cowsay "$(fortune)"
