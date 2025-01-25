@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-url="https://lite.duckduckgo.com/lite?kd=-1&kp=-1&q=$(urlencode "$*")"
-exec "$SCRIPTS/browse" "$url"
