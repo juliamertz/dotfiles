@@ -25,13 +25,9 @@ let
       keymap u PREV_PAGE
       keymap zz CENTER_V
       ########## cursor ##########
-      #keymap l MOVE_RIGHT
       keymap l NEXT_TAB
-      #keymap h MOVE_LEFT
       keymap h PREV_TAB
-      #keymap j MOVE_DOWN1
       keymap j UP
-      #keymap k MOVE_UP1
       keymap k DOWN
       keymap RIGHT MOVE_RIGHT
       keymap LEFT MOVE_LEFT
@@ -64,7 +60,7 @@ let
       # jump
       keymap ESC-C-j SUBMIT
       keymap C-] TAB_LINK
-      keymap C-j GOTO_LINK
+      keymap C-y GOTO_LINK
 
       ########## info ##########
       keymap y PEEK

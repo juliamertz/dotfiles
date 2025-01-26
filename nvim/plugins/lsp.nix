@@ -19,7 +19,6 @@
         lua_ls.enable = true;
         clangd.enable = true;
         denols.enable = true;
-        gopls.enable = true;
         zls.enable = true;
         volar.enable = true;
         ts_ls.enable = true;
@@ -90,6 +89,5 @@
 
     # language tailored editor integrations
     lazydev.enable = true; # lua
-    rustaceanvim.enable = true; # rust
   };
 }

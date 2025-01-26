@@ -1,6 +1,13 @@
 { lib, ... }:
+let
+plugins = lib.mapAttrsToList (name: _: ./plugins + "/${name}") (builtins.readDir ./plugins);
+in
 {
-  imports = lib.mapAttrsToList (name: _: ./plugins + "/${name}") (builtins.readDir ./plugins);
+  imports = plugins ++ [
+    ./languages/nix.nix
+    ./languages/rust.nix
+    ./languages/go.nix
+  ];
 
   vimAlias = true;
   globals = {
