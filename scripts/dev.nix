@@ -13,7 +13,7 @@ mkScript "dev"
       exit 0
     fi
 
-    profile=''${"1:-" "default"}
+    profile=''${1:-"default"}
     flake=$(find_first flake.nix)
     if test -f "$flake"; then
       nix develop "$(dirname "$flake")#$profile" -c "$SHELL"

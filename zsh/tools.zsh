@@ -7,7 +7,7 @@ function add_path {
 
 # Evaluate shell hook if it's in PATH
 function try_hook {
-	if [[ -f $(which $1) ]]; then
+  if command -v "$1" >/dev/null; then
 		eval "$($@)"
 	fi
 }

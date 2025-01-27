@@ -3,7 +3,7 @@ mkScript "hass"
 <|
   # sh
   ''
-    BASE_URL=''${BASE_URL: -"192.168.0.100:8123"}
+    BASE_URL=''${BASE_URL:-"192.168.0.100:8123"}
 
     if test ! -v HASS_TOKEN  && test ! -f /run/secrets/hass_token; then
       echo HASS_TOKEN not provided
