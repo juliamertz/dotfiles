@@ -22,12 +22,12 @@ format = "[took $duration](bright-black)"
 [directory]
 style = "blue"
 truncate_to_repo = false
-format = "[$path]($style)[$read_only]($read_only_style)"
+format = "[$path]($style)[$read_only]($read_only_style) "
 disabled = false
 
 
 [git_branch]
-format = " [$symbol$branch](green) "
+format = "[$symbol$branch](green) "
 symbol = ""                          # 
 
 [nix_shell]
