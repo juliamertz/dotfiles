@@ -20,17 +20,19 @@ function plugin {
 	local repo=$(echo $1 | cut -d'/' -f2)
 
 	if [[ ! -v ZPLUGINDIR ]]; then
-		echo "Error $(plugin) function called without 'ZPLUGINDIR' variable set"
+		echo "Error 'plugin' function called without 'ZPLUGINDIR' variable set"
 		exit 1
 	fi
 
 	local entry_file=$ZPLUGINDIR/$repo/$repo.plugin.zsh
 
+  # Attempt to directly source plugin if it's located in the nix store
 	if [[ $ZPLUGINDIR == /nix/store/* ]]; then
 		source $entry_file
 		return
 	fi
 
+  # Clone repo if it doesn't exist yet
 	if [[ ! -d $ZPLUGINDIR/$repo ]]; then
 		if [[ ! -d $ZPLUGINDIR ]]; then
 			mkdir -vp $ZPLUGINDIR
@@ -38,11 +40,13 @@ function plugin {
 		git clone https://github.com/$owner/$repo $ZPLUGINDIR/$repo
 	fi
 
+  # Attempt to source entry point
 	if [[ ! -f $entry_file ]]; then
 		echo Warning plugin $repo is missing an entry file
+  else
+    source $entry_file
 	fi
 
-	source $entry_file
 }
 
 function ansi_color_escape() {

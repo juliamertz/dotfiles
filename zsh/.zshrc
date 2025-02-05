@@ -2,18 +2,24 @@ autoload -Uz compinit && compinit
 
 export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 export ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.local/share/zsh/plugins}
-export ZDIR=$ZDOTDIR
-export KERNEL=$(uname -s)
+
 export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
+export XDG_DATA_HOME=~/.local/share
+export XDG_STATE_HOME=~/.local/state
+
+export KERNEL=$(uname -s)
+export SHELL="$0"
 export BROWSER="firefox"
+export EDITOR="nvim"
 
-source $ZDIR/tools.zsh
+source $ZDOTDIR/tools.zsh
 
-# Add to PATH
+# Append to $PATH
 add_path $HOME/.cargo/bin
 add_path $HOME/.local/bin
 add_path $ZRUNTIMEDEPS
+add_path /run/current-system/sw/bin
 
 # Initialize plugins
 plugin jeffreytse/zsh-vi-mode
@@ -62,4 +68,4 @@ if command -v nvim > /dev/null; then
 fi
 
 # Initialize prompt
-source $ZDIR/prompt.zsh
+source $ZDOTDIR/prompt.zsh
