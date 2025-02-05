@@ -2,12 +2,8 @@
 add_newline = false
 
 format = """
-$directory$git_branch$git_status$cmd_duration$fill$nix_shell${custom.context}$time
+$directory$git_branch$git_status$cmd_duration$nix_shell${custom.context}$time
 $character"""
-
-# Spacing in between prompt parts
-[fill]
-symbol = " "
 
 [character]
 success_symbol = "[;](purple)"
