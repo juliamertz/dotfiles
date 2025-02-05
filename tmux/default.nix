@@ -10,12 +10,15 @@
 let
   sourcePlugin = p: "run-shell ${p}/share/tmux-plugins/${p.pluginName}/${p.pluginName}.tmux";
 
+  shell = "${packages.zsh}/bin/zsh";
   tmuxConf =
     writeText "tmux.conf" # sh
       ''
         source-file ${./tmux.reset.conf}
 
-        set -g default-shell ${packages.zsh}/bin/zsh
+        set -g default-shell ${shell}
+        set -g default-command ${shell}
+
         set -g @sessionx-zoxide-mode 'on'
         set -g prefix ^A
 
