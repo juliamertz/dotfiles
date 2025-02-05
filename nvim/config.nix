@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-plugins = lib.mapAttrsToList (name: _: ./plugins + "/${name}") (builtins.readDir ./plugins);
+  plugins = lib.mapAttrsToList (name: _: ./plugins + "/${name}") (builtins.readDir ./plugins);
 in
 {
   imports = plugins ++ [

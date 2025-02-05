@@ -1,5 +1,8 @@
 { mkScript, ... }:
-mkScript [ "wake" "wol" ]
+mkScript [
+  "wake"
+  "wol"
+]
 <|
   # sh
   ''

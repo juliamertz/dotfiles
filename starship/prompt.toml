@@ -28,7 +28,7 @@ disabled = false
 
 [git_branch]
 format = "[$symbol$branch](green) "
-symbol = ""                          # 
+symbol = ""                         # 
 
 [nix_shell]
 symbol = ''

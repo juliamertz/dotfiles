@@ -1,5 +1,14 @@
-{ mkScript, packages, lib, urlencode, ... }:
-mkScript [ "browse" "duck" ]
+{
+  mkScript,
+  packages,
+  lib,
+  urlencode,
+  ...
+}:
+mkScript [
+  "browse"
+  "duck"
+]
 <|
   # sh
   ''

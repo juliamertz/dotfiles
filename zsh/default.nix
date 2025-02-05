@@ -67,6 +67,6 @@ wrapPackage {
     "--set ZRUNTIMEDEPS '${mkDeps runtimeDependencies}/bin'"
     "--set ZPLUGINDIR '${pluginPackages}'"
     "--set ATUIN_CONFIG_DIR '${../atuin}'"
-    "--set STARSHIP_CONFIG ${../starship/prompt.toml}"
+    "--set STARSHIP_CONFIG '${../starship/prompt.toml}'"
   ];
 }

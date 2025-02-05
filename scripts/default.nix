@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   runCommandNoCC,
   writeShellScriptBin,
@@ -10,15 +9,6 @@
   ...
 }:
 let
-  dependencies = lib.makeBinPath (
-    with pkgs;
-    [
-      fzf # tmux sessionizer script
-      urlencode # used by browse scripts
-      wakeonlan
-    ]
-  );
-
   mkScript =
     names: content:
     if builtins.isList names then
@@ -54,18 +44,3 @@ symlinkJoin {
   name = "scripts";
   paths = scripts;
 }
-
-# runCommandNoCC "scripts" { nativeBuildInputs = [ makeWrapper ]; } ''
-#   mkdir -p $out/bin
-#
-#   for file in ${./.}/*; do
-#     if [[ -x "$file" ]]; then
-#       outfile=$out/bin/$(basename $file)
-#
-#       cp $file $outfile
-#       wrapProgram $outfile \
-#         --prefix PATH : "${dependencies}" \
-#         --set SCRIPTS "$out/bin"
-#     fi
-#   done
-# ''
