@@ -35,7 +35,6 @@ let
       '';
 in
 wrapPackage {
-  name = "kitty";
   package = kitty;
   extraArgs = [
     "--set KITTY_CONFIG_DIRECTORY '${configDir}'"

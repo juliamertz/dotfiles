@@ -39,7 +39,6 @@
             wezterm = ./wezterm;
             kitty = ./kitty;
             alacritty = ./alacritty;
-            # rofi = ./rofi;
             zsh = ./zsh;
             w3m = ./w3m;
             eww = ./eww;

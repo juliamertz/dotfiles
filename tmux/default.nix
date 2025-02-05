@@ -1,4 +1,5 @@
 {
+  lib,
   tmux,
   tmuxPlugins,
   wrapPackage,
@@ -10,7 +11,7 @@
 let
   sourcePlugin = p: "run-shell ${p}/share/tmux-plugins/${p.pluginName}/${p.pluginName}.tmux";
 
-  shell = "${packages.zsh}/bin/zsh";
+  shell = lib.getExe packages.zsh;
   tmuxConf =
     writeText "tmux.conf" # sh
       ''
@@ -18,7 +19,6 @@ let
 
         set -g default-shell ${shell}
         set -g default-command ${shell}
-
         set -g @sessionx-zoxide-mode 'on'
         set -g prefix ^A
 
@@ -44,8 +44,8 @@ let
 in
 wrapPackage {
   package = tmux;
-  # If config home isn't set to the config most plugins won't work
-  # this should overriden back to the users home after initializaiton
+  # If XDG_CONFIG_HOME isn't set to the tmux config directory most plugins won't work
+  # this should overriden back to the users home after initialization
   extraArgs = "--set XDG_CONFIG_HOME '${config}'";
   extraFlags = "-f ${config}/tmux/tmux.conf";
 }

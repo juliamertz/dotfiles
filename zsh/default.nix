@@ -60,7 +60,6 @@ let
   ];
 in
 wrapPackage {
-  name = "zsh";
   package = pkgs.zsh;
   extraArgs = [
     "--set ZDOTDIR '${config}'"

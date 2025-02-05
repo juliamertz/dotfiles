@@ -1,4 +1,4 @@
-{ mkScript, ... }:
+{ lib, mkScript, wakeonlan, ... }:
 mkScript [
   "wake"
   "wol"
@@ -18,5 +18,5 @@ mkScript [
         exit 1
     esac
 
-    wakeonlan -i $IP $MAC_ADDRESS
+    ${lib.getExe wakeonlan} -i $IP $MAC_ADDRESS
   ''
