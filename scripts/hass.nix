@@ -4,6 +4,7 @@ mkScript "hass"
   # sh
   ''
     BASE_URL=''${BASE_URL:-"192.168.0.100:8123"}
+    DEVICE="light.all";
 
     if test ! -v HASS_TOKEN  && test ! -f /run/secrets/hass_token; then
       echo HASS_TOKEN not provided
@@ -13,16 +14,20 @@ mkScript "hass"
     fi
 
     call_api() {
-      curl  \
+      curl -s \
         -H "Authorization: Bearer $HASS_TOKEN" \
         -H "Content-Type: application/json" \
-        -d "$2" "$BASE_URL$1" #> /dev/null
+        -d "$2" "$BASE_URL$1" > /dev/null
     }
 
     case $1 in
       dim)
         call_api "/api/services/light/turn_on" \
-          "{\"entity_id\": \"light.all\", \"brightness_pct\": $2 }" 
+          "{\"entity_id\": \"$DEVICE\", \"brightness_step_pct\": $2 }" 
+        ;;
+      set)
+        call_api "/api/services/light/turn_on" \
+          "{\"entity_id\": \"$DEVICE\", \"brightness_pct\": $2 }" 
         ;;
       cycle)
         call_api "/api/services/input_select/select_$2" \
