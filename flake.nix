@@ -41,7 +41,6 @@
             alacritty = ./alacritty;
             # rofi = ./rofi;
             zsh = ./zsh;
-            bash = ./bash;
             w3m = ./w3m;
             eww = ./eww;
             btop = ./btop;
