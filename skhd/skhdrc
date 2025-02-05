@@ -16,12 +16,6 @@ cmd + shift - j: yabai -m window --swap south
 cmd + shift - k: yabai -m window --swap north
 cmd + shift - l: yabai -m window --swap east
 
-# Warp window to direction
-# ctrl + cmd - left: yabai -m window --warp west || yabai -m window --display 2
-# ctrl + cmd - right: yabai -m window --warp east || yabai -m window --display 1
-# ctrl + cmd - up: yabai -m window --warp north
-# ctrl + cmd - down: yabai -m window --warp south
-
 # #send window to space
 cmd + shift - 1: yabai -m window --space 1 && yabai -m space --focus 1
 cmd + shift - 2: yabai -m window --space 2 && yabai -m space --focus 2
@@ -42,61 +36,20 @@ cmd - 6: yabai -m space --focus 6
 cmd - 7: yabai -m space --focus 7
 cmd - 8: yabai -m space --focus 8
 
-# Switch spaces with arrow keys
-# ctrl - h: yabai -m space --focus prev
-# ctrl - l: yabai -m space --focus next
-
 # # App shortcuts
-cmd + ctrl - c: ~/.config/scripts/open-term.fish
-cmd + ctrl - e: open -b com.microsoft.VSCode
-cmd + ctrl - d: open -a "Home Assistant"
-cmd + ctrl - w: open -a "Firefox"
-cmd + ctrl - 1: open -a "1Password"
-cmd + ctrl - s: open -a "Spotify"
-cmd + ctrl - f: open -a "Figma"
-cmd + ctrl - a: open -a "Authy Desktop"
+cmd - return: open -a "Kitty"
+cmd + shift - w: open -a "Firefox"
+cmd + shift - s: open -a "Spotify"
 
 # Smart light controls
-# ralt - up: ~/.config/scripts/home_assistant/dimmer.fish up
-# ralt - down: ~/.config/scripts/home_assistant/dimmer.fish down
-# ralt - left: ~/.config/scripts/home_assistant/cycleScenes.fish previous #; ~/.config/scripts/home_assistant/dist/fetchCurrentScene.fish
-# ralt - right: ~/.config/scripts/home_assistant/cycleScenes.fish next #; ~/.config/scripts/home_assistant/dist/fetchCurrentScene.fish
-
-# # Toggle display input over DDC
-# ralt - insert: ~/.config/scripts/toggle-display-input
-
-# # Switch gap size [ 0 -> 12 ]
-# ralt - k: ~/.config/scripts/enablegap.fish
-# ralt - l: ~/.config/scripts/disablegap.fish
+ralt - up: $SCRIPTS/hass dim 10
+ralt - down: $SCRIPTS/hass dim -10
 
 # Create / Destroy space
-ctrl + alt - x: yabai -m space --destroy; ~/.config/scripts/refreshUbersichtWidgets.fish
-ctrl + alt - c: yabai -m space --create; yabai -m space --focus $(yabai -m query --displays --display | jq ".spaces | last"); ~/.config/scripts/refreshUbersichtWidgets.fish
-
-cmd + shift - n: ~/.config/scripts/dupeWindow.fish
-
-cmd + alt - t: ~/.config/scripts/yabai-better-float/toggle-window-float.fish
+ctrl + alt - x: yabai -m space --destroy
+ctrl + alt - c: yabai -m space --create; yabai -m space --focus $(yabai -m query --displays --display | jq ".spaces | last")
 
 # # Fullscreen current window
 alt - f: yabai -m window --toggle native-fullscreen
-
-ctrl - f: skhd -k "cmd - f"
-
-# # Split window in space
-# ctrl + alt - z: yabai -m window --toggle split
-
-# # Align floating window on grid
-# ctrl + alt - g: yabai -m window --grid 10:10:1:1:8:8
-
-# # Mirror space vertically
-# ctrl + alt - l: yabai -m space --rotate 180
-
-# ctrl + cmd - r: ~/.config/scripts/refreshDesktop.fish
-
-# # Swap monitors
-# ctrl + cmd - q: ~/.config/scripts/yabai-helper display-swap
-
-# # Connect / Disconnect Airpods
-cmd + shift - o: ~/.config/scripts/toggle-airpods-connection.fish
 
 # vim:ft=yaml
