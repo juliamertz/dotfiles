@@ -8,7 +8,7 @@ local gears = require 'gears'
 local colors = require('plugins.rose-pine').moon
 
 local theme = {
-	font = 'JetBrains Mono 12',
+	font = 'Berkeley Mono Nerd Font 12',
 	wallpaper = '~/wallpaper',
 
 	bg_normal = colors.base,

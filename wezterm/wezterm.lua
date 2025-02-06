@@ -6,8 +6,8 @@ local keys = require 'lua.keys'
 local act = wezterm.action
 
 local config = {
-	font = wezterm.font 'JetBrains Mono',
-	font_size = os.get { linux = 24.0, macos = 14.0 },
+	font = wezterm.font 'Berkeley Mono Nerd Font',
+	font_size = os.get { linux = 32.0, macos = 14.0 },
 	max_fps = os.get { linux = 165, macos = 60 },
 	colors = rosepine.colors(),
 	window_frame = rosepine.window_frame(),
