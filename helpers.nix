@@ -40,6 +40,7 @@ rec {
       cfg = (
         lib.mergeAttrs {
           extraFlags = "";
+          appendFlags = "";
           extraArgs = "";
           dependencies = [ ];
           postWrap = "";
@@ -58,7 +59,9 @@ rec {
       postBuild = ''
         ${cfg.preWrap}
         wrapProgram $out/bin/${mainProgram} \
-          --add-flags "${join cfg.extraFlags}" ${join cfg.extraArgs}
+          --add-flags "${join cfg.extraFlags}" \
+          --append-flags "${join cfg.appendFlags}" \
+          ${join cfg.extraArgs}
         ${cfg.postWrap}
       '';
 

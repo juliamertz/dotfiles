@@ -44,6 +44,7 @@
             eww = ./eww;
             btop = ./btop;
             zathura = ./zathura;
+            sketchybar = ./sketchybar;
             skhd = ./skhd;
             scripts = ./scripts;
           };

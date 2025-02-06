@@ -1,0 +1,33 @@
+#!/bin/sh
+
+MULTI_ICONS=true
+
+apps="kitty Firefox Spotify"
+icons=" 󰈹 "
+
+spaceIndex=$(echo "$NAME" | cut -d'.' -f2)
+query=$(yabai -m query --windows --space "$spaceIndex" | jq .[].app)
+
+LABEL=""
+for app in $query; do
+    app=$(echo "$app" | xargs)
+    i=1
+    for known_app in $apps; do
+        if [ "$app" = "$known_app" ]; then
+            icon=$(echo "$icons" | cut -d' ' -f"$i")
+            if [ "$MULTI_ICONS" = true ]; then
+                LABEL="$LABEL$icon"
+            else
+                LABEL="$icon"
+                break 2
+            fi
+        fi
+        i=$((i + 1))
+    done
+done
+
+if [ -z "$LABEL" ]; then
+    sketchybar --set "$NAME" background.drawing="$SELECTED" align="center" icon="$spaceIndex" icon.padding_left=7 icon.padding_right=8
+else
+    sketchybar --set "$NAME" background.drawing="$SELECTED" align="center" icon="$LABEL"
+fi

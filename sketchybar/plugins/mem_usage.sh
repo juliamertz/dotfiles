@@ -1,5 +1,0 @@
-#!/bin/sh
-
-memoryUsage=$(ps -A -o %cpu,%mem | awk '{ cpu += $1; mem += $2} END {print mem}')
-
-sketchybar --set $NAME icon="$ICON" label="MEM: $memoryUsage%"
