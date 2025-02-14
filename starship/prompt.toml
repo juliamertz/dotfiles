@@ -13,7 +13,7 @@ vicmd_symbol = "[:](white)"
 # Modules
 [cmd_duration]
 min_time = 500
-format = "[took $duration](bright-black)"
+format = "[took $duration](bright-black) "
 
 [directory]
 style = "blue"
