@@ -47,6 +47,7 @@
             sketchybar = ./sketchybar;
             skhd = ./skhd;
             scripts = ./scripts;
+            picom = ./picom;
           };
 
           devShells = import ./shells.nix {
