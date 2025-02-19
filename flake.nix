@@ -1,60 +1,65 @@
 {
-  description = "My favourite programs with their configurations";
+  description = "My favourite programs wrapped with their configurations";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
+    systems.url = "github:nix-systems/default";
 
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     nixvim.url = "github:nix-community/nixvim";
   };
 
   outputs =
-    { nixpkgs, flake-parts, ... }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = nixpkgs.lib.systems.flakeExposed;
-      perSystem =
-        {
-          pkgs,
-          lib,
-          config,
-          ...
-        }:
-        let
-          helpers = pkgs.callPackage ./helpers.nix {
-            inherit inputs;
-            inherit (config) packages;
-          };
-        in
-        rec {
-          packages = lib.mapAttrs (_: p: helpers.mkProgram p) {
-            neovim = ./nvim;
-            lazygit = ./lazygit;
-            tmux = ./tmux;
-            spotify-player = ./spotify-player;
-            weechat = ./weechat;
-            wezterm = ./wezterm;
-            kitty = ./kitty;
-            alacritty = ./alacritty;
-            zsh = ./zsh;
-            w3m = ./w3m;
-            eww = ./eww;
-            btop = ./btop;
-            zathura = ./zathura;
-            sketchybar = ./sketchybar;
-            skhd = ./skhd;
-            scripts = ./scripts;
-            picom = ./picom;
-          };
+    { self, nixpkgs, systems, ... }:
+    let
+      forAllSystems = func:
+        nixpkgs.lib.genAttrs (import systems) (system: func nixpkgs.legacyPackages.${system});
 
-          devShells = import ./shells.nix {
-            inherit (pkgs) lib system mkShell;
-            inherit pkgs packages;
-          };
-        };
+      systemPrograms = attrs:
+        forAllSystems (pkgs:
+          let
+            inherit (pkgs) lib stdenv callPackage;
+            helpers = callPackage ./helpers.nix { inherit self; };
+          in
+          attrs.all ++ lib.optionals stdenv.isLinux attrs.linux ++ lib.optionals stdenv.isDarwin attrs.darwin 
+          |> map helpers.callProgram
+          |> map (p: { name = p.name; value = p; })
+          |> lib.listToAttrs
+        );
+    in
+    {
+      packages = systemPrograms {
+        all = [
+          ./nvim
+          ./lazygit
+          ./tmux
+          ./spotify-player
+          ./wezterm
+          ./kitty
+          ./alacritty
+          ./zsh
+          ./w3m
+          ./zathura
+          ./scripts
+        ];
+        linux = [
+          ./weechat
+          ./picom
+          ./btop
+          ./eww
+        ];
+        darwin = [
+          ./sketchybar
+          ./skhd
+        ];
+      };
+
+      devShells = forAllSystems (pkgs:
+        import ./shells.nix {
+          inherit (pkgs) lib system mkShell pkgs;
+          packages = self.packages.${pkgs.system};
+        }
+      );
     };
 
   nixConfig = {

@@ -32,10 +32,15 @@ let
         ${cachix}/bin/cachix push juliamertz "$output_paths"
       done
     '';
+
+    shellHook = ''
+      ${lib.getExe packages.zsh}
+    '';
 in
 {
   # minimal development environment
   minimal = mkShell {
+    inherit shellHook;
     packages = with packages; [
       neovim
       zsh
@@ -47,10 +52,7 @@ in
 
   # shell for working in this repository
   default = mkShell {
-    shellHook = ''
-      ${lib.getExe packages.zsh}
-    '';
-
+    inherit shellHook;
     packages = [
       pkgs.nurl
       formatAll

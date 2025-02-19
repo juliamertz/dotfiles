@@ -4,20 +4,19 @@
   symlinkJoin,
   runCommandNoCC,
   makeWrapper,
-  inputs,
-  packages,
+  self,
 }:
 rec {
-  mkProgram =
+  callProgram =
     path:
     pkgs.callPackage path {
+      packages = self.packages.${pkgs.system};
+      inherit (self) inputs;
       inherit
-        inputs
         wrapPackage
         combineDerivations
         readNixFiles
         mkImports
-        packages
         ;
     };
 
@@ -52,7 +51,7 @@ rec {
       join = value: if builtins.isList value then lib.concatStringsSep " " value else value;
     in
     symlinkJoin {
-      name = mainProgram;
+      name = args.name or mainProgram;
       paths = [ cfg.package ] ++ cfg.dependencies;
       buildInputs = [ makeWrapper ];
 
