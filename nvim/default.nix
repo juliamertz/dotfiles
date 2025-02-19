@@ -6,10 +6,11 @@
 }:
 let
   nixvim = inputs.nixvim.legacyPackages.${system};
-  nixvimModule = {
+  module = {
     inherit pkgs;
-    module = import ./config.nix;
+    module = import ./module.nix;
     extraSpecialArgs = { inherit (pkgs) vimPlugins; };
   };
+  nixvim' = nixvim.makeNixvimWithModule module;
 in
-nixvim.makeNixvimWithModule nixvimModule
+nixvim'.overrideAttrs { name = "neovim"; }
