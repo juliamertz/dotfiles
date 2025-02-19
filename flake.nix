@@ -56,4 +56,9 @@
           };
         };
     };
+
+  nixConfig = {
+    extra-substituters = [ "https://juliamertz.cachix.org" ];
+    extra-trusted-public-keys = [ "juliamertz.cachix.org-1:l9jCGk7vAKU5kS07eulGJiEsZjluCG5HTczsY2IL2aw=" ];
+  };
 }
