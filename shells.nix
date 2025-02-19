@@ -6,9 +6,16 @@
   ...
 }:
 let
-  shellHook = ''
-    ${lib.getExe packages.zsh}
-  '';
+  formatAll =
+    with pkgs;
+    writeShellScriptBin "format" ''
+      echo Formatting nix files
+      ${lib.getExe nixfmt-rfc-style} ./**/*.nix
+      ${lib.getExe nodePackages.prettier} -w **/*.md
+      ${lib.getExe shfmt} -w .
+      ${lib.getExe taplo} format ./**/*.toml
+      ${lib.getExe stylua} . --call-parentheses None --quote-style AutoPreferSingle
+    '';
 in
 {
   # minimal development environment
@@ -24,23 +31,13 @@ in
 
   # shell for working in this repository
   default = mkShell {
-    inherit shellHook;
-    packages =
-      with pkgs;
-      let
-        format = writeShellScriptBin "format" ''
-          echo Formatting nix files
-          ${lib.getExe nixfmt-rfc-style} ./**/*.nix
-          ${lib.getExe nodePackages.prettier} -w **/*.md
-          ${lib.getExe shfmt} -w .
-          ${lib.getExe taplo} format ./**/*.toml
-          ${lib.getExe stylua} . --call-parentheses None --quote-style AutoPreferSingle
-        '';
-      in
-      [
-        nurl
-        format
-      ];
-  };
+    shellHook = ''
+      ${lib.getExe packages.zsh}
+    '';
 
+    packages = [
+      pkgs.nurl
+      formatAll
+    ];
+  };
 }
