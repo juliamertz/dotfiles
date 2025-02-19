@@ -16,6 +16,22 @@ let
       ${lib.getExe taplo} format ./**/*.toml
       ${lib.getExe stylua} . --call-parentheses None --quote-style AutoPreferSingle
     '';
+
+  buildForCachix =
+    with pkgs;
+    writeShellScriptBin "build-for-cachix" ''
+      system=$(nix eval --impure --raw --expr 'builtins.currentSystem')
+      outputs=$(nix flake show --json 2> /dev/null)
+      packages=$(echo "$outputs" | ${lib.getExe jq} -r ".packages[\"${system}\"] | keys | .[]")
+
+      echo "$packages" | while read -r package; do 
+        echo "Building $package"
+        output_paths=$(nix build ".#''${package}" --print-out-paths)
+
+        echo "Pushing to cache"
+        ${cachix}/bin/cachix push juliamertz "$output_paths"
+      done
+    '';
 in
 {
   # minimal development environment
@@ -38,6 +54,7 @@ in
     packages = [
       pkgs.nurl
       formatAll
+      buildForCachix
     ];
   };
 }
