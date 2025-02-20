@@ -1,4 +1,4 @@
-{
+{ config, lib, ... }: {
   plugins.yanky = {
     enable = true;
     autoLoad = true;
@@ -14,7 +14,7 @@
     };
   };
 
-  keymaps = [
+  keymaps = lib.optionals config.plugins.yanky.enable [
     {
       key = "p";
       action = "<Plug>(YankyPutAfter)";

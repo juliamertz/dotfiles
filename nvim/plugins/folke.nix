@@ -1,4 +1,11 @@
 {
+  pkgs,
+  vimPlugins,
+  lib,
+  config,
+  ...
+}:
+{
   plugins.trouble = {
     enable = true;
     settings = {
@@ -17,7 +24,29 @@
     };
   };
 
-  keymaps = [
+  plugins.snacks = {
+    enable = true;
+    package = vimPlugins.snacks-nvim.overrideAttrs (prev: {
+      nvimSkipModule = prev.nvimSkipModule ++ [ "snacks.image.convert" ];
+      src = pkgs.fetchFromGitHub {
+        owner = "folke";
+        repo = "snacks.nvim";
+        rev = "5fa93cb6846b5998bc0b4b4ac9de47108fe39ce6";
+        hash = "sha256-mGGfZfLpSoyRsx/5wOF8KBmT02yQbIiHHmSOwdXA8KA=";
+      };
+    });
+    settings = {
+      notifier = {
+        enabled = true;
+        timeout = 10000;
+      };
+      image = {
+        enabled = true;
+      };
+    };
+  };
+
+  keymaps = lib.optionals config.plugins.trouble.enable [
     {
       key = "<leader>pr";
       action = "<cmd>Trouble diagnostics toggle<cr>";

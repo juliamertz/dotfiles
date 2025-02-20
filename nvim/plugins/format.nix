@@ -21,6 +21,7 @@
         };
         stylua = {
           command = lib.getExe pkgs.stylua;
+          stdin = false;
           args = [
             "$FILENAME"
             "--call-parentheses"

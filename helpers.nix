@@ -17,6 +17,7 @@ rec {
         combineDerivations
         readNixFiles
         mkImports
+        mkImportList
         ;
     };
 
@@ -77,4 +78,5 @@ rec {
     builtins.filter isNix (builtins.attrNames files);
 
   mkImports = path: files: map (name: path + "/${name}") files;
+  mkImportList = path: lib.mapAttrsToList (name: _: path + "/${name}") (builtins.readDir path);
 }

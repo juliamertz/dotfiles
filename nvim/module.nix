@@ -1,15 +1,10 @@
-{ lib, ... }:
-let
-  plugins = lib.mapAttrsToList (name: _: ./plugins + "/${name}") (builtins.readDir ./plugins);
-in
+{ mkImportList, ... }:
 {
-  imports = plugins ++ [
-    ./languages/nix.nix
-    ./languages/rust.nix
-    ./languages/go.nix
-  ];
+  imports = mkImportList ./plugins ++ mkImportList ./languages;
 
+  viAlias = true;
   vimAlias = true;
+
   globals = {
     mapleader = " ";
     maplocalleader = " ";
@@ -18,6 +13,7 @@ in
   opts = {
     nu = true;
     relativenumber = true;
+    fileignorecase = true;
 
     tabstop = 2;
     softtabstop = 2;
@@ -47,7 +43,6 @@ in
     vim.o.cmdheight = 0;
   '';
 
-  # improve lua performance
   luaLoader.enable = true;
   performance.byteCompileLua = {
     enable = true;
@@ -56,9 +51,4 @@ in
     nvimRuntime = true;
     plugins = true;
   };
-
-  # FIX: this doesn't work
-  # https://nix-community.github.io/nixvim/NeovimOptions/extraFiles/index.html#extrafiles
-  # include custom treesitter queries
-  # extraFiles."queries/go/injections.scm".source = ./queries/go/injections.scm;
 }
