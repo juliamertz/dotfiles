@@ -6,6 +6,7 @@
     systems.url = "github:nix-systems/default";
 
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
+    spicetify.url = "github:Gerg-L/spicetify-nix";
     nixvim.url = "github:nix-community/nixvim";
   };
 
@@ -34,6 +35,7 @@
           ./lazygit
           ./tmux
           ./spotify-player
+          ./spotify
           ./wezterm
           ./kitty
           ./alacritty

@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  system,
   symlinkJoin,
   runCommandNoCC,
   makeWrapper,
@@ -18,6 +19,8 @@ rec {
         readNixFiles
         mkImports
         mkImportList
+        overrideName
+        importUnfree
         ;
     };
 
@@ -79,4 +82,15 @@ rec {
 
   mkImports = path: files: map (name: path + "/${name}") files;
   mkImportList = path: lib.mapAttrsToList (name: _: path + "/${name}") (builtins.readDir path);
+
+  # override package name of passed in derivation
+  overrideName = name: pkg: pkg.overrideAttrs { inherit name; };
+
+  # import nixpkgs with `config.allowUnfree = true;`
+  importUnfree =
+    input:
+    import input {
+      inherit system;
+      config.allowUnfree = true;
+    };
 }
