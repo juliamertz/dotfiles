@@ -39,6 +39,7 @@
           ./wezterm
           ./kitty
           ./alacritty
+          ./ghostty
           ./zsh
           ./w3m
           ./zathura
