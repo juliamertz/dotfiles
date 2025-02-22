@@ -21,6 +21,7 @@ rec {
         mkImportList
         overrideName
         importUnfree
+        callProgram
         ;
     };
 

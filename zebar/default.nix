@@ -1,0 +1,1 @@
+{ callProgram, ... }: callProgram ./wrapped.nix

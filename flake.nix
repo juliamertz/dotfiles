@@ -44,6 +44,7 @@
           ./w3m
           ./zathura
           ./scripts
+          ./zebar
         ];
         linux = [
           ./weechat
