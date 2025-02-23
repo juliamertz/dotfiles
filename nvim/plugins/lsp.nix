@@ -18,7 +18,6 @@
         jsonls.enable = true;
         clangd.enable = true;
         denols.enable = true;
-        zls.enable = true;
         volar.enable = true;
         ts_ls.enable = true;
       };
