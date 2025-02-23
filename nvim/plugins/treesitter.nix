@@ -18,11 +18,17 @@
       xml
       toml
       yaml
+      yuck
 
       # scripting
       bash
       make
       regex
+
+      # web
+      html
+      css
+      scss
 
       markdown
       vimdoc
