@@ -36,13 +36,8 @@
       };
     });
     settings = {
-      notifier = {
-        enabled = true;
-        timeout = 10000;
-      };
-      image = {
-        enabled = true;
-      };
+      notifier.enabled = true;
+      image.enabled = true;
     };
   };
 
