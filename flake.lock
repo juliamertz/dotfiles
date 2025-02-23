@@ -550,11 +550,11 @@
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1740296895,
-        "narHash": "sha256-PeEyU4/TAMe22Wpc0e+zgNhfjhCmbkTeXyre972CnLw=",
+        "lastModified": 1740299376,
+        "narHash": "sha256-jde+BEdEY+blAuWCbFomra+JXUGvrpzG4vq7xOndI+k=",
         "owner": "juliamertz",
         "repo": "zebar",
-        "rev": "3c32ed4d9e273288a7a8f7cfba3906b9147962cf",
+        "rev": "bf9b6af221367c3cdc3b1249dffb938b350c1dde",
         "type": "github"
       },
       "original": {

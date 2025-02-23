@@ -1,0 +1,23 @@
+{
+  "name": "bar",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^3.3.1",
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "^2.15.2",
+    "@sveltejs/vite-plugin-svelte": "^4.0.4",
+    "globals": "^15.14.0",
+    "svelte": "^5.17.3",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "zebar": "^2.6.1"
+  }
+}

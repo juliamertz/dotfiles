@@ -1,0 +1,55 @@
+:root {
+  --base: hsl(246 24% 17%);
+  --surface: hsl(248 24% 20%);
+  --overlay: hsl(248 21% 26%);
+  --muted: hsl(249 12% 47%);
+  --subtle: hsl(248 15% 61%);
+  --text: hsl(245 50% 91%);
+  --love: hsl(343 76% 68%);
+  --gold: hsl(35 88% 72%);
+  --rose: hsl(2 66% 75%);
+  --pine: hsl(197 48% 47%);
+  --foam: hsl(189 43% 73%);
+  --iris: hsl(267 57% 78%);
+  --highlight-low: hsl(245 22% 20%);
+  --highlight-med: hsl(247 16% 30%);
+  --highlight-high: hsl(249 15% 38%);
+}
+
+#date {
+  color: var(--gold);
+}
+
+#bar {
+  background: var(--base);
+  color: var(--text);
+
+  font-family: Berkeley Mono Nerd Font;
+  font-size: 18px;
+
+  width: 100%;
+  padding: 3px 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.left {
+  justify-self: start
+}
+
+.center {
+  justify-self: center
+}
+
+.right {
+  justify-self: end
+}
+
+/* TODO: remove when done */
+body {
+  background: var(--muted);
+}
+
+* {
+  box-sizing: border-box;
+}
