@@ -18,5 +18,9 @@ spicetify.lib.mkSpicetify pkgs {
     keyboardShortcut
     fullAlbumDate
   ];
+  enabledCustomApps = with spicePkgs.apps; [
+    marketplace
+    newReleases
+  ];
 }
 |> overrideName "spotify"
