@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ lib, config, ... }:
+{
   plugins.yanky = {
     enable = true;
     autoLoad = true;
@@ -8,9 +9,8 @@
         on_yank = true;
         timer = 100;
       };
-      preserve_cursor_position = {
-        enabled = true;
-      };
+      preserve_cursor_position.enabled = true;
+      system_clipboard.sync_with_ring = false;
     };
   };
 
