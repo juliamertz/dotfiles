@@ -1,7 +1,7 @@
 {
+  lib,
   system,
   inputs,
-  overrideName,
   importUnfree,
   ...
 }:
@@ -23,4 +23,4 @@ spicetify.lib.mkSpicetify pkgs {
     newReleases
   ];
 }
-|> overrideName "spotify"
+|> lib.setName "spotify"

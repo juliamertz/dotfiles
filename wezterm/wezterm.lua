@@ -16,6 +16,7 @@ local config = {
 	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
 	keys = keys.value,
+	warn_about_missing_glyphs = false,
 	-- front_end = 'WebGpu',
 }
 

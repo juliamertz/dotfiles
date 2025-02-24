@@ -18,7 +18,6 @@ rec {
         combineDerivations
         readNixFiles
         mkImportList
-        overrideName
         importUnfree
         callProgram
         ;
@@ -81,9 +80,6 @@ rec {
     builtins.filter isNix (builtins.attrNames files);
 
   mkImportList = path: lib.mapAttrsToList (name: _: path + "/${name}") (builtins.readDir path);
-
-  # override package name of passed in derivation
-  overrideName = name: pkg: pkg.overrideAttrs { inherit name; };
 
   # import nixpkgs with `config.allowUnfree = true;`
   importUnfree =

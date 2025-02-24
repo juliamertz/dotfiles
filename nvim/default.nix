@@ -1,9 +1,9 @@
 {
+  pkgs,
+  lib,
   inputs,
   system,
-  pkgs,
   mkImportList,
-  overrideName,
   ...
 }:
 let
@@ -17,4 +17,4 @@ nixvim.makeNixvimWithModule {
     inherit mkImportList;
   };
 }
-|> overrideName "neovim"
+|> lib.setName "neovim"
