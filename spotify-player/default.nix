@@ -26,6 +26,7 @@ let
 
 in
 wrapPackage {
+  name = "spotify-player";
   package = overlay;
   extraFlags = "--config-folder ${./.}";
   postWrap = # sh

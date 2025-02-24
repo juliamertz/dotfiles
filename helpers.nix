@@ -17,7 +17,6 @@ rec {
         wrapPackage
         combineDerivations
         readNixFiles
-        mkImports
         mkImportList
         overrideName
         importUnfree
@@ -81,7 +80,6 @@ rec {
     in
     builtins.filter isNix (builtins.attrNames files);
 
-  mkImports = path: files: map (name: path + "/${name}") files;
   mkImportList = path: lib.mapAttrsToList (name: _: path + "/${name}") (builtins.readDir path);
 
   # override package name of passed in derivation
