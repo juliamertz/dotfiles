@@ -6,7 +6,6 @@
     systems.url = "github:nix-systems/default";
 
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
-    zebar.url = "github:juliamertz/zebar?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
     nixvim.url = "github:nix-community/nixvim";
   };
@@ -45,13 +44,13 @@
           ./w3m
           ./zathura
           ./scripts
-          ./zebar
         ];
         linux = [
           ./weechat
           ./picom
           ./btop
           ./eww
+          ./rofi
         ];
         darwin = [
           ./sketchybar
