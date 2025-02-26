@@ -2,15 +2,7 @@
   extraConfigLuaPost = builtins.readFile ../snippets.lua;
 
   plugins = {
-    luasnip = {
-      enable = true;
-      # fromLua = [
-      #   {
-      #     paths = ../snippets;
-      #   }
-      # ];
-    };
-
+    luasnip.enable = true;
 
     blink-cmp = {
       enable = true;
@@ -20,6 +12,18 @@
           documentation = {
             auto_show = true;
             window.border = "rounded";
+          };
+        };
+        snippets.preset = "luasnip";
+        sources = {
+          default = [
+            "lsp"
+            "buffer"
+            "snippets"
+            "path"
+          ];
+          providers = {
+            lsp.score_offset = 4;
           };
         };
         fuzzy = {
@@ -57,21 +61,6 @@
         signature = {
           enabled = true;
           window.border = "rounded";
-        };
-
-        snippets = {
-          preset = "luasnip";
-        };
-        sources = {
-          default = [
-            "lsp"
-            "buffer"
-            "snippets"
-            "path"
-          ];
-          providers = {
-            lsp.score_offset = 4;
-          };
         };
       };
     };

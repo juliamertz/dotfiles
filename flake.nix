@@ -7,31 +7,41 @@
 
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
-    nixvim.url = "github:nix-community/nixvim";
+    neovim.url = "path:./nvim";
   };
 
   outputs =
-    { self, nixpkgs, systems, ... }:
+    {
+      self,
+      nixpkgs,
+      systems,
+      ...
+    }@inputs:
     let
-      forAllSystems = func:
-        nixpkgs.lib.genAttrs (import systems) (system: func nixpkgs.legacyPackages.${system});
+      forAllSystems =
+        func: nixpkgs.lib.genAttrs (import systems) (system: func nixpkgs.legacyPackages.${system});
 
-      systemPrograms = attrs:
-        forAllSystems (pkgs:
+      systemPrograms =
+        attrs:
+        forAllSystems (
+          pkgs:
           let
-            inherit (pkgs) lib stdenv callPackage;
+            inherit (pkgs) lib stdenv system callPackage;
+            finalAttrs = attrs system;
             helpers = callPackage ./helpers.nix { inherit self; };
           in
-          attrs.all ++ lib.optionals stdenv.isLinux attrs.linux ++ lib.optionals stdenv.isDarwin attrs.darwin 
-          |> map helpers.callProgram
+          finalAttrs.all
+          ++ lib.optionals stdenv.isLinux finalAttrs.linux
+          ++ lib.optionals stdenv.isDarwin finalAttrs.darwin
+          |> map (p: if lib.isPath p then helpers.callProgram p else p)
           |> map (p: { name = p.name; value = p; })
           |> lib.listToAttrs
         );
     in
     {
-      packages = systemPrograms {
+      packages = systemPrograms (system: {
         all = [
-          ./nvim
+          inputs.neovim.packages.${system}.default
           ./lazygit
           ./tmux
           ./spotify-player
@@ -56,7 +66,7 @@
           ./sketchybar
           ./skhd
         ];
-      };
+      });
 
       devShells = forAllSystems (pkgs:
         import ./shells.nix {

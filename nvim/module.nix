@@ -1,4 +1,7 @@
-{ mkImportList, ... }:
+{ lib, ... }:
+let
+  mkImportList = path: lib.mapAttrsToList (name: _: path + "/${name}") (builtins.readDir path);
+in
 {
   imports = mkImportList ./plugins ++ mkImportList ./languages;
 

@@ -1,7 +1,8 @@
 {
   pkgs,
-  vimPlugins,
   lib,
+  inputs,
+  vimPlugins,
   config,
   ...
 }:
@@ -28,18 +29,21 @@
     enable = true;
     package = vimPlugins.snacks-nvim.overrideAttrs (prev: {
       nvimSkipModule = prev.nvimSkipModule ++ [ "snacks.image.convert" ];
-      src = pkgs.fetchFromGitHub {
-        owner = "folke";
-        repo = "snacks.nvim";
-        rev = "5fa93cb6846b5998bc0b4b4ac9de47108fe39ce6";
-        hash = "sha256-mGGfZfLpSoyRsx/5wOF8KBmT02yQbIiHHmSOwdXA8KA=";
-      };
+      src = inputs.snacks;
     });
+
     settings = {
       notifier.enabled = true;
       image.enabled = true;
+      bigfile.enabled = true;
     };
   };
+
+  extraPackages =
+    let
+      snacks = config.plugins.snacks;
+    in
+    lib.optionals (snacks.enable && snacks.settings.image.enabled) [ pkgs.imagemagick ];
 
   keymaps = lib.optionals config.plugins.trouble.enable [
     {
