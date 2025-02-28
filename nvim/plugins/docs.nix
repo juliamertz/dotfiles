@@ -9,6 +9,7 @@ let
   inherit (lib.nixvim) toLuaObject mkRaw;
   settings = {
     picker.type = "telescope";
+    window.type = "vsplit";
     adapters = [
       { name = "go"; }
       {
@@ -39,9 +40,15 @@ in
 
   extraPlugins = [
     inputs.noogle.packages.${system}.noogle-nvim
+
     (pkgs.vimUtils.buildVimPlugin {
       name = "godoc";
-      src = inputs.godoc;
+      src = pkgs.fetchFromGitHub {
+        owner = "juliamertz";
+        repo = "godoc.nvim";
+        rev = "4317f8b27e84b0a1453407f9ad64a092aff06b89";
+        hash = "sha256-Wr+dxxxPJNbZMevLPseWLnm8XPcoFa11yTo1s3u0yKY=";
+      };
     })
   ];
 }

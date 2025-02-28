@@ -7,7 +7,22 @@
 
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
-    neovim.url = "path:./nvim";
+
+    # neovim stuff
+    nixvim.url = "github:nix-community/nixvim";
+    noogle = {
+      url = "github:juliamertz/noogle-cli";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.noogle.url = "github:juliamertz/noogle";
+    };
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zls = {
+      url = "github:zigtools/zls";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -16,7 +31,7 @@
       nixpkgs,
       systems,
       ...
-    }@inputs:
+    }:
     let
       forAllSystems =
         func: nixpkgs.lib.genAttrs (import systems) (system: func nixpkgs.legacyPackages.${system});
@@ -26,7 +41,12 @@
         forAllSystems (
           pkgs:
           let
-            inherit (pkgs) lib stdenv system callPackage;
+            inherit (pkgs)
+              lib
+              stdenv
+              system
+              callPackage
+              ;
             finalAttrs = attrs system;
             helpers = callPackage ./helpers.nix { inherit self; };
           in
@@ -34,14 +54,17 @@
           ++ lib.optionals stdenv.isLinux finalAttrs.linux
           ++ lib.optionals stdenv.isDarwin finalAttrs.darwin
           |> map (p: if lib.isPath p then helpers.callProgram p else p)
-          |> map (p: { name = p.name; value = p; })
+          |> map (p: {
+            name = p.name;
+            value = p;
+          })
           |> lib.listToAttrs
         );
     in
     {
       packages = systemPrograms (system: {
         all = [
-          inputs.neovim.packages.${system}.default
+          ./nvim
           ./lazygit
           ./tmux
           ./spotify-player
@@ -68,9 +91,15 @@
         ];
       });
 
-      devShells = forAllSystems (pkgs:
+      devShells = forAllSystems (
+        pkgs:
         import ./shells.nix {
-          inherit (pkgs) lib system mkShell pkgs;
+          inherit (pkgs)
+            lib
+            system
+            mkShell
+            pkgs
+            ;
           packages = self.packages.${pkgs.system};
         }
       );
@@ -78,6 +107,8 @@
 
   nixConfig = {
     extra-substituters = [ "https://juliamertz.cachix.org" ];
-    extra-trusted-public-keys = [ "juliamertz.cachix.org-1:l9jCGk7vAKU5kS07eulGJiEsZjluCG5HTczsY2IL2aw=" ];
+    extra-trusted-public-keys = [
+      "juliamertz.cachix.org-1:l9jCGk7vAKU5kS07eulGJiEsZjluCG5HTczsY2IL2aw="
+    ];
   };
 }

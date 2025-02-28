@@ -33,14 +33,10 @@ let
       done
     '';
 
-    shellHook = ''
-      ${lib.getExe packages.zsh}
-    '';
 in
 {
   # minimal development environment
   minimal = mkShell {
-    inherit shellHook;
     packages = with packages; [
       neovim
       zsh
@@ -48,11 +44,13 @@ in
       tmux
       kitty
     ];
+    shellHook = ''
+      ${lib.getExe packages.zsh}
+    '';
   };
 
   # shell for working in this repository
   default = mkShell {
-    inherit shellHook;
     packages = [
       pkgs.nurl
       formatAll
