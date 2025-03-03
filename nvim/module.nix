@@ -3,7 +3,14 @@ let
   mkImportList = path: lib.mapAttrsToList (name: _: path + "/${name}") (builtins.readDir path);
 in
 {
-  imports = mkImportList ./plugins ++ mkImportList ./languages;
+  imports =
+    [
+      ./plugins
+      ./languages
+      ./custom
+    ]
+    |> map mkImportList
+    |> lib.concatLists;
 
   viAlias = true;
   vimAlias = true;

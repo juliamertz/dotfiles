@@ -43,12 +43,12 @@
     lib.optionals config.plugins.telescope.enable [
       {
         key = "<leader>pf";
-        action = picker "find_files";
+        action = picker "find_files hidden=true no_ignore=true";
         options.desc = "Find files";
       }
       {
         key = "<leader>gs";
-        action = picker "live_grep";
+        action = picker "live_grep hidden=true no_ignore=true";
         options.desc = "Live grep";
       }
       {

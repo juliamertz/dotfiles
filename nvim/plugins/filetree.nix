@@ -18,7 +18,7 @@
 
   keymaps = [
     {
-      action = ":NvimTreeToggle<CR>";
+      action = "<cmd>NvimTreeToggle<CR>";
       key = "<C-b>";
       mode = "n";
       options = {

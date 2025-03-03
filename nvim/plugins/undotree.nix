@@ -29,18 +29,11 @@
     };
   };
 
-  extraConfigLua = ''
-    vim.api.nvim_create_user_command('UndoTreeToggle', function()
-      require('undotree').toggle()
-    end, {})
-  '';
-
   keymaps = [
     {
       key = "<leader>ut";
-      action = ":UndoTreeToggle<CR>";
-      # action.__raw = "require('undotree').toggle()";
-      options.desc = "Toggle undotree pane";
+      action = "<cmd>UndotreeToggle<CR>";
+      options.desc = "Toggle undotree";
     }
   ];
 }
