@@ -43,12 +43,16 @@ in
 
     (pkgs.vimUtils.buildVimPlugin {
       name = "godoc";
-      src = pkgs.fetchFromGitHub {
-        owner = "juliamertz";
-        repo = "godoc.nvim";
-        rev = "4317f8b27e84b0a1453407f9ad64a092aff06b89";
-        hash = "sha256-Wr+dxxxPJNbZMevLPseWLnm8XPcoFa11yTo1s3u0yKY=";
-      };
+      src = inputs.godoc;
+      nvimSkipModule = [
+        "godoc"
+        "godoc.pickers.init"
+        "godoc.pickers.telescope"
+        "godoc.pickers.snacks"
+        "godoc.pickers.fzf_lua"
+        "godoc.adapters.init"
+        "godoc.adapters.go"
+      ];
     })
   ];
 }

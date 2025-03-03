@@ -1,5 +1,7 @@
+{ pkgs, lib, ... }:
 {
   plugins = {
+    # language server
     lsp.servers.lua_ls = {
       enable = true;
       settings = {
@@ -12,7 +14,6 @@
         };
       };
     };
-
     lazydev = {
       enable = true;
       settings = {
@@ -25,14 +26,19 @@
       };
     };
 
-    blink-cmp.settings.sources = {
-      default = [ "lazydev" ];
-      providers = {
-        lazydev = {
-          name = "LazyDev";
-          module = "lazydev.integrations.blink";
-          score_offset = 100;
-        };
+    # formatting
+    conform-nvim.settings = {
+      formatters_by_ft.lua = [ "stylua" ];
+      formatters.stylua = {
+        command = lib.getExe pkgs.stylua;
+        stdin = false;
+        args = [
+          "$FILENAME"
+          "--call-parentheses"
+          "None"
+          "--quote-style"
+          "AutoPreferSingle"
+        ];
       };
     };
   };

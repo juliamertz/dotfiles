@@ -30,6 +30,7 @@
       notifier.enabled = true;
       image.enabled = true;
       bigfile.enabled = true;
+      picker.enabled = true;
     };
 
     package = vimPlugins.snacks-nvim.overrideAttrs (prev: {

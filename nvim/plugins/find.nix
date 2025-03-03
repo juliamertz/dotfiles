@@ -1,5 +1,9 @@
 { lib, config, ... }:
 {
+  plugins.snacks.settings.picker.enabled = true;
+  plugins.mini.modules.pick = {};
+  plugins.fzf-lua.enable = true;
+
   plugins.telescope = {
     enable = true;
 
@@ -32,7 +36,10 @@
 
   };
 
-  keymaps = let picker = kind: "<cmd>Telescope ${kind}<CR>"; in
+  keymaps =
+    let
+      picker = kind: "<cmd>Telescope ${kind}<CR>";
+    in
     lib.optionals config.plugins.telescope.enable [
       {
         key = "<leader>pf";

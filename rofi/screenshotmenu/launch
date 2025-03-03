@@ -1,8 +1,7 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 SCREENSHOTS_DIR="$HOME/screenshots"
 MONITOR_COUNT=$(xrandr --listactivemonitors | grep -v "Monitors:" | wc -l)
-THEME="$HOME/.config/rofi/screenshotmenu/theme.rasi"
 
 options=("Select Area" "Focused window")
 
@@ -22,7 +21,7 @@ run_rofi() {
     echo -e $1 | \
     rofi -dmenu \
          -p "Screenshot: " \
-         -theme $THEME
+         -theme "$THEME"
 }
 
 generate_options() {

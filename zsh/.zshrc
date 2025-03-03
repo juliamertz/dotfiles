@@ -10,8 +10,8 @@ export XDG_STATE_HOME=~/.local/state
 
 export KERNEL=$(uname -s)
 export SHELL="$0"
-export BROWSER="firefox"
-export EDITOR="nvim"
+export BROWSER=${BROWSER:-"librewolf"}
+export EDITOR=${EDITOR:-"nvim"}
 
 source $ZDOTDIR/tools.zsh
 

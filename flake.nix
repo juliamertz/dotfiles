@@ -10,10 +10,13 @@
 
     # neovim stuff
     nixvim.url = "github:nix-community/nixvim";
+    godoc = {
+      url = "github:juliamertz/godoc.nvim/goto-definition";
+      flake = false;
+    };
     noogle = {
       url = "github:juliamertz/noogle-cli";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.noogle.url = "github:juliamertz/noogle";
     };
     nil = {
       url = "github:oxalica/nil";

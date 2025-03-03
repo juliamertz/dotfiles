@@ -8,7 +8,7 @@ CHOICE=$(
 	echo -e "$DAYTIME\n$SUNSET\n$NIGHTTIME" |
 		rofi -dmenu \
 			-p "Uptime: $uptime" \
-			-theme "$HOME/.config/rofi/displaymenu/theme.rasi"
+			-theme "$THEME"
 )
 
 if [[ $CHOICE == $DAYTIME ]]; then
