@@ -12,36 +12,13 @@ M.rofi = {
 	displaymenu = utils.config_path() .. 'rofi/displaymenu/start.sh',
 }
 
-local terminals = {
-	wezterm = 'org.wezfurlong',
-	kitty = 'kitty',
-	alacritty = 'Alacritty',
-	xterm = '',
-}
-
 M.apps = {
-	terminal = { executable = [[sh -c "wezterm || kitty"]], class = 'org.wezfurlong.wezterm' },
+	terminal = { executable = 'kitty', class = 'kitty' },
 	music = { executable = 'spotify', class = 'Spotify' },
 	browser = { executable = 'firefox', class = 'firefox' },
 	file_manager = { executable = 'thunar', class = 'Thunar' },
 	editor = { executable = 'nvim' },
 }
-
---- TODO: fix this
---- @return App|nil
-local function find_terminal()
-	for term, class in ipairs(terminals) do
-		awful.spawn.easy_async_with_shell('which ' .. term, function(path)
-			if path ~= nil then
-				return { executable = path, class = class }
-			end
-		end)
-	end
-
-	return nil
-end
-
--- Configuration ends here
 
 ---@param class string|nil
 ---@param pid string|nil
