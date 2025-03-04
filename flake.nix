@@ -18,12 +18,12 @@
       url = "github:juliamertz/noogle-cli";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nil = {
-      url = "github:oxalica/nil";
+    blink = {
+      url = "github:Saghen/blink.cmp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zls = {
-      url = "github:zigtools/zls";
+    nil = {
+      url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

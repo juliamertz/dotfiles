@@ -1,3 +1,4 @@
+{inputs,pkgs,...}:
 {
   extraConfigLuaPost = builtins.readFile ../snippets.lua;
 
@@ -6,6 +7,7 @@
 
     blink-cmp = {
       enable = true;
+      package = inputs.blink.packages.${pkgs.system}.blink-cmp;
 
       settings = {
         completion = {
@@ -26,12 +28,7 @@
             lsp.score_offset = 4;
           };
         };
-        fuzzy = {
-          prebuilt_binaries = {
-            download = false;
-            ignore_version_mismatch = true;
-          };
-        };
+        fuzzy.implementation = "prefer_rust";
         keymap = {
           preset = "none";
           "<C-space>" = [

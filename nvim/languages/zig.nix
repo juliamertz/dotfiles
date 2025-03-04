@@ -2,7 +2,7 @@
 {
   plugins.lsp.servers.zls = {
     enable = true;
-    package = inputs.zls.packages.${system}.default;
+    package = null; # prefer zls provided by devshells
   };
 }
 
