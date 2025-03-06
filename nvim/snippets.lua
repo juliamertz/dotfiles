@@ -222,6 +222,15 @@ local rust_snippets = {
 	),
 }
 
+local zig_snippets = {
+	import = s({ trig = 'import' }, fmt('const {} = @import("{}");', { i(1), i(2) })),
+	struct = s(
+		{ trig = 'struct' },
+		fmt [[const {} = struct {
+  };]]
+	),
+}
+
 local html_snippets = {
 	boilerplate = s(
 		{ trig = '!' },
@@ -254,5 +263,6 @@ add_snippets(lua_snippets, 'lua')
 add_snippets(react_snippets, 'typescriptreact')
 add_snippets(go_snippets, 'go')
 add_snippets(rust_snippets, 'rust')
+add_snippets(zig_snippets, { 'zig' })
 add_snippets(html_snippets, { 'html', 'htmldjango' })
 add_snippets(global_snippets, 'all')
