@@ -1,0 +1,12 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p urlencode dotfiles.w3m
+
+query=$(urlencode "${*:2}")
+
+case $1 in
+  "duck") url="https://lite.duckduckgo.com/lite?kd=-1&kp=-1&q=$query";;
+  "google") url="https://google.com/search?q=$query";;
+  *) url="$1";;
+esac
+
+w3m "$url"
