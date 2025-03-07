@@ -1,46 +1,120 @@
 {
+  pkgs,
   lib,
-  runCommandNoCC,
   writeShellScriptBin,
   symlinkJoin,
-  readNixFiles,
-  callPackage,
   packages,
   ...
 }:
 let
-  mkScript =
-    names: content:
-    if builtins.isList names then
+  inherit (builtins) elemAt readFile toString;
+  splitStr = lib.strings.splitString;
+
+  parsePackage =
+    str:
+    let
+      parts = splitStr "=" str;
+      len = lib.length parts;
+    in
+    if len == 1 then
       let
-        name = builtins.elemAt names 0;
-        script = writeShellScriptBin name content;
-        aliases = builtins.filter (n: n != name) names;
-        linkAlias =
-          alias: # sh
-          ''
-            ln -vs $out/bin/${name} $out/bin/${alias}
-          '';
+        path = elemAt parts 0;
+        nodes = splitStr "." path;
       in
-      runCommandNoCC "script-${name}" { } ''
-        mkdir -p $out/bin
-        cp ${script}/bin/${name} $out/bin/${name}
-        ${map (a: linkAlias a) aliases |> lib.concatStringsSep "\n"}
-      ''
+      {
+        name = elemAt (nodes) ((lib.length nodes) - 1);
+        path = nodes;
+      }
+    else if len == 2 then
+      {
+        name = elemAt parts 0;
+        path = splitStr "." <| elemAt parts 1;
+      }
     else
-      let
-        script = writeShellScriptBin names content;
-      in
-      runCommandNoCC "script-${names}" { } ''
-        mkdir -p $out/bin
-        cp ${script}/bin/${names} $out/bin/${names}
+      throw ''
+        Invalid package of length ${toString len}: "${str}"
       '';
 
-  files = readNixFiles ./.;
-  localPath = filename: ./. + "/${filename}";
-  scripts = map (p: callPackage (localPath p) { inherit mkScript packages; }) files;
+  lookupAttrpath =
+    attrs: path:
+    let
+      newPath = lib.drop 1 path;
+      nextName = elemAt path 0;
+      next = lib.getAttr nextName attrs;
+    in
+    if lib.length path == 1 then next else lookupAttrpath (next) newPath;
+
+  parseRequirements =
+    content:
+    splitStr "\n" content
+    |> map (
+      line:
+      let
+        parts = splitStr " " line;
+      in
+      if (elemAt parts 0) == "#?" then parts |> lib.drop 1 |> map parsePackage else null
+    )
+    |> builtins.filter (value: !builtins.isNull value)
+    |> lib.flatten;
+
+  mkNamedBinPath =
+    name: requirements:
+    "mkdir -p $out/bin\n"
+    + (
+      requirements
+      |> map (
+        dep:
+        let
+          pkg = lookupAttrpath {
+            inherit pkgs;
+            dotfiles = packages;
+          } dep.path;
+        in
+        "ln -sf ${lib.getExe pkg} $out/bin/${dep.name}"
+      )
+      |> lib.concatStringsSep "\n"
+    )
+    |> pkgs.runCommand "${name}-script-binpath" { };
+
+  readScripts =
+    path:
+    let
+      isScript = name: name != "default.nix";
+      toPath = (filename: ./. + "/${filename}");
+      files = builtins.readDir path;
+    in
+    builtins.filter isScript (builtins.attrNames files) |> map toPath;
+
+  wrapScript =
+    {
+      path,
+      useDash ? false,
+    }:
+    let
+      requirements =
+        parseRequirements (readFile path)
+        ++ lib.optionals useDash [
+          {
+            name = "bash";
+            path = [
+              "pkgs"
+              "dash"
+            ];
+          }
+        ]
+        |> mkNamedBinPath (builtins.baseNameOf path);
+    in
+    writeShellScriptBin (builtins.baseNameOf path) ''
+      export PATH="${
+        lib.makeBinPath [
+          requirements
+          "$PATH"
+        ]
+      }"
+      exec ${path} "$@"
+    '';
 in
 symlinkJoin {
   name = "scripts";
-  paths = scripts;
+  paths = readScripts ./. |> map (path: wrapScript { inherit path; });
 }
