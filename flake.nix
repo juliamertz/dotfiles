@@ -44,12 +44,7 @@
         forAllSystems (
           pkgs:
           let
-            inherit (pkgs)
-              lib
-              stdenv
-              system
-              callPackage
-              ;
+            inherit (pkgs) lib stdenv system callPackage;
             finalAttrs = attrs system;
             helpers = callPackage ./helpers.nix { inherit self; };
           in
@@ -57,10 +52,7 @@
           ++ lib.optionals stdenv.isLinux finalAttrs.linux
           ++ lib.optionals stdenv.isDarwin finalAttrs.darwin
           |> map (p: if lib.isPath p then helpers.callProgram p else p)
-          |> map (p: {
-            name = p.name;
-            value = p;
-          })
+          |> map (p: { name = p.name; value = p; })
           |> lib.listToAttrs
         );
     in

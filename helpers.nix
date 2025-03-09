@@ -10,18 +10,21 @@
 rec {
   callProgram =
     path:
-    pkgs.callPackage path ({
-      packages = self.packages.${pkgs.system};
-      inherit (self) inputs;
-      inherit
-        wrapPackage
-        combineDerivations
-        readNixFiles
-        importUnfree
-        callProgram
-        fetchGithubFlake
-        ;
-    });
+    pkgs.callPackage path (
+      {
+        packages = self.packages.${pkgs.system};
+        inherit (self) inputs;
+        inherit
+          wrapPackage
+          combineDerivations
+          readNixFiles
+          mkImportList
+          importUnfree
+          callProgram
+          fetchGithubFlake
+          ;
+      }
+    );
 
   combineDerivations =
     name: derivations:
@@ -78,6 +81,8 @@ rec {
       files = builtins.readDir path;
     in
     builtins.filter isNix (builtins.attrNames files);
+
+  mkImportList = path: lib.mapAttrsToList (name: _: path + "/${name}") (builtins.readDir path);
 
   # import nixpkgs with `config.allowUnfree = true;`
   importUnfree =

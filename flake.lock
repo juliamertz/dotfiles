@@ -334,11 +334,11 @@
     "godoc": {
       "flake": false,
       "locked": {
-        "lastModified": 1740744753,
-        "narHash": "sha256-QQXe/ahwHXno6C71egYz7Quzj2p9+vb4XFBvSrHPmiM=",
+        "lastModified": 1741538365,
+        "narHash": "sha256-apGZid4tRHQIZ6gCbAfvJphS3PIGmtgK9Mhk5DjG+Ao=",
         "owner": "juliamertz",
         "repo": "godoc.nvim",
-        "rev": "7f59da05beeaade4885f84dcae2ee53de3f21e17",
+        "rev": "72669e3364c5ee7b0975bb270481e047efcf9d11",
         "type": "github"
       },
       "original": {
@@ -621,11 +621,11 @@
         "noogle": "noogle_2"
       },
       "locked": {
-        "lastModified": 1741170677,
-        "narHash": "sha256-htIuDZmWPjZ7RTQmDg2rrPUmp+sK46CiGd+fiJZqWx8=",
+        "lastModified": 1741542595,
+        "narHash": "sha256-28X6hY2sJuSjymwShUcplCF73sMon5MsKOWeOkYF61I=",
         "owner": "juliamertz",
         "repo": "noogle-cli",
-        "rev": "11006cee64bb96fb6081daaa1d415a5408676a90",
+        "rev": "4de286b60878cc98e535920a66aad9caa9ab2082",
         "type": "github"
       },
       "original": {

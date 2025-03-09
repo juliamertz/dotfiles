@@ -23,16 +23,11 @@ let
   parseNixShellShebang =
     args:
     let
-      # TODO: make these regexes more forgiving
-      # working format: '#! nix-shell -i bash -p pkgs.neovim
       interpreter = elemAt (match ".*-i ([a-zA-Z]+).*" args) 0;
       packages = elemAt (match ".*-p (.*)" args) 0 |> splitString " ";
     in
     {
-      inherit
-        interpreter
-        packages
-        ;
+      inherit interpreter packages;
     };
 
   parseRequirements =

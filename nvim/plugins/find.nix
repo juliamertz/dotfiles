@@ -1,9 +1,5 @@
 { lib, config, ... }:
 {
-  plugins.snacks.settings.picker.enabled = true;
-  plugins.mini.modules.pick = {};
-  plugins.fzf-lua.enable = true;
-
   plugins.telescope = {
     enable = true;
 
