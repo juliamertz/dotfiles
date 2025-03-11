@@ -227,7 +227,9 @@ local zig_snippets = {
 	struct = s(
 		{ trig = 'struct' },
 		fmt(
-			[[const {} = struct {{\n{}\n}};]],
+			[[const {} = struct {{
+  {}
+}};]],
 			{ i(1), i(2) }
 		)
 	),
