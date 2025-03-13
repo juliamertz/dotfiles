@@ -52,6 +52,7 @@ in
     vim.wo.fillchars = "eob: "; -- remove tilde from empty lines
     vim.o.cmdheight = 0;
   '';
+  extraConfigLuaPost = builtins.readFile ./term.lua;
 
   luaLoader.enable = true;
   performance.byteCompileLua = {

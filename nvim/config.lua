@@ -14,7 +14,7 @@ keymap('n', '<C-h>', '<C-w>h')
 keymap('n', '<C-j>', '<C-w>j')
 keymap('n', '<C-k>', '<C-w>k')
 keymap('n', '<C-l>', '<C-w>l')
-keymap('t', '<esc><esc>', '<c-\\><c-n>')
+
 
 local function vresize(step)
 	vim.cmd('vertical resize ' .. step)
@@ -47,15 +47,6 @@ vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'man', 'help' },
 	callback = function()
 		vim.keymap.set('n', 'gd', '<C-]>', { buffer = true })
-	end,
-})
-
--- Disable line numbers in embedded terminals
-vim.api.nvim_create_autocmd('TermOpen', {
-	group = vim.api.nvim_create_augroup('termopen', { clear = true }),
-	callback = function()
-		vim.opt.number = false
-		vim.opt.relativenumber = false
 	end,
 })
 
