@@ -15,7 +15,7 @@ M.rofi = {
 M.apps = {
 	terminal = { executable = 'kitty', class = 'kitty' },
 	music = { executable = 'spotify', class = 'Spotify' },
-	browser = { executable = 'firefox', class = 'firefox' },
+	browser = { executable = 'librewolf', class = 'librewolf' },
 	file_manager = { executable = 'thunar', class = 'Thunar' },
 	editor = { executable = 'nvim' },
 }
