@@ -2,6 +2,7 @@ autoload -Uz compinit && compinit
 
 export ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 export ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.local/share/zsh/plugins}
+export SCRIPTS_DIR=${SCRIPTS_DIR:-$HOME/dotfiles/scripts}
 
 export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
@@ -19,6 +20,7 @@ source $ZDOTDIR/tools.zsh
 add_path $HOME/.cargo/bin
 add_path $HOME/.local/bin
 add_path $ZRUNTIMEDEPS
+add_path $SCRIPTS_DIR
 add_path /run/current-system/sw/bin
 
 # Initialize plugins
@@ -57,7 +59,6 @@ alias sqlite='litecli'
 
 # Linux specific aliases
 if [[ $KERNEL == "Linux" ]]; then
-  alias open='xdg-open'
   alias sctl='sudo systemctl'
 fi
 

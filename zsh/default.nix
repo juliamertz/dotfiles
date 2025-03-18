@@ -1,4 +1,5 @@
 {
+  packages,
   pkgs,
   wrapPackage,
   symlinkJoin,
@@ -66,6 +67,7 @@ wrapPackage {
     "--set ZRUNTIMEDEPS '${mkDeps runtimeDependencies}/bin'"
     "--set ZPLUGINDIR '${pluginPackages}'"
     "--set ATUIN_CONFIG_DIR '${../atuin}'"
+    "--set SCRIPTS_DIR '${packages.scripts}/bin'"
     "--set STARSHIP_CONFIG '${../starship/prompt.toml}'"
   ];
 }
