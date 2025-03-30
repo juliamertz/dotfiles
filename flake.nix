@@ -9,9 +9,9 @@
     spicetify.url = "github:Gerg-L/spicetify-nix";
 
     # neovim stuff
-    nixvim.url = "github:nix-community/nixvim";
+    nixcats.url = "github:BirdeeHub/nixCats-nvim";
     godoc = {
-      url = "github:juliamertz/godoc.nvim/goto-definition";
+      url = "github:fredrikaverpil/godoc.nvim";
       flake = false;
     };
     noogle = {
@@ -20,10 +20,6 @@
     };
     blink = {
       url = "github:Saghen/blink.cmp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nil = {
-      url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -70,6 +66,7 @@
           ./ghostty
           ./zsh
           ./w3m
+          ./awesome
           ./zathura
           ./scripts
         ];
