@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+run() {
+  echo running "$1" with args "$@"
+  if ! pgrep -f "$(basename "$1")"; then
+    "$@" &
+  fi
+}
+
+run picom -b
+run kitty
+run librewolf
+run blueman-applet
+
