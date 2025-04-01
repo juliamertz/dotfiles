@@ -2,15 +2,17 @@
   system,
   lib,
   inputs,
+  callPackage,
   ...
 }:
 let
-  nixCats = import inputs.nixcats;
+  pins = callPackage ./pins.nix {};
   pkgs = import inputs.nixpkgs {
     inherit system;
-    overlays = [ (import ./overlays.nix inputs) ];
+    overlays = [ (import ./overlays.nix pins.sources) ];
   };
 
+  nixCats = import pins.sources.nixcats;
   categoryDefinitions = import ./categories.nix;
   packageDefinitions = {
     nvim = _: {

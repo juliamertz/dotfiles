@@ -1,11 +1,21 @@
-inputs: prev: final: {
+sources: prev: final:
+let
+  overrideSrc =
+    pkg: src:
+    pkg.overrideAttrs {
+      inherit src;
+    };
+in
+{
   vimPlugins = final.vimPlugins // {
-    noogle-nvim = inputs.noogle.packages.${prev.system}.noogle-nvim;
+    snacks-nvim = overrideSrc final.vimPlugins.snacks-nvim sources.snacks;
+    rose-pine = overrideSrc final.vimPlugins.rose-pine sources.rose-pine;
+    noogle-nvim = (import sources.noogle).packages.${prev.system}.noogle-nvim;
     godoc-nvim = (
       prev.vimUtils.buildVimPlugin {
         pname = "godoc.nvim";
         version = "dev";
-        src = inputs.godoc;
+        src = sources.godoc;
         nvimSkipModule = [
           "godoc"
           "godoc.pickers.init"

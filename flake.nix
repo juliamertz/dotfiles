@@ -7,21 +7,6 @@
 
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
-
-    # neovim stuff
-    nixcats.url = "github:BirdeeHub/nixCats-nvim";
-    godoc = {
-      url = "github:fredrikaverpil/godoc.nvim";
-      flake = false;
-    };
-    noogle = {
-      url = "github:juliamertz/noogle-cli";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    blink = {
-      url = "github:Saghen/blink.cmp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =

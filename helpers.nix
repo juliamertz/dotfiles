@@ -3,7 +3,6 @@
   pkgs,
   system,
   symlinkJoin,
-  runCommandNoCC,
   makeWrapper,
   self,
 }:
@@ -16,7 +15,6 @@ rec {
         inherit (self) inputs;
         inherit
           wrapPackage
-          combineDerivations
           readNixFiles
           mkImportList
           importUnfree
@@ -25,19 +23,6 @@ rec {
           ;
       }
     );
-
-  combineDerivations =
-    name: derivations:
-    let
-      copy =
-        der: # sh
-        "cp -r ${der} $out/${der.repo}";
-      commands = map copy derivations;
-    in
-    runCommandNoCC name { } ''
-      mkdir $out
-      ${lib.concatStringsSep "\n" commands}
-    '';
 
   wrapPackage =
     args:
