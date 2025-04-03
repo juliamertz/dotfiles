@@ -13,8 +13,8 @@ builder.makeTmuxBin {
   sourceFiles = [ ./tmux.conf ];
 
   globals = {
-    default-shell = "${shell}";
-    default-command = "${shell}";
+    default-shell = shell;
+    default-command = shell;
   };
 
   plugins = with tmuxPlugins; [

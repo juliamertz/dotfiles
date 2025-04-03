@@ -3,12 +3,16 @@ return {
 	enable = require('utils').enableForCat 'clipboard',
 
 	opts = {
-		preserve_cursor_position = { enabled = true },
-		system_clipboard = { sync_with_ring = false },
 		highlight = {
 			on_put = true,
 			on_yank = true,
 			timer = 100,
+		},
+		preserve_cursor_position = {
+			enabled = true,
+		},
+		system_clipboard = {
+			sync_with_ring = false,
 		},
 	},
 

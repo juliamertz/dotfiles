@@ -11,22 +11,20 @@ in
     snacks-nvim = overrideSrc final.vimPlugins.snacks-nvim sources.snacks;
     rose-pine = overrideSrc final.vimPlugins.rose-pine sources.rose-pine;
     noogle-nvim = (import sources.noogle).packages.${prev.system}.noogle-nvim;
-    godoc-nvim = (
-      prev.vimUtils.buildVimPlugin {
-        pname = "godoc.nvim";
-        version = "dev";
-        src = sources.godoc;
-        nvimSkipModule = [
-          "godoc"
-          "godoc.pickers.init"
-          "godoc.pickers.telescope"
-          "godoc.pickers.snacks"
-          "godoc.pickers.fzf_lua"
-          "godoc.adapters.init"
-          "godoc.adapters.go"
-        ];
-      }
-    );
+    godoc-nvim = prev.vimUtils.buildVimPlugin {
+      pname = "godoc.nvim";
+      version = "dev";
+      src = sources.godoc;
+      nvimSkipModule = [
+        "godoc"
+        "godoc.pickers.init"
+        "godoc.pickers.telescope"
+        "godoc.pickers.snacks"
+        "godoc.pickers.fzf_lua"
+        "godoc.adapters.init"
+        "godoc.adapters.go"
+      ];
+    };
   };
 
   vscode-lldb-bin = final.stdenvNoCC.mkDerivation {
