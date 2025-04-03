@@ -13,6 +13,7 @@ return {
 			go = utils.optionalCat('go', { 'gofmt', lsp_format = 'fallback' }),
 			javascript = utils.optionalCat('javascript', { 'biome', lsp_format = 'fallback' }),
 			ocaml = utils.optionalCat('ocaml', { 'ocamlformat' }),
+			yaml = utils.optionalCat('yaml', { 'yamlfmt' }),
 		},
 
 		formatters = {

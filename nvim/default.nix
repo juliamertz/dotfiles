@@ -52,6 +52,7 @@ let
         python = true;
         javascript = true;
         markdown = true;
+        yaml = true;
       };
     };
   };
