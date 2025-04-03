@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
 
+    treefmt-nix.url = "github:numtide/treefmt-nix";
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
   };
@@ -15,10 +16,12 @@
       nixpkgs,
       systems,
       ...
-    }:
+    }@inputs:
     let
       forAllSystems =
         func: nixpkgs.lib.genAttrs (import systems) (system: func nixpkgs.legacyPackages.${system});
+
+      treefmtEval = forAllSystems (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
 
       systemPrograms =
         attrs:
@@ -81,6 +84,8 @@
           packages = self.packages.${pkgs.system};
         }
       );
+
+      formatter = forAllSystems (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
     };
 
   nixConfig = {
