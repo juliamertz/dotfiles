@@ -42,7 +42,7 @@ bindkey '^r' search-hist
 
 # Aliases
 alias cat='bat -pp'
-alias man='batman'
+alias man='BAT_THEME="rose-pine-moon" batman'
 alias md='mkdir -p'
 alias vim='nvim'
 alias vi='nvim'

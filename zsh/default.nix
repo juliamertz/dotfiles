@@ -27,14 +27,14 @@ let
 
   config = pkgs.callPackage ./config.nix { };
   pluginPackages = lib.mapAttrsToList (_: val: val) pins.sources;
-  runtimeDeps = with pkgs; [
-    bat
-    bat-extras.batman
-    atuin
-    starship
-    jq
-    fzf
-    zoxide
+  runtimeDeps = [
+    packages.bat
+    pkgs.bat-extras.batman
+    pkgs.atuin
+    pkgs.starship
+    pkgs.jq
+    pkgs.fzf
+    pkgs.zoxide
   ];
 in
 wrapPackage {

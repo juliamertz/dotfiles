@@ -50,6 +50,7 @@
           ./alacritty
           ./ghostty
           ./zsh
+          ./bat
           ./w3m
           ./awesome
           ./zathura
