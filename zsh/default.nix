@@ -17,12 +17,8 @@ let
       name = "zsh-runtime-dependencies";
       paths = paths;
     };
-  pluginLinkFarm =
-    pkgs:
-    map (pkg: {
-      name = "${pkg.repo}";
-      path = pkg;
-    }) pkgs
+  pluginLinkFarm = pkgs:
+    map (pkg: { name = "${pkg.repo}"; path = pkg; }) pkgs
     |> linkFarm "zsh-plugins";
 
   config = pkgs.callPackage ./config.nix { };
@@ -39,12 +35,12 @@ let
 in
 wrapPackage {
   package = pkgs.zsh;
-  extraArgs = [
-    "--set ZDOTDIR '${config}'"
-    "--set ZRUNTIMEDEPS '${joinDeps runtimeDeps}/bin'"
-    "--set ZPLUGINDIR '${pluginLinkFarm pluginPackages}'"
-    "--set ATUIN_CONFIG_DIR '${../atuin}'"
-    "--set SCRIPTS_DIR '${packages.scripts}/bin'"
-    "--set STARSHIP_CONFIG '${../starship/prompt.toml}'"
-  ];
+  extraArgs = lib.mapAttrsToList (key: val: "--set ${key} '${val}'") {
+    ZDOTDIR = config;
+    ZRUNTIMEDEPS = "${joinDeps runtimeDeps}/bin";
+    ZPLUGINDIR = "${pluginLinkFarm pluginPackages}";
+    ATUIN_CONFIG_DIR = "${../atuin}";
+    SCRIPTS_DIR = "${packages.scripts}/bin";
+    STARSHIP_CONFIG = ../starship/prompt.toml;
+  };
 }
