@@ -2,7 +2,12 @@
 #! nix-shell -i bash -p bash
 #? alias ,
 
-export NIX_PATH="/nix/store/jk6xpbfh10gz6q5cqw8b2f7xk0pl7hkv-source"
+KERNEL=$(uname -s)
+
+if [ $KERNEL = "Darwin" ]; then
+  export NIX_PATH="$(nix flake metadata nixpkgs --json | jq .locked.path | xargs)"
+fi
+
 export NIXPKGS_ALLOW_UNFREE=1
 
 nix-shell -p "$@" --run "$SHELL"
