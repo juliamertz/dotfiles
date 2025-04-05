@@ -55,9 +55,10 @@ vim.cmd [[
 ]]
 
 -- Disable semantic lsp highlighting (which breaks treesitter highlights)
--- for _, group in ipairs(vim.fn.getcompletion('@lsp', 'highlight')) do
--- 	vim.api.nvim_set_hl(0, group, {})
--- end
+-- TODO: some languages actually benefit from this e.g. nix while languages like rust just look ugly
+for _, group in ipairs(vim.fn.getcompletion('@lsp', 'highlight')) do
+	vim.api.nvim_set_hl(0, group, {})
+end
 
 -- Rebind ctrl-] to gd for man/help pages
 vim.api.nvim_create_autocmd('FileType', {
