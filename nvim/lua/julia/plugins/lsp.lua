@@ -65,15 +65,16 @@ return {
 					end
 
 					if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-						map("<leader>th", function()
+						map('<leader>th', function()
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-						end, "[T]oggle Inlay [H]ints")
+						end, '[T]oggle Inlay [H]ints')
 					end
 				end,
 			})
 
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+			-- TODO:
+			-- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
 			local servers = {}
 
@@ -164,5 +165,14 @@ return {
 		enable = utils.enableForCat 'rust',
 		ft = 'rust',
 		version = '^5',
+		config = function()
+			vim.g.rustaceanvim = {
+				server = {
+          -- fix completion insertion sometimes choosing the wrong item?
+          -- possibly related: https://github.com/hrsh7th/cmp-nvim-lsp/issues/72
+					capabilities = vim.lsp.protocol.make_client_capabilities(),
+				},
+			}
+		end,
 	},
 }

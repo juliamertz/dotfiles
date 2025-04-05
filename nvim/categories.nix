@@ -84,11 +84,12 @@
       todo-comments-nvim
     ];
     completion = [
-      nvim-cmp
+      blink-cmp
+      # nvim-cmp
       luasnip
-      cmp_luasnip
-      cmp-nvim-lsp
-      cmp-path
+      # cmp_luasnip
+      # cmp-nvim-lsp
+      # cmp-path
     ];
 
     lua = [

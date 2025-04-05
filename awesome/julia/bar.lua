@@ -146,7 +146,7 @@ M.init = function(s)
 				mem,
 				-- spotify_widget,
 			},
-			wibox.layout.margin(wibox.widget.systray(), 10, 10, 10, 10),
+			wibox.container.margin(wibox.widget.systray(), 10, 10, 10, 10),
 			-- s.layout_box,
 		},
 	}
