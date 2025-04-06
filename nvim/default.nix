@@ -53,6 +53,7 @@ let
         javascript = true;
         markdown = true;
         yaml = true;
+        shell = true;
       };
     };
   };

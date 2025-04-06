@@ -87,6 +87,18 @@ return {
 				end
 			end
 
+			servers.bashls = utils.ifCat('shell', {
+				cmd = { 'bash-language-server', 'start' },
+				filetypes = { 'sh', 'bash', 'zsh' },
+				settings = {
+					bash = {
+						shellcheck = {
+							enable = true,
+						},
+					},
+				},
+			})
+
 			servers.zls = utils.ifCat('zig', {})
 
 			servers.basedpyright = utils.ifCat('python', {})

@@ -50,6 +50,10 @@
     yaml = [
       yamlfmt
     ];
+    shell = [
+      bash-language-server
+      shellcheck
+    ];
   };
 
   # This is for plugins that will load at startup without using packadd:
