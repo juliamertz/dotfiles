@@ -1,0 +1,10 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p xorg.xset
+
+if [ "$1" = "+" ]; then
+  xset s on +dpms
+elif [ "$1" = "-" ]; then
+  xset s off -dpms
+else 
+  echo "Unknown operator $1"
+fi
