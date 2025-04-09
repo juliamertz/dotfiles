@@ -73,8 +73,7 @@ return {
 			})
 
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			-- TODO:
-			-- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+			capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
 			local servers = {}
 
@@ -99,6 +98,23 @@ return {
 				},
 			})
 
+			if utils.enableForCat 'shell' then
+				-- fix filetype detection for scripts with nix-shell shebang
+				vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+					pattern = '*',
+					callback = function()
+						local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ''
+						if first_line:match '^#!.*nix%-shell' then
+							vim.bo.filetype = 'sh'
+							vim.cmd 'LspStart bashls'
+							if utils.enableForCat 'nix' and utils.isNixCats then
+								vim.cmd 'LspStop nixd'
+							end
+						end
+					end,
+				})
+			end
+
 			servers.zls = utils.ifCat('zig', {})
 
 			servers.basedpyright = utils.ifCat('python', {})
@@ -114,6 +130,19 @@ return {
 					on_attach = on_attach,
 					root_dir = require('lspconfig').util.root_pattern 'package.json',
 					single_file_support = false,
+				}
+				servers.astro = {}
+				servers.tailwindcss = {
+					settings = {
+						tailwindCSS = {
+							experimental = {
+								classRegex = {
+									{ 'cva\\(((?:[^()]|\\([^()]*\\))*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+									{ 'cx\\(((?:[^()]|\\([^()]*\\))*)\\)', "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+								},
+							},
+						},
+					},
 				}
 			end
 
@@ -180,8 +209,8 @@ return {
 		config = function()
 			vim.g.rustaceanvim = {
 				server = {
-          -- fix completion insertion sometimes choosing the wrong item?
-          -- possibly related: https://github.com/hrsh7th/cmp-nvim-lsp/issues/72
+					-- fix completion insertion sometimes choosing the wrong item?
+					-- possibly related: https://github.com/hrsh7th/cmp-nvim-lsp/issues/72
 					capabilities = vim.lsp.protocol.make_client_capabilities(),
 				},
 			}

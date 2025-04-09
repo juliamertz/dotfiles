@@ -46,6 +46,8 @@
     javascript = [
       nodePackages.typescript-language-server
       biome
+      astro-language-server
+      tailwindcss-language-server
     ];
     yaml = [
       yamlfmt
@@ -90,12 +92,12 @@
       todo-comments-nvim
     ];
     completion = [
-      blink-cmp
-      # nvim-cmp
+      # blink-cmp
+      nvim-cmp
+      cmp-nvim-lsp
+      cmp-path
       luasnip
-      # cmp_luasnip
-      # cmp-nvim-lsp
-      # cmp-path
+      cmp_luasnip
     ];
 
     lua = [

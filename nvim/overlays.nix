@@ -10,7 +10,7 @@ in
   vimPlugins = final.vimPlugins // {
     snacks-nvim = overrideSrc final.vimPlugins.snacks-nvim sources.snacks;
     rose-pine = overrideSrc final.vimPlugins.rose-pine sources.rose-pine;
-    noogle-nvim = (import sources.noogle).packages.${prev.system}.noogle-nvim;
+    noogle-nvim = sources.noogle.packages.${prev.system}.noogle-nvim;
     godoc-nvim = prev.vimUtils.buildVimPlugin {
       pname = "godoc.nvim";
       version = "dev";

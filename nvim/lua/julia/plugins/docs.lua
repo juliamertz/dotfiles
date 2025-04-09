@@ -2,7 +2,7 @@ local utils = require 'utils'
 
 return {
 	'fredrikaverpil/godoc.nvim',
-	enable = utils.enableForCat 'docs',
+	enable = utils.enableForCat 'docs' and (utils.enableForCat 'nix' or utils.enableForCat 'go'),
 
 	dependencies = {
 		{
@@ -12,26 +12,36 @@ return {
 		},
 	},
 
-	opts = {
-		adapters = {
-			utils.optional(utils.enableForCat 'go', {
+	config = function()
+		local godoc = require 'godoc'
+		local adapters = {}
+
+		if utils.enableForCat 'go' then
+			table.insert(adapters, {
 				name = 'go',
-			}),
-			utils.optional(utils.isNixCats and utils.enableForCat 'nix', {
+			})
+		end
+
+		if utils.isNixCats and utils.enableForCat 'nix' then
+			table.insert(adapters, {
 				name = 'nix',
 				setup = function()
 					return require('noogle').setup()
 				end,
-			}),
-		},
-		picker = {
-			type = 'telescope',
-			telescope = {},
-		},
-		window = {
-			type = 'vsplit',
-		},
-	},
+			})
+		end
+
+		godoc.setup {
+			adapters = adapters,
+			picker = {
+				type = 'telescope',
+				telescope = {},
+			},
+			window = {
+				type = 'vsplit',
+			},
+		}
+	end,
 
 	keys = {
 		{

@@ -5,9 +5,9 @@ return {
 		'nvim-tree/nvim-tree.lua',
 		enabled = utils.enableForCat 'filetree',
 
-		dependencies = {
+		dependencies = utils.optionalCat('have_nerd_font', {
 			'echasnovski/mini.icons',
-		},
+		}),
 
 		opts = {
 			renderer = {
