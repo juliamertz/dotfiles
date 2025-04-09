@@ -2,24 +2,31 @@
 { fetchFromGitHub, ... }:
 {
   inputs = {
-    fzf-tab = "github:Aloxaf/fzf-tab";
-    zsh-autosuggestions = "github:zsh-users/zsh-autosuggestions";
-    zsh-completions = "github:zsh-users/zsh-completions";
-    zsh-syntax-highlighting = "github:zsh-users/zsh-syntax-highlighting";
-    zsh-vi-mode = "github:jeffreytse/zsh-vi-mode";
+    ez-compinit.url = "github:mattmc3/ez-compinit";
+    fzf-tab.url = "github:Aloxaf/fzf-tab";
+    zsh-autocomplete.url = "github:marlonrichert/zsh-autocomplete";
+    zsh-completions.url = "github:zsh-users/zsh-completions";
+    zsh-syntax-highlighting.url = "github:zsh-users/zsh-syntax-highlighting";
+    zsh-vi-mode.url = "github:jeffreytse/zsh-vi-mode";
   };
   sources = {
+    ez-compinit = fetchFromGitHub {
+      owner = "mattmc3";
+      repo = "ez-compinit";
+      rev = "ac56d203e12bd5c4c0fe00c5fbf0d7dd6abc4e14";
+      hash = "sha256-lDHAzad3XoUGm8dYp6LOIwcUn3c2J4qq9Zq6adaGYuQ=";
+    };
     fzf-tab = fetchFromGitHub {
       owner = "Aloxaf";
       repo = "fzf-tab";
       rev = "01dad759c4466600b639b442ca24aebd5178e799";
       hash = "sha256-q26XVS/LcyZPRqDNwKKA9exgBByE0muyuNb0Bbar2lY=";
     };
-    zsh-autosuggestions = fetchFromGitHub {
-      owner = "zsh-users";
-      repo = "zsh-autosuggestions";
-      rev = "0e810e5afa27acbd074398eefbe28d13005dbc15";
-      hash = "sha256-85aw9OM2pQPsWklXjuNOzp9El1MsNb+cIiZQVHUzBnk=";
+    zsh-autocomplete = fetchFromGitHub {
+      owner = "marlonrichert";
+      repo = "zsh-autocomplete";
+      rev = "a09c1c5c1c967a1a9541820370a9bab4edc0ab29";
+      hash = "sha256-2UBY0dOUvkLjfIJKkTcN9UfwUdNiVCCQO1Ot443m4fo=";
     };
     zsh-completions = fetchFromGitHub {
       owner = "zsh-users";

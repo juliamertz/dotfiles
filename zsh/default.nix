@@ -1,46 +1,68 @@
 {
-  packages,
   pkgs,
-  lib,
   callPackage,
-  wrapPackage,
-  linkFarm,
-  symlinkJoin,
+  packages,
   ...
 }:
 let
-  pins = callPackage ./pins.nix { };
+  plugins = callPackage ./pins.nix { };
+  builder = callPackage ./builder.nix { };
 
-  joinDeps =
-    paths:
-    symlinkJoin {
-      name = "zsh-runtime-dependencies";
-      paths = paths;
+  categoryDefinitions = {
+    pluginPackages = with plugins.sources; {
+      general = [
+        zsh-syntax-highlighting
+      ];
+      completion = [
+        ez-compinit
+        zsh-completions
+        zsh-autocomplete
+        # zsh-autosuggestions
+      ];
+      fzf = [
+        fzf-tab
+      ];
+      vim = [
+        zsh-vi-mode
+      ];
     };
-  pluginLinkFarm = pkgs:
-    map (pkg: { name = "${pkg.repo}"; path = pkg; }) pkgs
-    |> linkFarm "zsh-plugins";
 
-  config = pkgs.callPackage ./config.nix { };
-  pluginPackages = lib.mapAttrsToList (_: val: val) pins.sources;
-  runtimeDeps = [
-    packages.bat
-    pkgs.bat-extras.batman
-    pkgs.atuin
-    pkgs.starship
-    pkgs.jq
-    pkgs.fzf
-    pkgs.zoxide
-  ];
-in
-wrapPackage {
-  package = pkgs.zsh;
-  extraArgs = lib.mapAttrsToList (key: val: "--set ${key} '${val}'") {
-    ZDOTDIR = config;
-    ZRUNTIMEDEPS = "${joinDeps runtimeDeps}/bin";
-    ZPLUGINDIR = "${pluginLinkFarm pluginPackages}";
-    ATUIN_CONFIG_DIR = "${../atuin}";
-    SCRIPTS_DIR = "${packages.scripts}/bin";
-    STARSHIP_CONFIG = ../starship/prompt.toml;
+    runtimeDeps = with pkgs; {
+      atuin = [ atuin ];
+      prompt = [ starship ];
+      zoxide = [ zoxide ];
+      fzf = [ fzf ];
+      uutils = [ uutils-coreutils-noprefix ];
+      general = [ bat ];
+    };
+
+    environmentVariables = {
+      general = {
+        SCRIPTS_DIR = packages.scripts;
+      };
+      prompt = {
+        STARSHIP_CONFIG = builtins.toString ../starship/prompt.toml;
+      };
+    };
   };
+
+  packageDefinitions = {
+    categories = {
+      general = true;
+      have_nerd_font = true;
+
+      highlight = true;
+      completion = true;
+      fzf = true;
+      vim = true;
+      atuin = true;
+      prompt = true;
+      zoxide = true;
+      uutils = true;
+    };
+  };
+in
+builder.buildShell {
+  inherit categoryDefinitions packageDefinitions;
+  configDir = ./.;
 }

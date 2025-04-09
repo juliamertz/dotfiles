@@ -1,27 +1,24 @@
-# If starship is avaiable and configured source it's hook and return
-
-if [[ -f $(which starship) ]] && [[ -v STARSHIP_CONFIG ]]; then
+if enableForCat "prompt"; then
   # set newline precmd for starship prompt
   starship_precmd() { echo }
 	add-zsh-hook precmd starship_precmd
   try_hook starship init zsh
+
   return
 fi
 
-# Else use basic fallback prompt
+# basic fallback prompt for when configuration isn't built with nix
 
-# takes the segment as the first argument
-# takes ansi color name as the second
-print_segment() {
-  print -n "$(clr $2)$1$(clr reset)"
-}
+function print_segment() { print -n "$(clr $2)$1$(clr reset)" }
 
-print_padding() { print -n " " }
-print_newline() { print -n $'\n' }
-prompt_dir() { print_segment '%~ ' blue }
+function print_padding() { print -n " " }
+
+function print_newline() { print -n $'\n' }
+
+function prompt_dir() { print_segment '%~ ' blue }
 
 # Git: branch/detached head, dirty status
-prompt_git() {
+function prompt_git() {
 	local color ref
 	is_dirty() {
 		test -n "$(git status --porcelain --ignore-submodules)"
@@ -38,7 +35,7 @@ prompt_git() {
 	fi
 }
 
-prompt_status() {
+function prompt_status() {
 	local symbols
 	symbols=()
 	[[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}\u2718"
@@ -48,20 +45,20 @@ prompt_status() {
 	[[ -n "$symbols" ]] && print_segment "$symbols " reset
 }
 
-prompt_caret() {
+function prompt_caret() {
   print_newline
   print -n "$(clr white);$(clr reset) "
 }
 
 # End the prompt, closing any open segments
-prompt_end() {
+function prompt_end() {
 	print -n "%{%k%}"
 	print -n "%{%f%}"
 	CURRENT_BG=''
 }
 
 ## Main prompt
-prompt_main() {
+function prompt_main() {
 	RETVAL=$?
 	CURRENT_BG='NONE'
 	prompt_status
@@ -71,13 +68,13 @@ prompt_main() {
 	prompt_end
 }
 
-prompt_precmd() {
+function prompt_precmd() {
   print
 	vcs_info
 	PROMPT="%{%f%b%k%}$(prompt_main)"
 }
 
-prompt_setup() {
+function prompt_setup() {
 	autoload -Uz add-zsh-hook
 	autoload -Uz vcs_info
 
