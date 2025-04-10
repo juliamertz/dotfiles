@@ -131,7 +131,15 @@ return {
 					root_dir = require('lspconfig').util.root_pattern 'package.json',
 					single_file_support = false,
 				}
+
 				servers.astro = {}
+				servers.svelte = {
+					filetypes = { 'svelte' },
+					capabilities = {
+            workspace = { didChangeWatchedFiles = false }
+          },
+				}
+
 				servers.tailwindcss = {
 					settings = {
 						tailwindCSS = {

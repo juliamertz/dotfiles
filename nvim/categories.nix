@@ -48,6 +48,7 @@
       biome
       astro-language-server
       tailwindcss-language-server
+      svelte-language-server
     ];
     yaml = [
       yamlfmt
