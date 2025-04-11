@@ -4,9 +4,7 @@
   wrapPackage,
   symlinkJoin,
   ...
-}:
-
-let
+}: let
   deps = symlinkJoin {
     name = "sketchybar-dependencies";
     paths = with pkgs; [
@@ -16,11 +14,11 @@ let
     ];
   };
 in
-wrapPackage {
-  package = sketchybar;
-  appendFlags = "--config ${./sketchybarrc}";
-  extraArgs = [
-    "--set MODULES '${./modules}'"
-    "--set PATH $PATH:${deps}/bin"
-  ];
-}
+  wrapPackage {
+    package = sketchybar;
+    appendFlags = "--config ${./sketchybarrc}";
+    extraArgs = [
+      "--set MODULES '${./modules}'"
+      "--set PATH $PATH:${deps}/bin"
+    ];
+  }

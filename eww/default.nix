@@ -4,10 +4,8 @@
   lib,
   eww,
   ...
-}:
-let
-  openWidget =
-    name: path: screen:
+}: let
+  openWidget = name: path: screen:
     writeShellApplication {
       name = "widget";
       runtimeInputs = with pkgs; [
@@ -19,8 +17,8 @@ let
       '';
     };
 in
-# writeShellScriptBin "widget" # sh
-#   ''
-#     ${lib.getExe eww} --config ${path} open ${name} --screen ${builtins.toString screen}
-#   '';
-(openWidget "bar" ./bar 1)
+  # writeShellScriptBin "widget" # sh
+  #   ''
+  #     ${lib.getExe eww} --config ${path} open ${name} --screen ${builtins.toString screen}
+  #   '';
+  (openWidget "bar" ./bar 1)

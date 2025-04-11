@@ -1,4 +1,8 @@
-{ pkgs, wrapPackage, ... }:
+{
+  pkgs,
+  wrapPackage,
+  ...
+}:
 wrapPackage {
   package = pkgs.wezterm;
   extraFlags = "--config-file ${./wezterm.lua}";

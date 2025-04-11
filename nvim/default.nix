@@ -4,12 +4,11 @@
   inputs,
   callPackage,
   ...
-}:
-let
+}: let
   pins = callPackage ./pins.nix {};
   pkgs = import inputs.nixpkgs {
     inherit system;
-    overlays = [ (import ./overlays.nix pins.sources) ];
+    overlays = [(import ./overlays.nix pins.sources)];
   };
 
   nixCats = import pins.sources.nixcats;
@@ -58,7 +57,9 @@ let
     };
   };
 in
-nixCats.baseBuilder ./. {
-  inherit pkgs;
-} categoryDefinitions packageDefinitions "nvim"
-|> lib.setName "neovim"
+  nixCats.baseBuilder ./. {
+    inherit pkgs;
+  }
+  categoryDefinitions
+  packageDefinitions "nvim"
+  |> lib.setName "neovim"

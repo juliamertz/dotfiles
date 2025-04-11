@@ -7,5 +7,5 @@
 wrapPackage {
   package = lazygit;
   extraFlags = "--use-config-file ${./config.yml}";
-  dependencies = [ delta ];
+  dependencies = [delta];
 }

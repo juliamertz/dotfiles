@@ -8,11 +8,11 @@ declare layout
 gap_state=$($XDG_CONFIG_HOME/bspwm/gaps status)
 
 if [[ $gap_state == "enabled" ]]; then
-	layout="gaps"
+  layout="gaps"
 elif [[ $gap_state == "disabled" ]]; then
-	layout="nogaps"
+  layout="nogaps"
 elif [[ $gap_state == "" ]]; then
-	layout="gaps"
+  layout="gaps"
 fi
 
 polybar $layout -r -c ~/.config/polybar/config.ini &

@@ -7,71 +7,72 @@
   stdenvNoCC,
   makeWrapper,
   ...
-}:
-rec {
-  toShell =
-    val:
-    if lib.isAttrs val then
-      let
-        fields = lib.mapAttrsToList (key: value: ''["${key}"]=${toShell value}'') val;
-      in
-      "(${lib.concatStringsSep " " fields})"
-    else if lib.isBool val then
-      lib.boolToString val
-    else
-      builtins.toString val;
+}: rec {
+  toShell = val:
+    if lib.isAttrs val
+    then let
+      fields = lib.mapAttrsToList (key: value: ''["${key}"]=${toShell value}'') val;
+    in "(${lib.concatStringsSep " " fields})"
+    else if lib.isBool val
+    then lib.boolToString val
+    else builtins.toString val;
 
-  pluginLinkFarm =
-    pkgs:
+  pluginLinkFarm = pkgs:
     map (pkg: {
       name = "${pkg.repo}";
       path = pkg;
-    }) pkgs
+    })
+    pkgs
     |> linkFarm "zsh-plugins";
 
-  buildShell =
-    {
-      package ? pkgs.zsh,
-      configDir,
-      categoryDefinitions ? { },
-      packageDefinitions ? { },
-    }:
-    let
-      mergeEnabledCats =
-        definitions:
-        let
-          values = lib.mapAttrsToList (
-            key: value: if packageDefinitions.categories.${key} == true then value else [ ]
-          ) definitions;
-        in
-        if lib.isList (lib.elemAt values 0) then lib.flatten values else lib.mergeAttrsList values;
+  buildShell = {
+    package ? pkgs.zsh,
+    configDir,
+    categoryDefinitions ? {},
+    packageDefinitions ? {},
+  }: let
+    mergeEnabledCats = definitions: let
+      values =
+        lib.mapAttrsToList (
+          key: value:
+            if packageDefinitions.categories.${key} == true
+            then value
+            else []
+        )
+        definitions;
+    in
+      if lib.isList (lib.elemAt values 0)
+      then lib.flatten values
+      else lib.mergeAttrsList values;
 
-      zshrc = writeText ".zshrc" (
-        ''
-          declare -A shellCats=${toShell packageDefinitions.categories}
-        ''
-        + builtins.readFile "${configDir}/.zshrc"
-      );
+    zshrc = writeText ".zshrc" (
+      ''
+        declare -A shellCats=${toShell packageDefinitions.categories}
+      ''
+      + builtins.readFile "${configDir}/.zshrc"
+    );
 
-      config = runCommandNoCC "zsh-config" { } ''
-        mkdir -p $out
+    config = runCommandNoCC "zsh-config" {} ''
+      mkdir -p $out
 
-        ln -svf ${zshrc} $out/.zshrc
-        ln -svf ${configDir}/*.zsh $out
-      '';
+      ln -svf ${zshrc} $out/.zshrc
+      ln -svf ${configDir}/*.zsh $out
+    '';
 
-      plugins = pluginLinkFarm (mergeEnabledCats categoryDefinitions.pluginPackages);
+    plugins = pluginLinkFarm (mergeEnabledCats categoryDefinitions.pluginPackages);
 
-      environment = {
+    environment =
+      {
         ZDOTDIR = config;
         SHELLCATS_CONFIG = config;
         SHELLCATS_PLUGINS = plugins;
-      } // mergeEnabledCats categoryDefinitions.environmentVariables;
-    in
+      }
+      // mergeEnabledCats categoryDefinitions.environmentVariables;
+  in
     stdenvNoCC.mkDerivation {
       name = "zsh";
       src = package;
-      buildInputs = [ makeWrapper ];
+      buildInputs = [makeWrapper];
 
       buildPhase = ''
         mkdir -p $out/bin

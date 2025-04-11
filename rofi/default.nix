@@ -4,21 +4,18 @@
   makeWrapper,
   symlinkJoin,
   writeShellScriptBin,
-
   rofi-wayland,
   python3,
   pamixer,
   ...
-}:
-let
+}: let
   # assumes path contains 'launch' executable and 'theme.rasi'
-  wrapWidget =
-    path:
+  wrapWidget = path:
     stdenv.mkDerivation rec {
       name = builtins.baseNameOf path;
       src = path;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       buildInputs = [
         rofi-wayland
         python3
@@ -50,14 +47,14 @@ let
     ];
   };
 in
-writeShellScriptBin "rofi" ''
-  widgets=${widgets}/bin
+  writeShellScriptBin "rofi" ''
+    widgets=${widgets}/bin
 
-  if test -z $1; then
-    printf "No widget name provided, choose from: "
-    ls $widgets
-    exit 1
-  fi
+    if test -z $1; then
+      printf "No widget name provided, choose from: "
+      ls $widgets
+      exit 1
+    fi
 
-  exec $widgets/$1
-''
+    exec $widgets/$1
+  ''

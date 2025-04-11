@@ -5,8 +5,7 @@
   wrapPackage,
   inputs,
   ...
-}:
-let
+}: let
   package = inputs.spotify-player.packages.${pkgs.system}.default;
   overlay = package.overrideAttrs (_: {
     buildNoDefaultFeatures = true;
@@ -23,14 +22,14 @@ let
         "daemon"
       ];
   });
-
 in
-wrapPackage {
-  name = "spotify-player";
-  package = overlay;
-  extraFlags = "--config-folder ${./.}";
-  postWrap = # sh
-    ''
-      ln -sf $out/bin/spotify_player $out/bin/spt
-    '';
-}
+  wrapPackage {
+    name = "spotify-player";
+    package = overlay;
+    extraFlags = "--config-folder ${./.}";
+    postWrap =
+      # sh
+      ''
+        ln -sf $out/bin/spotify_player $out/bin/spt
+      '';
+  }

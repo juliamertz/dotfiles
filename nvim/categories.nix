@@ -6,8 +6,7 @@
   name,
   mkNvimPlugin,
   ...
-}@packageDef:
-{
+} @ packageDef: {
   lspsAndRuntimeDeps = with pkgs; {
     general = [
       universal-ctags
@@ -15,7 +14,7 @@
       fd
       stdenv.cc.cc
     ];
-    folke = [ imagemagick ];
+    folke = [imagemagick];
 
     # languages
     nix = [
@@ -61,13 +60,13 @@
 
   # This is for plugins that will load at startup without using packadd:
   startupPlugins = with pkgs.vimPlugins; {
-    theme = [ rose-pine ];
-    clipboard = [ yanky-nvim ];
-    oil = [ oil-nvim ];
-    filetree = [ nvim-tree-lua ];
-    undotree = [ undotree ];
-    harpoon = [ harpoon2 ];
-    colors = [ ccc-nvim ];
+    theme = [rose-pine];
+    clipboard = [yanky-nvim];
+    oil = [oil-nvim];
+    filetree = [nvim-tree-lua];
+    undotree = [undotree];
+    harpoon = [harpoon2];
+    colors = [ccc-nvim];
     mini = [
       mini-icons
       mini-comment
@@ -128,37 +127,39 @@
 
     treesitter = [
       (nvim-treesitter.withPlugins (
-        plugins: with plugins; [
-          # programming languages
-          lua
-          nix
-          zig
-          rust
-          go
-          javascript
-          typescript
-          python
+        plugins:
+          with plugins; [
+            # programming languages
+            lua
+            nix
+            zig
+            rust
+            go
+            javascript
+            typescript
+            python
 
-          # config formats
-          json
-          xml
-          toml
-          yaml
-          yuck
+            # config formats
+            json
+            xml
+            toml
+            yaml
+            yuck
+            ron
 
-          # scripting
-          bash
-          make
-          regex
+            # scripting
+            bash
+            make
+            regex
 
-          # web
-          html
-          css
-          scss
+            # web
+            html
+            css
+            scss
 
-          markdown
-          vimdoc
-        ]
+            markdown
+            vimdoc
+          ]
       ))
     ];
   };

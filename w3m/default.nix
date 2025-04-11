@@ -4,8 +4,7 @@
   wrapPackage,
   writeText,
   ...
-}:
-let
+}: let
   config = (builtins.readFile ./w3m.conf) + "keymap_file ${keybinds}" |> writeText "w3m-config";
   keybinds =
     writeText "w3m-keybinds"
@@ -14,8 +13,8 @@ let
       (builtins.readFile ./keybinds.conf)
     ];
 in
-wrapPackage {
-  package = w3m;
-  extraFlags = "-config ${config}";
-  extraArgs = [ "--set W3M_DIR '${./.}'" ];
-}
+  wrapPackage {
+    package = w3m;
+    extraFlags = "-config ${config}";
+    extraArgs = ["--set W3M_DIR '${./.}'"];
+  }

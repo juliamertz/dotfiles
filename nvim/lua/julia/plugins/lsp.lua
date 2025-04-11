@@ -136,8 +136,8 @@ return {
 				servers.svelte = {
 					filetypes = { 'svelte' },
 					capabilities = {
-            workspace = { didChangeWatchedFiles = false }
-          },
+						workspace = { didChangeWatchedFiles = false },
+					},
 				}
 
 				servers.tailwindcss = {

@@ -3,10 +3,9 @@
   callPackage,
   packages,
   ...
-}:
-let
-  plugins = callPackage ./pins.nix { };
-  builder = callPackage ./builder.nix { };
+}: let
+  plugins = callPackage ./pins.nix {};
+  builder = callPackage ./builder.nix {};
 
   categoryDefinitions = {
     pluginPackages = with plugins.sources; {
@@ -28,12 +27,12 @@ let
     };
 
     runtimeDeps = with pkgs; {
-      atuin = [ atuin ];
-      prompt = [ starship ];
-      zoxide = [ zoxide ];
-      fzf = [ fzf ];
-      uutils = [ uutils-coreutils-noprefix ];
-      general = [ bat ];
+      atuin = [atuin];
+      prompt = [starship];
+      zoxide = [zoxide];
+      fzf = [fzf];
+      uutils = [uutils-coreutils-noprefix];
+      general = [bat];
     };
 
     environmentVariables = {
@@ -62,7 +61,7 @@ let
     };
   };
 in
-builder.buildShell {
-  inherit categoryDefinitions packageDefinitions;
-  configDir = ./.;
-}
+  builder.buildShell {
+    inherit categoryDefinitions packageDefinitions;
+    configDir = ./.;
+  }

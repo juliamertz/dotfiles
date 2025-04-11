@@ -3,12 +3,10 @@
   fetchFromGitHub,
   runCommandNoCC,
   wrapPackage,
-
   kitty,
   imagemagick,
   ...
-}:
-let
+}: let
   theme = fetchFromGitHub {
     owner = "rose-pine";
     repo = "kitty";
@@ -22,21 +20,21 @@ let
 
   configDir =
     runCommandNoCC "kitty-config-directory"
-      {
-        nativeBuildInputs = [ imagemagick ];
-      }
-      ''
-        mkdir $out
-        cp ${kittyConf} $out/kitty.conf
-        cp ${theme}/icons/kitty.*.png $out
+    {
+      nativeBuildInputs = [imagemagick];
+    }
+    ''
+      mkdir $out
+      cp ${kittyConf} $out/kitty.conf
+      cp ${theme}/icons/kitty.*.png $out
 
-        # resize app icon for x11 
-        magick ${theme}/icons/kitty.app.png -resize 128x128 $out/kitty.app-128.png
-      '';
+      # resize app icon for x11
+      magick ${theme}/icons/kitty.app.png -resize 128x128 $out/kitty.app-128.png
+    '';
 in
-wrapPackage {
-  package = kitty;
-  extraArgs = [
-    "--set KITTY_CONFIG_DIRECTORY '${configDir}'"
-  ];
-}
+  wrapPackage {
+    package = kitty;
+    extraArgs = [
+      "--set KITTY_CONFIG_DIRECTORY '${configDir}'"
+    ];
+  }

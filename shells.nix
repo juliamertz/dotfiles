@@ -4,10 +4,8 @@
   packages,
   mkShell,
   ...
-}:
-let
-  formatAll =
-    with pkgs;
+}: let
+  formatAll = with pkgs;
     writeShellScriptBin "format" ''
       echo Formatting nix files
       ${lib.getExe nixfmt-rfc-style} ./**/*.nix
@@ -17,14 +15,13 @@ let
       ${lib.getExe stylua} . --call-parentheses None --quote-style AutoPreferSingle
     '';
 
-  buildForCachix =
-    with pkgs;
+  buildForCachix = with pkgs;
     writeShellScriptBin "build-for-cachix" ''
       system=$(nix eval --impure --raw --expr 'builtins.currentSystem')
       outputs=$(nix flake show --json 2> /dev/null)
       packages=$(echo "$outputs" | ${lib.getExe jq} -r ".packages[\"${system}\"] | keys | .[]")
 
-      echo "$packages" | while read -r package; do 
+      echo "$packages" | while read -r package; do
         echo "Building $package"
         output_paths=$(nix build ".#''${package}" --print-out-paths)
 
@@ -32,9 +29,7 @@ let
         ${cachix}/bin/cachix push juliamertz "$output_paths"
       done
     '';
-
-in
-{
+in {
   # minimal development environment
   minimal = mkShell {
     packages = with packages; [

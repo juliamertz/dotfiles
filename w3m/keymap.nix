@@ -1,6 +1,6 @@
-{ writeText, ... }:
-let
-  keybinds = # sh
+{writeText, ...}: let
+  keybinds =
+    # sh
     ''
       ########## command ##########
       keymap :: COMMAND
@@ -51,7 +51,7 @@ let
       keymap r RELOAD
       keymap C-r RELOAD
 
-      # save/load 
+      # save/load
       keymap :w SAVE
       keymap :W PRINT
       keymap :o GOTO
@@ -97,7 +97,8 @@ let
       keymap :q QUIT
     '';
 
-  reset = # sh
+  reset =
+    # sh
     ''
       keymap K NULL
       keymap J NULL
@@ -248,4 +249,4 @@ let
       keymap ZQ NULL
     '';
 in
-writeText "keymap" (reset + keybinds)
+  writeText "keymap" (reset + keybinds)

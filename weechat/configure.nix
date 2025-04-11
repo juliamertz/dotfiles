@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-with pkgs;
-{
+{pkgs, ...}:
+with pkgs; {
   # script from rwxrobs github dot-template
   twitch = writeShellScriptBin "weechat-configure" ''
     #!/usr/bin/env bash
