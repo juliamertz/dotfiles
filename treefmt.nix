@@ -12,6 +12,9 @@ in {
 
   programs = {
     taplo.enable = true;
+
+    mdformat.enable = true;
+
     shfmt.enable = true;
 
     alejandra = {
