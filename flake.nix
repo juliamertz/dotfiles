@@ -6,7 +6,6 @@
     systems.url = "github:nix-systems/default";
 
     alejandra.url = "github:kamadorueda/alejandra/4.0.0";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
   };
@@ -18,10 +17,6 @@
     ...
   } @ inputs: let
     forAllSystems = func: nixpkgs.lib.genAttrs (import systems) (system: func nixpkgs.legacyPackages.${system});
-
-    treefmtEval = forAllSystems (
-      pkgs: inputs.treefmt-nix.lib.evalModule pkgs (import ./treefmt.nix (pkgs // {inherit inputs;}))
-    );
 
     systemPrograms = attrs:
       forAllSystems (
@@ -85,6 +80,8 @@
     devShells = forAllSystems (
       pkgs:
         import ./shells.nix {
+          packages = self.packages.${pkgs.system};
+          inherit inputs;
           inherit
             (pkgs)
             lib
@@ -92,12 +89,8 @@
             mkShell
             pkgs
             ;
-
-          packages = self.packages.${pkgs.system};
         }
     );
-
-    formatter = forAllSystems (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
   };
 
   nixConfig = {

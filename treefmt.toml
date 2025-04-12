@@ -1,0 +1,22 @@
+[formatter.nix]
+command = "alejandra"
+includes = ["*.nix"]
+
+[formatter.toml]
+command = "taplo"
+options = ["format"]
+includes = ["*.toml"]
+
+[formatter.shell]
+command = "shfmt"
+includes = ["*.sh", "scripts/*"]
+excludes = ["scripts/*.nix"]
+
+[formatter.markdown]
+command = "mdformat"
+includes = ["*.md"]
+
+[formatter.lua]
+command = "stylua"
+options = ["--call-parentheses", "None", "--quote-style", "AutoPreferSingle"]
+includes = ["*.lua"]

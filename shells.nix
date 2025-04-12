@@ -1,20 +1,11 @@
 {
   pkgs,
   lib,
+  inputs,
   packages,
   mkShell,
   ...
 }: let
-  formatAll = with pkgs;
-    writeShellScriptBin "format" ''
-      echo Formatting nix files
-      ${lib.getExe nixfmt-rfc-style} ./**/*.nix
-      ${lib.getExe nodePackages.prettier} -w **/*.md
-      ${lib.getExe shfmt} -w .
-      ${lib.getExe taplo} format ./**/*.toml
-      ${lib.getExe stylua} . --call-parentheses None --quote-style AutoPreferSingle
-    '';
-
   buildForCachix = with pkgs;
     writeShellScriptBin "build-for-cachix" ''
       system=$(nix eval --impure --raw --expr 'builtins.currentSystem')
@@ -46,9 +37,17 @@ in {
 
   # shell for working in this repository
   default = mkShell {
-    packages = [
-      pkgs.nurl
-      formatAll
+    packages = with pkgs; [
+      nurl
+
+      treefmt
+      inputs.alejandra.packages.${pkgs.system}.default
+      deadnix
+      taplo
+      shfmt
+      mdformat
+      stylua
+
       buildForCachix
     ];
   };
