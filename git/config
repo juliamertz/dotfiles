@@ -1,0 +1,33 @@
+[core]
+  editor = "nvim"
+
+[init]
+  defaultBranch = "main"
+
+[pull]
+  rebase = true
+
+[user]
+  email = "info@juliamertz.dev"
+  name = "Julia Mertz"
+
+[alias]
+  a = "add"
+  c = "commit -m"
+  s = "status"
+  wa = "worktree add"
+  wl = "worktree list"
+  wr = "worktree remove"
+
+[url "git@github.com:juliamertz/"]
+  insteadOf = "julia:"
+
+[url "https://github.com/"]
+  insteadOf = "gh:"
+  insteadOf = "github:"
+
+[url "git@github.com:"]
+  insteadOf = "gh-ssh:"
+  insteadOf = "github-ssh:"
+
+# vim:ft=ini

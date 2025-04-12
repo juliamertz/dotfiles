@@ -59,6 +59,7 @@
         ./alacritty
         ./ghostty
         ./zsh
+        ./git
         ./bat
         ./w3m
         ./awesome
