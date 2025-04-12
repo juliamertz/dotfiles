@@ -2,6 +2,12 @@
 
 isShellCats=$([ -z "${shellCats}" ] && echo "false" || echo "true")
 
+function setupShellCats() {
+  if $isShellCats; then
+		export PATH="$SHELLCATS_EXTRAPATH:$PATH"
+  fi
+}
+
 # get value of category definition
 function getCat() {
   local cat=$1

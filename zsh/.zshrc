@@ -1,6 +1,7 @@
 CONFIG=${ZDOTDIR:-$(dirname $0)}
 
 source "$CONFIG/utils.zsh"
+setupShellCats
 
 export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache

@@ -66,6 +66,7 @@
         ZDOTDIR = config;
         SHELLCATS_CONFIG = config;
         SHELLCATS_PLUGINS = plugins;
+        SHELLCATS_EXTRAPATH = lib.makeBinPath (mergeEnabledCats categoryDefinitions.runtimeDeps);
       }
       // mergeEnabledCats categoryDefinitions.environmentVariables;
   in
@@ -81,7 +82,6 @@
 
       installPhase = with lib; ''
         wrapProgram $out/bin/zsh \
-          --prefix PATH : ${lib.makeBinPath (mergeEnabledCats categoryDefinitions.runtimeDeps)} \
           ${mapAttrsToList (key: value: "--set ${key} '${value}'") environment |> concatStringsSep " "}
       '';
 
