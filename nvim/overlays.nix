@@ -1,4 +1,7 @@
-sources: prev: final: let
+{
+  sources,
+  inputs,
+}: prev: final: let
   overrideSrc = pkg: src:
     pkg.overrideAttrs {
       inherit src;
@@ -26,6 +29,7 @@ in {
       };
     };
 
+  alejandra = inputs.alejandra.packages.${prev.system}.default;
   vscode-lldb-bin = final.stdenvNoCC.mkDerivation {
     name = "vscode-lldb";
     src = prev.vscode-extensions.vadimcn.vscode-lldb;

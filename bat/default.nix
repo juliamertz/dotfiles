@@ -7,7 +7,7 @@
 }: let
   cache = runCommandNoCC "bat-cache" {} ''
     export BAT_CACHE_PATH="$out"
-    export BAT_CONFIG_DIR="${./.}"
+    export BAT_CONFIG_PATH="${./.}"
     ${lib.getExe bat} cache --build
   '';
 in

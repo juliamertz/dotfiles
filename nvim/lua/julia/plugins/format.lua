@@ -7,10 +7,10 @@ return {
 		formatters_by_ft = {
 			lua = utils.optionalCat('lua', { 'stylua' }),
 			python = utils.optionalCat('python', { 'black' }),
-			nix = utils.optionalCat('nix', { 'nixfmt', 'alejandra' }),
+			nix = utils.optionalCat('nix', { 'alejandra', 'nixfmt' }),
 			rust = utils.optionalCat('rust', { 'rustfmt', lsp_format = 'fallback' }),
 			zig = utils.optionalCat('zig', { 'zigfmt', lsp_format = 'fallback' }),
-			go = utils.optionalCat('go', { 'gofmt', lsp_format = 'fallback' }),
+			go = utils.optionalCat('go', { 'gofumpt', lsp_format = 'fallback' }),
 			javascript = utils.optionalCat('javascript', { 'biome', lsp_format = 'fallback' }),
 			ocaml = utils.optionalCat('ocaml', { 'ocamlformat' }),
 			yaml = utils.optionalCat('yaml', { 'yamlfmt' }),

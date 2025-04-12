@@ -8,7 +8,12 @@
   pins = callPackage ./pins.nix {};
   pkgs = import inputs.nixpkgs {
     inherit system;
-    overlays = [(import ./overlays.nix pins.sources)];
+    overlays = [
+      (import ./overlays.nix {
+        sources = pins.sources;
+        inherit inputs;
+      })
+    ];
   };
 
   nixCats = import pins.sources.nixcats;

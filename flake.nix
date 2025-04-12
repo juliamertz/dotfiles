@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
 
+    alejandra.url = "github:kamadorueda/alejandra/4.0.0";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
@@ -18,7 +19,9 @@
   } @ inputs: let
     forAllSystems = func: nixpkgs.lib.genAttrs (import systems) (system: func nixpkgs.legacyPackages.${system});
 
-    treefmtEval = forAllSystems (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+    treefmtEval = forAllSystems (
+      pkgs: inputs.treefmt-nix.lib.evalModule pkgs (import ./treefmt.nix (pkgs // {inherit inputs;}))
+    );
 
     systemPrograms = attrs:
       forAllSystems (
@@ -65,7 +68,6 @@
         ./awesome
         ./zathura
         ./scripts
-        ./alejandra
       ];
       linux = [
         ./weechat

@@ -20,7 +20,7 @@
     nix = [
       nixd
       nix-doc
-      nixfmt-rfc-style
+      alejandra
     ];
     go = [
       gopls
