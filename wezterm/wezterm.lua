@@ -11,7 +11,7 @@ local config = {
 	max_fps = os.get { linux = 165, macos = 60 },
 	colors = rosepine.colors(),
 	window_frame = rosepine.window_frame(),
-	window_background_opacity = 0.75,
+	window_background_opacity = 0.85,
 	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
