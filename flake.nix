@@ -72,6 +72,7 @@
         ./rofi
       ];
       darwin = [
+        ./aerospace
         ./sketchybar
         ./skhd
       ];
