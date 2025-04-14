@@ -2,12 +2,6 @@
 #! nix-shell -i bash -p bash
 #? alias ,
 
-KERNEL=$(uname -s)
-
-if [ $KERNEL = "Darwin" ]; then
-  export NIX_PATH="$(nix flake metadata nixpkgs --json | jq .locked.path | xargs)"
-fi
-
 export NIXPKGS_ALLOW_UNFREE=1
 
 nix-shell -p "$@" --run "$SHELL"

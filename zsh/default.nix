@@ -15,8 +15,10 @@
       completion = [
         ez-compinit
         zsh-completions
+        zsh-autosuggestions
+      ];
+      extra-completion = [
         zsh-autocomplete
-        # zsh-autosuggestions
       ];
       fzf = [
         fzf-tab
@@ -51,8 +53,9 @@
       have_nerd_font = true;
 
       highlight = true;
+      extra_completion = false;
       completion = true;
-      fzf = true;
+      fzf = false;
       vim = true;
       atuin = true;
       prompt = true;

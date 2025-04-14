@@ -16,6 +16,10 @@ export EDITOR=${EDITOR:-"nvim"}
 if enableForCat completion; then
   plugin mattmc3/ez-compinit
   plugin zsh-users/zsh-completions
+  plugin zsh-users/zsh-autosuggestions
+fi
+
+if enableForCat extra-completion; then
   plugin marlonrichert/zsh-autocomplete
 fi
 
@@ -39,6 +43,10 @@ fi
 
 append_path "$HOME/.cargo/bin"
 append_path "$HOME/.local/bin"
+
+if [[ $KERNEL == "Darwin" ]]; then
+  append_path "/sbin"
+fi
 
 # Shell integration hooks
 try_hook zoxide init zsh
