@@ -6,10 +6,10 @@
   ...
 }: let
   package = aerospace.overrideAttrs rec {
-    version = "0.18.1-Beta";
+    version = "0.18.2-Beta";
     src = fetchzip {
       url = "https://github.com/nikitabobko/AeroSpace/releases/download/v${version}/AeroSpace-v${version}.zip";
-      sha256 = "sha256-46vSv/Hj36zF/WfZIBGBjGfC2683zFlYdlO9fc8BeHc=";
+      sha256 = "sha256-/Fc4Zk8KvAdaKXyHmeL9nh79CAQLx/Y6URFWIOL5YyQ=";
     };
   };
   aerospace-wrapped = writeShellScript "AeroSpace" ''
