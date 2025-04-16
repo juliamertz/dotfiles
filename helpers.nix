@@ -20,38 +20,50 @@
         ;
     };
 
-  wrapPackage = args: let
-    cfg = (
-      lib.mergeAttrs {
-        extraFlags = "";
-        appendFlags = "";
-        extraArgs = "";
-        dependencies = [];
-        postWrap = "";
-        preWrap = "";
-      }
-      args
-    );
-
-    inherit (cfg.package.meta) mainProgram;
+  wrapPackage = {
+    package,
+    name ? null,
+    extraArgs ? "",
+    extraFlags ? "",
+    appendFlags ? "",
+    dependencies ? [],
+    preWrap ? "",
+    postWrap ? "",
+    # absolute paths from $out to file you want to wrap e.g. /bin/tmux
+    wrapPaths ? ["/bin/${package.meta.mainProgram}"],
+    extraWrapPaths ? [],
+  }: let
+    inherit (package.meta) mainProgram;
     join = value:
       if builtins.isList value
       then lib.concatStringsSep " " value
       else value;
   in
     symlinkJoin {
-      name = args.name or mainProgram;
-      paths = [cfg.package] ++ cfg.dependencies;
+      name =
+        if builtins.isNull name
+        then mainProgram
+        else name;
+
+      paths = [package] ++ dependencies;
       buildInputs = [makeWrapper];
 
-      postBuild = ''
-        ${cfg.preWrap}
-        wrapProgram $out/bin/${mainProgram} \
-          --add-flags "${join cfg.extraFlags}" \
-          --append-flags "${join cfg.appendFlags}" \
-          ${join cfg.extraArgs}
-        ${cfg.postWrap}
-      '';
+      postBuild = let
+        perPath = path:
+        #sh
+        ''
+          ${preWrap}
+          wrapProgram "$out${path}" \
+            --add-flags "${join extraFlags}" \
+            --append-flags "${join appendFlags}" \
+            ${join extraArgs}
+          ${postWrap}
+        '';
+      in
+        wrapPaths
+        ++ extraWrapPaths
+        |> map perPath
+        |> lib.concatStringsSep "\n";
 
       meta.mainProgram = mainProgram;
     };
