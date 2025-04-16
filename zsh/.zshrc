@@ -19,7 +19,7 @@ if enableForCat completion; then
   plugin zsh-users/zsh-autosuggestions
 fi
 
-if enableForCat extra-completion; then
+if enableForCat extra_completion; then
   plugin marlonrichert/zsh-autocomplete
 fi
 

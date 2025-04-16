@@ -25,8 +25,10 @@ function enableForCat() {
   fi
 
   local value=$(getCat $cat)
-  if [[ "$value" == "true" || "$value" == "false" ]]; then
-    return $value
+  if [[ "$value" == "true" ]]; then
+    return 0;
+  elif [[ "$value" == "false" ]]; then 
+    return 1
   else
     if [ -n "$value" ]; then
       return 0

@@ -17,7 +17,7 @@
         zsh-completions
         zsh-autosuggestions
       ];
-      extra-completion = [
+      extra_completion = [
         zsh-autocomplete
       ];
       fzf = [
