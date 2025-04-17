@@ -17,6 +17,10 @@ left = 8
 right = 8
 top = 8
 
+[gaps.inner]
+horizontal = 8
+vertical = 8
+
 [key-mapping]
 preset = "qwerty"
 
