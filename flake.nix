@@ -5,7 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
 
-    alejandra.url = "github:kamadorueda/alejandra/4.0.0";
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
   };

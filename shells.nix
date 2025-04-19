@@ -39,9 +39,8 @@ in {
   default = mkShell {
     packages = with pkgs; [
       nurl
-
       treefmt
-      inputs.alejandra.packages.${pkgs.system}.default
+      alejandra
       deadnix
       taplo
       shfmt
