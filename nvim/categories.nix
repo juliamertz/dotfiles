@@ -21,6 +21,7 @@
       nixd
       nix-doc
       alejandra
+      nurl
     ];
     go = [
       gopls
