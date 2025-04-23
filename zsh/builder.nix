@@ -80,10 +80,12 @@
         ln -s ${lib.getExe package} $out/bin/zsh
       '';
 
-      installPhase = with lib; ''
-        wrapProgram $out/bin/zsh \
-          ${mapAttrsToList (key: value: "--set ${key} '${value}'") environment |> concatStringsSep " "}
-      '';
+      installPhase = with lib;
+      # sh
+        ''
+          wrapProgram $out/bin/zsh \
+            ${mapAttrsToList (key: value: "--set ${key} '${value}'") environment |> concatStringsSep " "}
+        '';
 
       meta.mainProgram = "zsh";
     };
