@@ -122,14 +122,14 @@ return {
 			servers.gopls = utils.ifCat('go', {})
 
 			if utils.enableForCat 'javascript' then
-				servers.denols = {
-					on_attach = on_attach,
-					root_dir = require('lspconfig').util.root_pattern('deno.json', 'deno.jsonc'),
-				}
+				-- servers.denols = {
+				-- 	on_attach = on_attach,
+				-- 	root_dir = require('lspconfig').util.root_pattern('deno.json', 'deno.jsonc'),
+				-- }
 				servers.ts_ls = {
-					on_attach = on_attach,
-					root_dir = require('lspconfig').util.root_pattern 'package.json',
-					single_file_support = false,
+					-- on_attach = on_attach,
+					-- root_dir = require('lspconfig').util.root_pattern 'package.json',
+					-- single_file_support = false,
 				}
 
 				servers.astro = {}

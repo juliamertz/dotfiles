@@ -80,7 +80,8 @@
       telescope-ui-select-nvim
     ];
     git = [
-      vim-fugitive
+      neogit
+      diffview-nvim
       gitsigns-nvim
     ];
     docs = [
