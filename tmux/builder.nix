@@ -70,7 +70,11 @@
       installPhase = ''
         wrapProgram $out/bin/tmux \
           --set XDG_CONFIG_HOME '${config}' \
-          --add-flags "-f ${config}/tmux/tmux.conf"
+          --add-flags "${[
+            "-u" # fixes nerdfont rendering over ssh in some cases, see: https://stackoverflow.com/a/70033785
+            "-f ${config}/tmux/tmux.conf"
+          ]
+          |> lib.concatStringsSep " "}"
       '';
 
       meta.mainProgram = "tmux";
