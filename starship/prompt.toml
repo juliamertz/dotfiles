@@ -2,7 +2,7 @@
 add_newline = false
 
 format = """
-$directory$git_branch$git_status$cmd_duration$nix_shell${custom.context}$time
+$directory$git_branch$git_status$cmd_duration$nix_shell$kubernetes${custom.context}$time
 $character"""
 
 [character]
@@ -21,18 +21,22 @@ truncate_to_repo = false
 format = "[$path]($style)[$read_only]($read_only_style) "
 disabled = false
 
-
 [git_branch]
 format = "[$symbol$branch](green) "
-symbol = ""                         # 
+symbol = "" # 
+
+[git_status]
+format = '([$all_status$ahead_behind]($style))'
+disabled = true
 
 [nix_shell]
 symbol = ''
 format = '[$symbol $state](blue) '
 
-[git_status]
-format = '([$all_status$ahead_behind]($style))'
-disabled = true
+[kubernetes]
+disabled = false
+symbol = "⎈"
+format = '[$symbol](bright-black) [$context( \($namespace\))]($style) '
 
 [custom.context]
 command = 'echo $USER@$(hostname)'
