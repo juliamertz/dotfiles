@@ -22,8 +22,8 @@ in {
     nixcats = fetchFromGitHub {
       owner = "BirdeeHub";
       repo = "nixCats-nvim";
-      rev = "b35ef16c9c31406cd1f55f80fe41ec6dd8aebea5";
-      hash = "sha256-1fDObEbCaRF3B1WpyF9KNem1YAVIUo4ckQf2ctU43B4=";
+      rev = "88363047c9e5ac20001b9f3ee964fdc89cc2eb86";
+      hash = "sha256-fKa0Qx29He9fug22n9PYcqshtclvWxQoplLuqti6iXM=";
     };
     noogle = fetchFlake {
       url = "github:juliamertz/noogle-cli";

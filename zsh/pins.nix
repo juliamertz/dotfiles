@@ -19,14 +19,14 @@
     fzf-tab = fetchFromGitHub {
       owner = "Aloxaf";
       repo = "fzf-tab";
-      rev = "01dad759c4466600b639b442ca24aebd5178e799";
-      hash = "sha256-q26XVS/LcyZPRqDNwKKA9exgBByE0muyuNb0Bbar2lY=";
+      rev = "2abe1f2f1cbcb3d3c6b879d849d683de5688111f";
+      hash = "sha256-zc9Sc1WQIbJ132hw73oiS1ExvxCRHagi6vMkCLd4ZhI=";
     };
     zsh-autocomplete = fetchFromGitHub {
       owner = "marlonrichert";
       repo = "zsh-autocomplete";
-      rev = "a09c1c5c1c967a1a9541820370a9bab4edc0ab29";
-      hash = "sha256-2UBY0dOUvkLjfIJKkTcN9UfwUdNiVCCQO1Ot443m4fo=";
+      rev = "77a4f9c1343d12d7cb3ae1e7efc7c37397ccb6b0";
+      hash = "sha256-YH5T9a9KbYbvY6FRBITlhXRmkTmnwGyCQpibLe3Dhwc=";
     };
     zsh-autosuggestions = fetchFromGitHub {
       owner = "zsh-users";
@@ -37,8 +37,8 @@
     zsh-completions = fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-completions";
-      rev = "e61c9c14d6978191762e9586a0c882114e49221d";
-      hash = "sha256-9s9EkorKNH1DrA9rKUl/4aGIZY+7+EyryZ/69365te0=";
+      rev = "e5507e0d0c8879f960f4b8e7c6ddb813608d95ab";
+      hash = "sha256-cowscXUIpm6OviEPc4m4Nizl8Tv57Y8DQ2wohY5FWgE=";
     };
     zsh-syntax-highlighting = fetchFromGitHub {
       owner = "zsh-users";
@@ -49,8 +49,8 @@
     zsh-vi-mode = fetchFromGitHub {
       owner = "jeffreytse";
       repo = "zsh-vi-mode";
-      rev = "cd730cd347dcc0d8ce1697f67714a90f07da26ed";
-      hash = "sha256-UQo9shimLaLp68U3EcsjcxokJHOTGhOjDw4XDx6ggF4=";
+      rev = "f82c4c8f4b2bdd9c914653d8f21fbb32e7f2ea6c";
+      hash = "sha256-CkU0qd0ba9QsPaI3rYCgalbRR5kWYWIa0Kn7L07aNUI=";
     };
   };
 }
