@@ -5,6 +5,12 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '.github/**'
+      - 'readme.md'
+      - 'treefmt.toml'
+      - '.gitignore'
+      - '.envrc'
 
 jobs:
   build:
