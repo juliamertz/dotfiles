@@ -23,7 +23,7 @@ disabled = false
 
 [git_branch]
 format = "[$symbol$branch](green) "
-symbol = "" # 
+symbol = ""                         # 
 
 [git_status]
 format = '([$all_status$ahead_behind]($style))'
