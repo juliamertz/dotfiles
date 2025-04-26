@@ -34,7 +34,6 @@
 in
   wrapPackage {
     package = kitty;
-    extraWrapPaths = ["/Applications/kitty.app/Contents/MacOS/kitty"];
     extraArgs = [
       "--set KITTY_CONFIG_DIRECTORY '${configDir}'"
     ];
