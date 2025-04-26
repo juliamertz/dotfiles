@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   wrapPackage,
   writeText,
   git,
@@ -15,11 +16,13 @@
   }: let
     gitConfig =
       writeText ".gitconfig"
-      <| lib.concatStringsSep "\n" [
-        (builtins.readFile configPath)
-        (builtins.readFile "${package}/etc/gitconfig")
-        extraConfig
-      ];
+      <| lib.concatStringsSep "\n" (
+        lib.optionals stdenv.isDarwin [(builtins.readFile "${package}/etc/gitconfig")]
+        ++ [
+          (builtins.readFile configPath)
+          extraConfig
+        ]
+      );
   in
     wrapPackage {
       inherit package;

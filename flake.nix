@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    systems.url = "github:nix-systems/default";
 
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
@@ -12,10 +11,11 @@
   outputs = {
     self,
     nixpkgs,
-    systems,
     ...
   } @ inputs: let
-    forAllSystems = func: nixpkgs.lib.genAttrs (import systems) (system: func nixpkgs.legacyPackages.${system});
+    forAllSystems = func:
+      nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-darwin"]
+      (system: func nixpkgs.legacyPackages.${system});
 
     systemPrograms = attrs:
       forAllSystems (
@@ -51,20 +51,21 @@
         ./tmux
         ./spotify-player
         ./spotify
+        # ./alacritty
         ./wezterm
         ./kitty
-        ./alacritty
-        ./ghostty
+        # package is broken at the moment.
+        # ./ghostty
         ./zsh
         ./git
         ./bat
         ./w3m
-        ./awesome
         ./zathura
         ./scripts
       ];
       linux = [
         ./weechat
+        ./awesome
         ./picom
         ./btop
         ./eww

@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Building for ${{ matrix.target }}
+    name: Build for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
 
@@ -17,11 +17,7 @@ jobs:
       matrix:
         include:
           - os: macos-latest
-            target: aarch64-apple-darwin
-            cachixName: juliamertz
           - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            cachixName: juliamertz
 
     steps:
       - name: Checkout repository
@@ -38,7 +34,7 @@ jobs:
       - name: Setup cachix
         uses: cachix/cachix-action@v16
         with:
-          name: ${{ matrix.cachixName }}
+          name: juliamertz
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: Build nix packages
