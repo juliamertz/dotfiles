@@ -77,18 +77,14 @@
       ];
     });
 
+    checks = self.packages;
+
     devShells = forAllSystems (
       pkgs:
         import ./shells.nix {
           packages = self.packages.${pkgs.system};
           inherit inputs;
-          inherit
-            (pkgs)
-            lib
-            system
-            mkShell
-            pkgs
-            ;
+          inherit (pkgs) lib system mkShell pkgs;
         }
     );
   };

@@ -49,5 +49,9 @@ in {
 
       buildForCachix
     ];
+
+    NIX_CONFIG = ''
+      allow-import-from-derivation = true
+    '';
   };
 }
