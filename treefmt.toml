@@ -7,6 +7,10 @@ command = "taplo"
 options = ["format"]
 includes = ["*.toml"]
 
+[formatter.yaml]
+command = "yamlfmt"
+includes = ["*.yaml"]
+
 [formatter.shell]
 command = "shfmt"
 includes = ["*.sh", "scripts/*"]

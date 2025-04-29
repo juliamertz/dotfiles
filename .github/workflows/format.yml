@@ -8,14 +8,12 @@ on:
 jobs:
   format:
     runs-on: ubuntu-latest
-
     permissions:
-      contents: write 
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
 
       - name: Install nix
         uses: cachix/install-nix-action@v31

@@ -56,6 +56,26 @@ in {
       shfmt
       mdformat
       stylua
+      (
+        let
+          config =
+            writeText ".yamlfmt"
+            # yaml
+            ''
+              formatter:
+                retain_line_breaks_single: true
+            '';
+        in
+          stdenv.mkDerivation {
+            name = "yamlfmt";
+            src = yamlfmt;
+            buildInputs = [makeWrapper];
+            buildPhase = ''
+              makeWrapper $src/bin/yamlfmt $out/bin/yamlfmt \
+                --add-flags "-conf ${config}"
+            '';
+          }
+      )
 
       buildForCachix
     ];
