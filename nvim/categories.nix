@@ -28,13 +28,13 @@
       gofumpt
       delve
     ];
-    zig = [
-      vscode-lldb-bin
-    ];
-    rust = [
-      rust-analyzer
-      rustfmt
-    ];
+    # zig = [
+    #   vscode-lldb-bin
+    # ];
+    # rust = [
+    #   rust-analyzer
+    #   rustfmt
+    # ];
     lua = [
       lua-language-server
       stylua
