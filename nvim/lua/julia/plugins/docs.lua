@@ -2,13 +2,13 @@ local utils = require 'utils'
 
 return {
 	'fredrikaverpil/godoc.nvim',
-	enable = utils.enableForCat 'docs' and (utils.enableForCat 'nix' or utils.enableForCat 'go'),
+	enabled = utils.enableForCat 'docs' and (utils.enableForCat 'nix' or utils.enableForCat 'go'),
 
 	dependencies = {
 		{
 			'juliamertz/noogle-cli',
 			name = 'noogle.nvim',
-			enable = utils.isNixCats and utils.enableForCat 'nix',
+			enabled = utils.isNixCats and utils.enableForCat 'nix',
 		},
 	},
 

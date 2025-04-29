@@ -1,11 +1,11 @@
 local utils = require 'utils'
-local enable = utils.enableForCat 'folke'
+local enabled = utils.enableForCat 'folke'
 
 return {
 	{
 		'folke/trouble.nvim',
 		cmd = 'Trouble',
-		enable = enable,
+		enabled = enabled,
 
 		opts = {
 			auto_close = true,
@@ -34,14 +34,14 @@ return {
 		'folke/todo-comments.nvim',
 		event = 'VimEnter',
 		dependencies = { 'nvim-lua/plenary.nvim' },
-		enable = enable,
+		enabled = enabled,
 
 		opts = { signs = false },
 	},
 
 	{
 		'folke/snacks.nvim',
-
+		enabled = enabled,
 		opts = {
 			notifier = { enabled = true },
 			image = { enabled = true },

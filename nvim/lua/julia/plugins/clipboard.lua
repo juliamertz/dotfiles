@@ -1,6 +1,6 @@
 return {
 	'gbprod/yanky.nvim',
-	enable = require('utils').enableForCat 'clipboard',
+	enabled = require('utils').enableForCat 'clipboard',
 
 	opts = {
 		highlight = {

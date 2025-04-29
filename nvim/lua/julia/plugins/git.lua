@@ -3,7 +3,7 @@ local utils = require 'utils'
 return {
 	-- {
 	-- 	'tpope/vim-fugitive',
-	-- 	enable = utils.enableForCat 'git',
+	-- 	enabled = utils.enableForCat 'git',
 	-- },
 
 	{
@@ -18,7 +18,7 @@ return {
 
 	{
 		'lewis6991/gitsigns.nvim',
-		enable = utils.enableForCat 'git',
+		enabled = utils.enableForCat 'git',
 		opts = {
 			signs = {
 				add = { text = '+' },

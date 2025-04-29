@@ -201,7 +201,7 @@ return {
 	-- language specific configurations
 	{
 		'folke/lazydev.nvim',
-		enable = utils.enableForCat 'lua',
+		enabled = utils.enableForCat 'lua',
 		ft = 'lua',
 		opts = {
 			library = {
@@ -211,7 +211,7 @@ return {
 	},
 	{
 		'mrcjkb/rustaceanvim',
-		enable = utils.enableForCat 'rust',
+		enabled = utils.enableForCat 'rust',
 		ft = 'rust',
 		version = '^5',
 		config = function()

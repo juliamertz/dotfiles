@@ -1,7 +1,7 @@
 return {
 	'stevearc/oil.nvim',
 
-	enable = require('utils').enableForCat 'oil',
+	enabled = require('utils').enableForCat 'oil',
 
 	opts = {
 		default_file_explorer = true,
