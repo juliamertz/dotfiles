@@ -31,52 +31,56 @@
           helpers = callPackage ./helpers.nix {inherit self;};
         in
           finalAttrs.all
-          ++ lib.optionals stdenv.isLinux finalAttrs.linux
-          ++ lib.optionals stdenv.isDarwin finalAttrs.darwin
-          |> map (p:
-            if lib.isPath p
-            then helpers.callProgram p
-            else p)
-          |> map (p: {
-            name = p.name;
-            value = p;
-          })
-          |> lib.listToAttrs
+          // lib.optionalAttrs stdenv.isLinux finalAttrs.linux
+          // lib.optionalAttrs stdenv.isDarwin finalAttrs.darwin
+          |> lib.mapAttrs (_: package:
+            if lib.isPath package
+            then helpers.callProgram package
+            else package)
       );
   in {
     packages = systemPrograms (system: {
-      all = [
-        ./nvim
-        ./lazygit
-        ./tmux
-        ./spotify-player
-        ./spotify
-        # ./alacritty
-        ./wezterm
-        ./kitty
-        # package is broken at the moment.
-        # ./ghostty
-        ./zsh
-        ./git
-        ./bat
-        ./w3m
-        ./zathura
-        ./scripts
-      ];
-      linux = [
-        ./weechat
-        ./awesome
-        ./picom
-        ./btop
-        ./eww
-        ./rofi
-      ];
-      darwin = [
-        ./aerospace
-        ./sketchybar
-        ./jankyborders
-        ./skhd
-      ];
+      all = {
+        neovim = ./nvim;
+        neovim-minimal = self.packages.${system}.neovim.withCats {
+          folke = false;
+          clipboard = false;
+          docs = false;
+          rust = false;
+          zig = false;
+          python = false;
+          javascript = false;
+          go = false;
+        };
+        lazygit = ./lazygit;
+        tmux = ./tmux;
+        spotify-player = ./spotify-player;
+        spotify = ./spotify;
+        # alacritty = # ./alacritty;
+        # ghostty = # ./ghostty;
+        wezterm = ./wezterm;
+        kitty = ./kitty;
+        zsh = ./zsh;
+        git = ./git;
+        bat = ./bat;
+        w3m = ./w3m;
+        zathura = ./zathura;
+        scripts = ./scripts;
+      };
+      linux = {
+        weechat = ./weechat;
+        awesome = ./awesome;
+        picom = ./picom;
+        btop = ./btop;
+        eww = ./eww;
+        rofi = ./rofi;
+      };
+      darwin = {
+        aerospace = ./aerospace;
+        sketchybar = ./sketchybar;
+        jankyborders = ./jankyborders;
+        skhd = ./skhd;
+      };
     });
 
     checks = self.packages;

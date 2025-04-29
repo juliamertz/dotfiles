@@ -24,7 +24,17 @@ in {
   # minimal development environment
   minimal = mkShell {
     packages = with packages; [
-      neovim
+      (neovim.withCats {
+        folke = false;
+        clipboard = false;
+        docs = false;
+
+        rust = false;
+        zig = false;
+        python = false;
+        javascript = false;
+        go = false;
+      })
       zsh
       lazygit
       tmux

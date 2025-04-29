@@ -18,7 +18,7 @@
 
   nixCats = import pins.sources.nixcats;
   categoryDefinitions = import ./categories.nix;
-  packageDefinitions = {
+  packageDefinitions = categories: {
     nvim = _: {
       settings = {
         wrapRc = true;
@@ -27,44 +27,51 @@
           "vim"
         ];
       };
-      categories = {
-        general = true;
-        have_nerd_font = false;
-
-        theme = true;
-        clipboard = true;
-        oil = true;
-        git = true;
-        folke = true;
-        mini = true;
-        undotree = true;
-        docs = true;
-        harpoon = true;
-        fuzzyfinder = true;
-        filetree = true;
-        treesitter = true;
-        completion = true;
-        colors = true;
-        debug = true;
-
-        # languages
-        lua = true;
-        nix = true;
-        rust = true;
-        zig = true;
-        go = true;
-        python = true;
-        javascript = true;
-        markdown = true;
-        yaml = true;
-        shell = true;
-      };
+      inherit categories;
     };
   };
+
+  defaultCats = {
+    general = true;
+    have_nerd_font = false;
+
+    theme = true;
+    clipboard = true;
+    oil = true;
+    git = true;
+    folke = true;
+    mini = true;
+    undotree = true;
+    docs = true;
+    harpoon = true;
+    fuzzyfinder = true;
+    filetree = true;
+    treesitter = true;
+    completion = true;
+    colors = true;
+    debug = true;
+
+    # languages
+    lua = true;
+    nix = true;
+    rust = true;
+    zig = true;
+    go = true;
+    python = true;
+    javascript = true;
+    markdown = true;
+    yaml = true;
+    shell = true;
+  };
+
+  buildNeovim = categories: let
+    builder =
+      nixCats.baseBuilder ./. {inherit pkgs;};
+  in
+    builder categoryDefinitions (packageDefinitions categories) "nvim"
+    |> lib.setName "neovim";
 in
-  nixCats.baseBuilder ./. {
-    inherit pkgs;
+  (buildNeovim defaultCats)
+  // {
+    withCats = extraCats: buildNeovim (defaultCats // extraCats);
   }
-  categoryDefinitions
-  packageDefinitions "nvim"
-  |> lib.setName "neovim"
