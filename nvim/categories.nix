@@ -15,6 +15,7 @@
       stdenv.cc.cc
     ];
     folke = [imagemagick];
+    git = [git];
 
     # languages
     nix = [
