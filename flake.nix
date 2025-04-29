@@ -14,7 +14,7 @@
     ...
   } @ inputs: let
     forAllSystems = func:
-      nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-darwin"]
+      nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-darwin" "aarch64-linux"]
       (system: func nixpkgs.legacyPackages.${system});
 
     systemPrograms = attrs:
