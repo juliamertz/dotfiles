@@ -74,6 +74,7 @@
       darwin = [
         ./aerospace
         ./sketchybar
+        ./jankyborders
         ./skhd
       ];
     });
