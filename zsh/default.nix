@@ -30,7 +30,7 @@
 
     runtimeDeps = with pkgs; {
       atuin = [atuin];
-      prompt = [starship];
+      prompt = [packages.starship];
       zoxide = [zoxide];
       fzf = [fzf];
       uutils = [uutils-coreutils-noprefix];
@@ -40,9 +40,6 @@
     environmentVariables = {
       general = {
         SCRIPTS_DIR = packages.scripts;
-      };
-      prompt = {
-        STARSHIP_CONFIG = builtins.toString ../starship/prompt.toml;
       };
     };
   };
