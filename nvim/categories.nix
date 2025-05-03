@@ -149,6 +149,7 @@
             yaml
             yuck
             ron
+            hcl
 
             # scripting
             bash
