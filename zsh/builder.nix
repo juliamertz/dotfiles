@@ -75,6 +75,11 @@
       src = package;
       buildInputs = [makeWrapper];
 
+      unpackPhase = ''
+        mkdir -p $out
+        cp -r ${pkgs.zsh}/etc ${pkgs.zsh}/lib ${pkgs.zsh}/share $out
+      '';
+
       buildPhase = ''
         mkdir -p $out/bin
         ln -s ${lib.getExe package} $out/bin/zsh
@@ -87,6 +92,13 @@
             ${mapAttrsToList (key: value: "--set ${key} '${value}'") environment |> concatStringsSep " "}
         '';
 
-      meta.mainProgram = "zsh";
+      meta = {
+        platforms = lib.platforms.unix;
+        mainProgram = "zsh";
+      };
+
+      passthru = {
+        shellPath = "/bin/zsh";
+      };
     };
 }
