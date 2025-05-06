@@ -54,6 +54,9 @@
     yaml = [
       yamlfmt
     ];
+    terraform = [
+      terraform-ls
+    ];
     shell = [
       bash-language-server
       shellcheck

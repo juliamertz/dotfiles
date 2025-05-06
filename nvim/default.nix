@@ -61,6 +61,7 @@
     javascript = true;
     markdown = true;
     yaml = true;
+    terraform = true;
     shell = true;
   };
 

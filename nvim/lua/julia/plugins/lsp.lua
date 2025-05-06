@@ -115,6 +115,16 @@ return {
 				})
 			end
 
+			if utils.enableForCat 'terraform' then
+        -- neovim doesn't automatically recogize .tf files as hcl
+				vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+					pattern = '*.tf',
+					command = 'set filetype=hcl',
+				})
+
+        servers.terraformls = {}
+			end
+
 			servers.zls = utils.ifCat('zig', {})
 
 			servers.basedpyright = utils.ifCat('python', {})
