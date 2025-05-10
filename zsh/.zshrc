@@ -1,5 +1,9 @@
 CONFIG=${ZDOTDIR:-$(dirname $0)}
 
+# ctrl-r doesn't work in insert mode if this isn't set
+# see: https://github.com/jeffreytse/zsh-vi-mode/issues/242
+export ZVM_INIT_MODE=sourcing
+
 source "$CONFIG/utils.zsh"
 setupShellCats
 
@@ -80,7 +84,10 @@ if command -v nvim > /dev/null; then
   export MANPAGER='nvim +Man!'
 fi
 
-# Key bindings
-bindkey '^r' search-hist
-
 source $CONFIG/prompt.zsh
+
+# Key bindings
+bindkey '^r' atuin-search
+bindkey -M vicmd '^r' atuin-search
+bindkey -M viins '^r' atuin-search
+
