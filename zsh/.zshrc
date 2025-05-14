@@ -14,8 +14,8 @@ export XDG_STATE_HOME=~/.local/state
 
 export KERNEL="$(uname -s)"
 export SHELL="$0"
-export BROWSER=${BROWSER:-"librewolf"}
-export EDITOR=${EDITOR:-"nvim"}
+export BROWSER="librewolf"
+export EDITOR="nvim"
 
 if enableForCat completion; then
   plugin mattmc3/ez-compinit
