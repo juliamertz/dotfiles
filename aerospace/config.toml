@@ -28,9 +28,9 @@ preset = "qwerty"
 cmd-shift-semicolon = 'mode service'
 
 cmd-h = "focus left"
-cmd-j = "focus down"
-cmd-k = "focus up"
 cmd-l = "focus right"
+# cmd-j = "focus down"
+# cmd-k = "focus up"
 
 cmd-shift-h = 'move left'
 cmd-shift-j = 'move down'
