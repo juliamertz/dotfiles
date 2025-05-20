@@ -65,7 +65,6 @@ cmd-shift-s = 'move-node-to-monitor --wrap-around next'
 
 cmd-enter = 'exec-and-forget open -a Kitty'
 cmd-shift-w = 'exec-and-forget open -a Librewolf'
-cmd-shift-s = 'exec-and-forget open -a Spotify'
 
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
