@@ -22,6 +22,12 @@
 [url "git@github.com:juliamertz/"]
   insteadOf = "julia:"
 
+[url "git@github.com:brainhivenl/"]
+  insteadOf = "brainhive:"
+
+[url "git@github.com:brainpodnl/"]
+  insteadOf = "brainpod:"
+
 [url "https://github.com/"]
   insteadOf = "gh:"
   insteadOf = "github:"
