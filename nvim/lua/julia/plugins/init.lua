@@ -13,4 +13,6 @@ return {
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
 		opts = {},
 	},
+
+	{ 'wakatime/vim-wakatime', lazy = false },
 }
