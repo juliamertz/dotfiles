@@ -33,7 +33,10 @@
       prompt = [packages.starship];
       zoxide = [zoxide];
       fzf = [fzf];
-      uutils = [uutils-coreutils-noprefix];
+      rust_coreutils = [
+        uutils-coreutils-noprefix
+        eza
+      ];
       general = [bat];
     };
 
@@ -57,7 +60,7 @@
       atuin = true;
       prompt = true;
       zoxide = true;
-      uutils = true;
+      rust_coreutils = true;
     };
   };
 in

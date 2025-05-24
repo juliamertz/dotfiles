@@ -66,14 +66,20 @@ alias vim='nvim'
 alias lg='lazygit'
 alias spt='spotify_player'
 alias k='kubectl'
-alias ls='ls --color=always'
-alias ll='ls -lh'
-alias la='ls -la'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias hist='atuin search -i'
 alias grep='grep --colour=auto'
 alias sqlite='litecli'
+
+if enableForCat rust_coreutils; then
+  alias ls='eza'
+else
+  alias ls='ls --color=always'
+fi
+
+alias ll='ls -lh'
+alias la='ls -la'
 
 if [[ $KERNEL == "Linux" ]]; then
   alias sctl='sudo systemctl'
