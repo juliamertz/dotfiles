@@ -73,6 +73,7 @@ alias sqlite='litecli'
 
 if enableForCat rust_coreutils; then
   alias ls='eza'
+  alias du='dust'
 else
   alias ls='ls --color=always'
 fi
