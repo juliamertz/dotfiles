@@ -35,7 +35,8 @@
       fzf = [fzf];
       rust_coreutils = [
         uutils-coreutils-noprefix
-        eza
+        eza # ls replacement
+        dust # du replacement
       ];
       general = [bat];
     };
