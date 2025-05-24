@@ -60,7 +60,6 @@ try_hook atuin init zsh --disable-up-arrow
 
 # Aliases
 alias cat='bat -pp'
-alias man='BAT_THEME="rose-pine-moon" batman'
 alias md='mkdir -p'
 alias vim='nvim'
 alias lg='lazygit'
@@ -86,7 +85,7 @@ if [[ $KERNEL == "Linux" ]]; then
 fi
 
 # Use Neovim as manpager when available
-if command -v nvim > /dev/null; then
+if command -v nvim >/dev/null; then
   export MANPAGER='nvim +Man!'
 fi
 
