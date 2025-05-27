@@ -1,22 +1,22 @@
 #! /usr/bin/env bash
 
-find_first() {                                      
-  find ./ -maxdepth 2 -type f -iname "$1" | tail -n 1
+find_first() {
+	find ./ -maxdepth 2 -type f -iname "$1" | tail -n 1
 }
 
 shell=$(find_first shell.nix)
 if test -f "$shell"; then
-  echo "using $shell"
-  nix-shell "$shell" --run "$SHELL"
-  exit 0
+	echo "using $shell"
+	nix-shell "$shell" --run "$SHELL"
+	exit 0
 fi
 
 profile=''${1:-"default"}
 flake=$(find_first flake.nix)
 if test -f "$flake"; then
-  echo "using $flake#$profile"
-  nix develop "$(dirname "$flake")#$profile" -c "$SHELL"
-  exit 0
+	echo "using $flake#$profile"
+	nix develop "$(dirname "$flake")#$profile" -c "$SHELL"
+	exit 0
 fi
 
 echo Unable to find shell.nix or flake.nix

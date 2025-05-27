@@ -1,11 +1,8 @@
 #! /usr/bin/env bash
 
 if [[ $(uname -s) == "Darwin" ]]; then
-  /usr/bin/open "$@"
+	/usr/bin/open "$@"
 else
-  xdg-open "$@" & disown
+	xdg-open "$@" &
+	disown
 fi
-
-
-
-
