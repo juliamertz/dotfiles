@@ -22,19 +22,19 @@ in {
     nixcats = fetchFromGitHub {
       owner = "BirdeeHub";
       repo = "nixCats-nvim";
-      rev = "88363047c9e5ac20001b9f3ee964fdc89cc2eb86";
-      hash = "sha256-fKa0Qx29He9fug22n9PYcqshtclvWxQoplLuqti6iXM=";
+      rev = "2a2f15a6c085524ac121f5da9a73ee2155c53d70";
+      hash = "sha256-CktYY2rcFPJ3Tbz5H/nDnkhaO18nrLGdWa1mH7V9X5Q=";
     };
     noogle = fetchFlake {
       url = "github:juliamertz/noogle-cli";
-      rev = "93af64622638f4edecf3ad0956ceafa06f4928db";
-      hash = "sha256-MJfYtRmqoXqb2ypLFD9zLq7qKRpjA5wkC5x5lBF8lFc=";
+      rev = "14b9e7d15bf46f9168690fdb17dd34193034e427";
+      hash = "sha256-pYOfnNUMfJBFF7Ri07BNZfxoYtgWuqWUTEROdqeaGUA=";
     };
     rose-pine = fetchFromGitHub {
       owner = "rose-pine";
       repo = "neovim";
-      rev = "96ff3993a67356ee85d1cdab9be652cdc1c5d1ac";
-      hash = "sha256-8iXJ9MDshMOp1QZpGjF52wabN7oG1Rcz/SOWuGMW4Vw=";
+      rev = "6b9840790cc7acdfadde07f308d34b62dd9cc675";
+      hash = "sha256-o3uAO/PrNsNIyZrHKy0WCwJNd9C/TAC3QVcxPapFxAE=";
     };
     snacks = fetchFromGitHub {
       owner = "folke";

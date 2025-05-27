@@ -37,8 +37,8 @@
     zsh-completions = fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-completions";
-      rev = "e5507e0d0c8879f960f4b8e7c6ddb813608d95ab";
-      hash = "sha256-cowscXUIpm6OviEPc4m4Nizl8Tv57Y8DQ2wohY5FWgE=";
+      rev = "21789376b8c875fbed68398a6867f84f5c682597";
+      hash = "sha256-OcRpvlTuNIOzYwq4g3QSqXkn0dk7xny8UY87jF6ffT0=";
     };
     zsh-syntax-highlighting = fetchFromGitHub {
       owner = "zsh-users";
