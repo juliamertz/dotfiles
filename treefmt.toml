@@ -14,6 +14,7 @@ includes = ["*.yaml"]
 [formatter.shell]
 command = "shfmt"
 includes = ["*.sh", "scripts/*"]
+options = ["--write"]
 excludes = ["scripts/*.nix"]
 
 [formatter.markdown]
