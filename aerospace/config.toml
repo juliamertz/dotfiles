@@ -92,6 +92,6 @@ shift-down = ['volume set 0', 'mode main']
 8 = 'secondary'
 9 = 'secondary'
 
-[[on-window-detected]]  
-    if.workspace = ['6','7','8','9']  
-    run = ['layout v_accordion']
+[[on-window-detected]]
+if.workspace = ['6', '7', '8', '9']
+run = ['layout v_accordion']
