@@ -35,7 +35,6 @@ git:
   autoRefresh: true
   fetchAll: true
   branchLogCmd: 'git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --'
-  allBranchesLogCmd: 'git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium'
   disableForcePushing: false
   parseEmoji: false
   paging:
