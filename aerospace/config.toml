@@ -60,8 +60,8 @@ cmd-shift-7 = 'move-node-to-workspace 7'
 cmd-shift-8 = 'move-node-to-workspace 8'
 cmd-shift-9 = 'move-node-to-workspace 9'
 
-cmd-s = 'focus-monitor --wrap-around next'
-cmd-shift-s = 'move-node-to-monitor --wrap-around next'
+cmd-g = 'focus-monitor --wrap-around next'
+cmd-shift-g = 'move-node-to-monitor --wrap-around next'
 
 cmd-enter = 'exec-and-forget open -a Kitty'
 cmd-shift-w = 'exec-and-forget open -a Librewolf'
