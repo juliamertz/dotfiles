@@ -61,6 +61,7 @@
         wezterm = ./wezterm;
         kitty = ./kitty;
         zsh = ./zsh;
+        fish = ./fish;
         starship = ./starship;
         git = ./git;
         bat = ./bat;

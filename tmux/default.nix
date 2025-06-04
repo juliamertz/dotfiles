@@ -6,7 +6,7 @@
   ...
 }: let
   builder = callPackage ./builder.nix {};
-  shell = lib.getExe packages.zsh;
+  shell = lib.getExe packages.fish;
 in
   builder.makeTmuxBin {
     sourceFiles = [./tmux.conf];
