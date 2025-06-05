@@ -13,4 +13,14 @@ return {
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
 		opts = {},
 	},
+
+	{
+		'nat-418/boole.nvim',
+		opts = {
+			mappings = {
+				increment = '<C-s>',
+				decrement = '<C-x>',
+			},
+		},
+	},
 }

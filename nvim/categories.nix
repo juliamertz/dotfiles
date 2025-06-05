@@ -122,6 +122,7 @@
       plenary-nvim
       nvim-lspconfig
       conform-nvim
+      boole-nvim
     ];
 
     debug = [
