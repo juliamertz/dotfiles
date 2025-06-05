@@ -61,9 +61,6 @@
       bash-language-server
       shellcheck
     ];
-    wakatime = [
-      wakatime
-    ];
   };
 
   # This is for plugins that will load at startup without using packadd:
@@ -134,10 +131,6 @@
       nvim-nio
     ];
 
-    wakatime = [
-      vim-wakatime
-    ];
-
     treesitter = [
       (nvim-treesitter.withPlugins (
         plugins:
@@ -170,6 +163,7 @@
             html
             css
             scss
+            svelte
 
             markdown
             vimdoc
