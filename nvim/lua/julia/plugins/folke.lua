@@ -44,9 +44,14 @@ return {
 		enabled = enabled,
 		opts = {
 			notifier = { enabled = true },
-			image = { enabled = true },
 			bigfile = { enabled = true },
 			picker = { enabled = true },
+			image = {
+				enabled = true,
+				doc = {
+					max_height = 20,
+				},
+			},
 		},
 	},
 }
