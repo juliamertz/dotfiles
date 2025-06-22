@@ -3,8 +3,13 @@ local utils = require 'utils'
 return {
 	{
 		'uga-rosa/ccc.nvim',
+
 		opts = {
 			highlighter = { auto_enable = true },
+		},
+
+		keys = {
+			{ '<leader>cc', '<cmd>CccPick<CR>', desc = 'Open color picker' },
 		},
 	},
 

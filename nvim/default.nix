@@ -50,6 +50,7 @@
     completion = true;
     colors = true;
     debug = true;
+    ai = true;
 
     # languages
     lua = true;

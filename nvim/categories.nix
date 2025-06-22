@@ -115,6 +115,9 @@
     markdown = [
       render-markdown-nvim
     ];
+    yaml = [
+      vim-helm
+    ];
 
     # base dependencies
     general = [
@@ -130,6 +133,10 @@
       nvim-dap-ui
       nvim-dap-go
       nvim-nio
+    ];
+
+    ai = [
+      supermaven-nvim
     ];
 
     treesitter = [
@@ -154,6 +161,7 @@
             yuck
             ron
             hcl
+            helm
 
             # scripting
             bash

@@ -43,6 +43,7 @@
       all = {
         neovim = ./nvim;
         neovim-minimal = self.packages.${system}.neovim.withCats {
+          ai = false;
           folke = false;
           clipboard = false;
           docs = false;

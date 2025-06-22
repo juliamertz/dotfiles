@@ -6,16 +6,20 @@
   emacsPackages = epkgs:
     with epkgs; [
       use-package
-      magit
+      general
       evil
       evil-collection
       evil-markdown
       catppuccin-theme
+      magit
 
-      # modes
+      # language support
       markdown-mode
       lsp-mode
+      lsp-ui
       rustic
+      nix-mode
+      nixfmt
     ];
 in
   wrapPackage {
