@@ -52,6 +52,7 @@
           javascript = false;
           go = false;
         };
+        emacs = ./emacs;
         lazygit = ./lazygit;
         tmux = ./tmux;
         spotify-player = ./spotify-player;

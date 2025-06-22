@@ -1,11 +1,14 @@
 {
   pkgs,
-  stdenv,
   lib,
+  stdenv,
+  callPackage,
   packages,
   wrapPackage,
   ...
 }: let
+  pins = callPackage ./pins.nix {};
+
   deps = [
     packages.starship
     pkgs.atuin
@@ -15,25 +18,31 @@
     pkgs.dust
     pkgs.bat
   ];
-  rose-pine = pkgs.fetchFromGitHub {
-    owner = "rose-pine";
-    repo = "fish";
-    rev = "b82982c55582cfaf6f220de1893c7c73dd0cb301";
-    hash = "sha256-Dvaw1k7XOU2NUQbTJAXPgAOPN1zTLVrc7NZDY5/KHeM=";
-  };
+
   config = stdenv.mkDerivation {
     name = "fish-config";
     src = ./.;
-
     installPhase = ''
-      mkdir -p $out/themes
-      cp $src/config.fish $out/config.fish
-      cp ${rose-pine}/themes/* $out/themes/
+      mkdir -p $out
+      cp $src/config.fish $out
+    '';
+  };
+
+  themes = stdenv.mkDerivation {
+    name = "fish-themes";
+    src = pins.sources.rose-pine;
+    installPhase = ''
+      mkdir -p $out/
+      cp $src/themes/* $out
     '';
   };
 in
   wrapPackage {
     package = pkgs.fish;
-    extraArgs = "--prefix-each PATH : ${lib.makeBinPath deps}";
-    extraFlags = "-N -C 'source ${config}/config.fish'";
+    extraFlags = ["-N -C 'source ${config}/config.fish'"];
+    extraArgs = [
+      # "--set XDG_CONFIG_HOME ${config}"
+      "--set FISH_THEMES_DIR ${themes}"
+      "--prefix-each PATH : ${lib.makeBinPath deps}"
+    ];
   }

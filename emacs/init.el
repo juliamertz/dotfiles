@@ -1,5 +1,7 @@
+;; Git frontend
 (require 'magit)
 
+;; Vim bindings
 (require 'evil)
 (require 'evil-collection)
 
@@ -22,6 +24,17 @@
 (with-eval-after-load 'evil
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
   (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up))
+
+;; markdown mode
+(require 'evil-markdown)
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist
+             '("\\.\\(?:md\\|markdown\\|mkd\\|mdown\\|mkdn\\|mdwn\\)\\'" . markdown-mode))
+(autoload 'gfm-mode "markdown-mode"
+   "Major mode for editing GitHub Flavored Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
 
 (load-theme 'catppuccin :no-confirm)
 

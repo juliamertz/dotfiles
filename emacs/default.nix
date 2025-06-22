@@ -5,10 +5,15 @@
 }: let
   emacsPackages = epkgs:
     with epkgs; [
+      use-package
+      magit
       evil
       evil-collection
-      use-package
+      evil-markdown
       catppuccin-theme
+
+      # modes
+      markdown-mode
     ];
 in
   wrapPackage {
