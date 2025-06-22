@@ -5,6 +5,9 @@
 (require 'evil)
 (require 'evil-collection)
 
+(require 'lsp-mode)
+(require 'rustic)
+
 (setq evil-want-integration t)
 (setq evil-want-keybinding nil)
 

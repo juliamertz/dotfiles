@@ -14,6 +14,8 @@
 
       # modes
       markdown-mode
+      lsp-mode
+      rustic
     ];
 in
   wrapPackage {
