@@ -2,13 +2,13 @@
   emacs,
   wrapPackage,
   ...
-}: let
-  emacsPackages = epkgs:
+}:
+  wrapPackage {
+    package = emacs.pkgs.withPackages epkgs:
     with epkgs; [
       use-package
       general
       evil
-      evil-collection
       evil-markdown
       catppuccin-theme
       magit
@@ -21,10 +21,8 @@
       nix-mode
       nixfmt
     ];
-in
-  wrapPackage {
-    package = emacs.pkgs.withPackages emacsPackages;
     extraFlags = [
       "--load ${./init.el}"
+      # "--init-directory=${./.}"
     ];
   }

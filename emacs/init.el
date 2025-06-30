@@ -5,13 +5,11 @@
 
 ;; Vim bindings
 (require 'evil)
-(require 'evil-collection)
 
 (setq evil-want-integration t)
 (setq evil-want-keybinding nil)
 
 (evil-mode 1)
-(evil-collection-init)
 
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "W" "w")
@@ -64,6 +62,16 @@
 (autoload 'gfm-mode "markdown-mode"
    "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+(custom-set-faces
+  '(markdown-header-face-1 ((t (:height 1.6 :family "SF Pro" :weight bold :foreground "#4A90E2"))))
+  '(markdown-header-face-2 ((t (:height 1.4 :family "SF Pro" :weight bold :foreground "#357ABD"))))
+  '(markdown-header-face-3 ((t (:height 1.2 :family "SF Pro" :weight bold :foreground "#2E6DA4"))))
+  '(markdown-link-face ((t (:foreground "#0969DA" :underline t))))
+  '(markdown-url-face ((t (:foreground "#656D76"))))
+  '(markdown-list-face ((t (:foreground "#7C3AED"))))
+  '(markdown-table-face ((t (:background "#F6F8FA"))))
+  '(markdown-code-face ((t (:family "Berkeley Mono Nerd Font")))))
 
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
