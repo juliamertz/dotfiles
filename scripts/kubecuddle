@@ -3,15 +3,15 @@
 #? alias k
 
 case "$1" in
-    ctx|context)
-        shift
-        kubie ctx "$@"
-        ;;
-    ns|namespace)
-        shift
-        kubie ns "$@"
-        ;;
-    *)
-        kubectl "$@"
-        ;;
+ctx | context)
+	shift
+	kubie ctx "$@"
+	;;
+ns | namespace)
+	shift
+	kubie ns "$@"
+	;;
+*)
+	kubectl "$@"
+	;;
 esac
