@@ -1,0 +1,17 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i dash -p dash kubectl kubie
+#? alias k
+
+case "$1" in
+    ctx|context)
+        shift
+        kubie ctx "$@"
+        ;;
+    ns|namespace)
+        shift
+        kubie ns "$@"
+        ;;
+    *)
+        kubectl "$@"
+        ;;
+esac
