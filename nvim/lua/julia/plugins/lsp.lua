@@ -178,8 +178,8 @@ return {
 				},
 			})
 
-      servers.protobuf_language_server = {}
-      servers.prismals = {}
+			servers.protobuf_language_server = {}
+			servers.prismals = {}
 
 			if utils.isNixCats then
 				for server_name, _ in pairs(servers) do
