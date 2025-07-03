@@ -14,6 +14,11 @@ return {
         cnoreabbrev Git Neogit
       ]]
 		end,
+
+		keys = {
+			{ '<leader>sc', '<cmd>Neogit<cr>', desc = 'Open Git UI' },
+			{ '<leader>gc', '<cmd>Neogit commit<cr>', desc = 'Open commit pane' },
+		},
 	},
 
 	{
@@ -27,6 +32,10 @@ return {
 				topdelete = { text = '‾' },
 				changedelete = { text = '~' },
 			},
+		},
+
+		keys = {
+			{ '<leader>gb', '<cmd>Gitsigns blame<cr>', desc = 'Open git blame' },
 		},
 	},
 }
