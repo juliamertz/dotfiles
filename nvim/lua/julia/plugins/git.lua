@@ -1,11 +1,6 @@
 local utils = require 'utils'
 
 return {
-	-- {
-	-- 	'tpope/vim-fugitive',
-	-- 	enabled = utils.enableForCat 'git',
-	-- },
-
 	{
 		'NeogitOrg/neogit',
 		dependencies = {
@@ -13,6 +8,12 @@ return {
 			'sindrets/diffview.nvim',
 			'nvim-telescope/telescope.nvim',
 		},
+		init = function()
+			vim.cmd [[
+        cnoreabbrev G Neogit
+        cnoreabbrev Git Neogit
+      ]]
+		end,
 	},
 
 	{
