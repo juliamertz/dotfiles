@@ -153,7 +153,7 @@
             typescript
             python
 
-            # config formats
+            # data
             json
             xml
             toml
@@ -162,6 +162,8 @@
             ron
             hcl
             helm
+            proto
+            prisma
 
             # scripting
             bash
