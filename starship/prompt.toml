@@ -36,6 +36,7 @@ format = '[$symbol $state](blue) '
 [kubernetes]
 disabled = false
 symbol = "⎈"
+detect_env_vars = ["KUBECONFIG", "KUBIE_KUBECONFIG"]
 format = '[$symbol](bright-black) [$context( \($namespace\))]($style) '
 
 [custom.context]
