@@ -1,10 +1,10 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p fzf
+#! nix-shell -i dash -p skim
 
 if test $# -eq 1; then
 	selected=$1
 else
-	selected=$(find ~/projects/* ~/ ~/source ~/source/work -mindepth 1 -maxdepth 1 -type d | fzf)
+	selected=$(find ~/projects/* ~/ ~/source ~/source/work -mindepth 1 -maxdepth 1 -type d | sk)
 fi
 
 if test -z "$selected"; then
@@ -21,7 +21,8 @@ fi
 
 if ! tmux has-session -t="$selected_name" 2>/dev/null; then
 	tmux new-session -ds "$selected_name" -c "$selected"
-	send ls Enter
 fi
 
 tmux switch-client -t "$selected_name"
+
+exit 0
