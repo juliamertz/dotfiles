@@ -178,7 +178,7 @@ return {
 				},
 			})
 
-			servers.protobuf_language_server = {}
+			-- servers.protobuf_language_server = {}
 			servers.prismals = {}
 
 			if utils.isNixCats then

@@ -11,7 +11,7 @@
     # Global variables
     globals ? {},
     # Environment variables
-    environment ? {},
+    env ? {},
     # List of tmux plugin packages
     plugins ? [],
     # Global plugin options to be prefixed by a '@'
@@ -34,7 +34,7 @@
     setGlobalsText = mapAttrsToList setGlobal globals |> joinLines;
     setPluginOptionsText = mapAttrsToList (k: v: setGlobal "@${k}" v) pluginOptions |> joinLines;
     sourcePluginsText = map sourcePlugin plugins |> joinLines;
-    setEnvironmentText = mapAttrsToList setEnv environment |> joinLines;
+    setEnvironmentText = mapAttrsToList setEnv env |> joinLines;
     patchXdgConfigHomeText = optionalString patchXdgConfig <| setEnv "XDG_CONFIG_HOME" "$HOME/.config";
   in
     writeText "tmux.conf" (joinLines [

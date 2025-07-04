@@ -1,8 +1,7 @@
-local utils = require 'utils'
-
 return {
 	{
 		'uga-rosa/ccc.nvim',
+		event = 'BufEnter',
 
 		opts = {
 			highlighter = { auto_enable = true },

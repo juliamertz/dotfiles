@@ -28,13 +28,19 @@ in
       sessionx-zoxide-mode = "on";
     };
 
+    env = {
+      SESSIONIZER_SCRIPT = "${packages.scripts}/bin/sessionizer";
+    };
+
     patchXdgConfig = true;
     extraConfig = let
-      popup = cmd: w: h: "tmux popup -w ${w} -h ${h} -x C -y C '${cmd} && tmux display-popup -C'; exit 0";
-      sessionizerPopup = popup "${packages.scripts}/bin/sessionizer" "80%" "80%";
+      popup = cmd: w: h: "tmux popup -w ${toString w}% -h ${toString h}% -x C -y C '${cmd} && tmux display-popup -C'; exit 0";
+
+      sessionizerPopup = popup "${packages.scripts}/bin/sessionizer" 80 80;
     in
       # sh
       ''
         bind-key -r f run-shell "${sessionizerPopup}"
+        bind-key -r i run-shell "${packages.scripts}/bin/sessionize-repo"
       '';
   }
