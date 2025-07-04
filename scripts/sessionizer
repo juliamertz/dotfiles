@@ -2,10 +2,10 @@
 #! nix-shell -i bash -p fd skim
 
 SEARCH_PATHS=(
-  ~
-  ~/projects/*
-  ~/source
-  ~/source/work
+	~
+	~/projects/*
+	~/source
+	~/source/work
 )
 
 if test $# -eq 1; then

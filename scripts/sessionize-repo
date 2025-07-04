@@ -2,38 +2,38 @@
 #! nix-shell -i bash -p bash skim
 
 destinations=(
-  "$HOME/projects/$(date +%Y)/"
-  "$HOME/source/work/"
+	"$HOME/projects/$(date +%Y)/"
+	"$HOME/source/work/"
 )
 
 read_popup() {
-  title=$1
-  w=$2
-  h=$3
-  shift 3
+	title=$1
+	w=$2
+	h=$3
+	shift 3
 
-  tmp=$(mktemp)
-  tmux popup \
-    -T "$title" \
-    -w "$w" \
-    -h "$h" \
-    -x C \
-    -y C \
-    -E "bash -c '$* > $tmp'"
+	tmp=$(mktemp)
+	tmux popup \
+		-T "$title" \
+		-w "$w" \
+		-h "$h" \
+		-x C \
+		-y C \
+		-E "bash -c '$* > $tmp'"
 
-  out=$(<"$tmp")
-  rm -f "$tmp"
-  echo "$out"
+	out=$(<"$tmp")
+	rm -f "$tmp"
+	echo "$out"
 }
 
 clone() {
-  git clone "$@" 2>&1 | tee >(cat >&2) | grep -o "Cloning into '[^']*'" | cut -d\' -f2
+	git clone "$@" 2>&1 | tee >(cat >&2) | grep -o "Cloning into '[^']*'" | cut -d\' -f2
 }
 
 origin=$(read_popup "origin" 50% 3 "read -r '' origin && echo \$origin")
 
 tmp=$(mktemp)
-printf '%s\n' "${destinations[@]}" > "$tmp"
+printf '%s\n' "${destinations[@]}" >"$tmp"
 dest=$(read_popup "output" 50% 50% "sk < '$tmp'")
 rm -f "$tmp"
 
