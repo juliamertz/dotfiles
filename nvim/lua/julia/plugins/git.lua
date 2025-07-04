@@ -16,6 +16,8 @@ return {
       ]]
 		end,
 
+		lazy = false,
+
 		keys = {
 			{ '<leader>sc', '<cmd>Neogit<cr>', desc = 'Open Git UI' },
 			{ '<leader>gc', '<cmd>Neogit commit<cr>', desc = 'Open commit pane' },
