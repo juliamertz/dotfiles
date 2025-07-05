@@ -72,6 +72,8 @@ return {
 				end,
 			})
 
+			local configs = require 'lspconfig.configs'
+			local util = require 'lspconfig.util'
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
@@ -136,11 +138,11 @@ return {
 					on_attach = on_attach,
 					root_dir = require('lspconfig').util.root_pattern('deno.json', 'deno.jsonc'),
 				}
-				servers.ts_ls = {
-					on_attach = on_attach,
-					root_dir = require('lspconfig').util.root_pattern 'package.json',
-					single_file_support = false,
-				}
+				-- servers.ts_ls = {
+				-- 	on_attach = on_attach,
+				-- 	root_dir = require('lspconfig').util.root_pattern 'package.json',
+				-- 	single_file_support = false,
+				-- }
 
 				servers.astro = {}
 				servers.svelte = {
@@ -178,7 +180,19 @@ return {
 				},
 			})
 
-			-- servers.protobuf_language_server = {}
+			configs.protobuf_language_server = {
+				default_config = {
+					cmd = { 'path/to/protobuf-language-server' },
+					filetypes = { 'proto', 'cpp' },
+					root_dir = util.root_pattern '.git',
+					single_file_support = true,
+					settings = {
+						['additional-proto-dirs'] = '',
+					},
+				},
+			}
+
+			servers.protobuf_language_server = {}
 			servers.prismals = {}
 
 			if utils.isNixCats then

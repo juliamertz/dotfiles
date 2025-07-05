@@ -33,14 +33,10 @@ in
     };
 
     patchXdgConfig = true;
-    extraConfig = let
-      popup = cmd: w: h: "tmux popup -w ${toString w}% -h ${toString h}% -x C -y C '${cmd} && tmux display-popup -C'; exit 0";
-
-      sessionizerPopup = popup "${packages.scripts}/bin/sessionizer" 80 80;
-    in
+    extraConfig =
       # sh
       ''
-        bind-key -r f run-shell "${sessionizerPopup}"
+        bind-key -r f run-shell "${packages.scripts}/bin/sessionizer"
         bind-key -r i run-shell "${packages.scripts}/bin/sessionize-repo"
       '';
   }

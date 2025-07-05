@@ -11,7 +11,7 @@ SEARCH_PATHS=(
 if test $# -eq 1; then
 	selected=$1
 else
-	selected=$(fd --max-depth 1 --min-depth 1 --type d '' "${SEARCH_PATHS[@]}" | sk)
+	selected=$(fd --max-depth 1 --min-depth 1 --type d '' "${SEARCH_PATHS[@]}" | sk --tmux center,80%,80%)
 fi
 
 if test -z "$selected"; then
