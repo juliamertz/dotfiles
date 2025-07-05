@@ -182,7 +182,7 @@ return {
 
 			configs.protobuf_language_server = {
 				default_config = {
-					cmd = { 'path/to/protobuf-language-server' },
+					cmd = { 'protobuf-language-server' },
 					filetypes = { 'proto', 'cpp' },
 					root_dir = util.root_pattern '.git',
 					single_file_support = true,
