@@ -33,7 +33,6 @@
       vscode-lldb-bin
     ];
     rust = [
-      rust-analyzer
       rustfmt
     ];
     lua = [
