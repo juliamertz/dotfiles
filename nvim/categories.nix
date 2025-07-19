@@ -134,10 +134,6 @@
       nvim-nio
     ];
 
-    ai = [
-      supermaven-nvim
-    ];
-
     treesitter = [
       (nvim-treesitter.withPlugins (
         plugins:
