@@ -10,7 +10,6 @@ return {
 		{ 'williamboman/mason.nvim', enabled = utils.lazyAdd(true, false) },
 		{ 'jay-babu/mason-nvim-dap.nvim', enabled = utils.lazyAdd(true, false) },
 
-		-- Add your own debuggers here
 		'leoluz/nvim-dap-go',
 	},
 	config = function()

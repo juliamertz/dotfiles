@@ -1,10 +1,8 @@
 # My dotfiles
 
-this is my workflow described and exported from one single repo through the power of nix.
-
 ## Running with nix
 
-if you want to try a specific program all you need is the [nix](https://nixos.org/) package manager or [nix-portable](https://github.com/DavHau/nix-portable) if you can't / don't want to install nix.
+if you want to run a specific program all you need is the [nix](https://nixos.org/) package manager or [nix-portable](https://github.com/DavHau/nix-portable) if you can't / don't want to install nix.
 for a full list of exported programs you can run, have a look in [flake.nix](./flake.nix).
 
 ```sh

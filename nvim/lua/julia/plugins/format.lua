@@ -43,8 +43,10 @@ return {
 	},
 
 	init = function()
+		local conform = require 'conform'
+
 		vim.api.nvim_create_user_command('Format', function()
-			require('conform').format {
+			conform.format {
 				async = true,
 				bufnr = 0,
 				lsp_fallback = true,

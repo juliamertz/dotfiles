@@ -34,10 +34,10 @@ return {
 				layout_config = {
 					preview_cutoff = 64,
 					width = function(_, cols, _)
-						return cols
+						return cols - 2
 					end,
 					height = function(_, _, rows)
-						return rows
+						return rows - 2
 					end,
 					preview_width = function(_, cols, _)
 						return math.floor((cols / 5) * 3)

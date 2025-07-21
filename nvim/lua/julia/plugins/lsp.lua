@@ -227,7 +227,6 @@ return {
 		end,
 	},
 
-	-- language specific configurations
 	{
 		'folke/lazydev.nvim',
 		enabled = utils.enableForCat 'lua',
@@ -238,19 +237,4 @@ return {
 			},
 		},
 	},
-	-- {
-	-- 	'mrcjkb/rustaceanvim',
-	-- 	enabled = utils.enableForCat 'rust',
-	-- 	ft = 'rust',
-	-- 	version = '^5',
-	-- 	config = function()
-	-- 		vim.g.rustaceanvim = {
-	-- 			server = {
-	-- 				-- fix completion insertion sometimes choosing the wrong item?
-	-- 				-- possibly related: https://github.com/hrsh7th/cmp-nvim-lsp/issues/72
-	-- 				capabilities = vim.lsp.protocol.make_client_capabilities(),
-	-- 			},
-	-- 		}
-	-- 	end,
-	-- },
 }
