@@ -166,6 +166,8 @@ return {
 				}
 			end
 
+			servers.rust_analyzer = utils.ifCat('rust', { })
+
 			servers.lua_ls = utils.ifCat('lua', {
 				settings = {
 					Lua = {
@@ -236,19 +238,19 @@ return {
 			},
 		},
 	},
-	{
-		'mrcjkb/rustaceanvim',
-		enabled = utils.enableForCat 'rust',
-		ft = 'rust',
-		version = '^5',
-		config = function()
-			vim.g.rustaceanvim = {
-				server = {
-					-- fix completion insertion sometimes choosing the wrong item?
-					-- possibly related: https://github.com/hrsh7th/cmp-nvim-lsp/issues/72
-					capabilities = vim.lsp.protocol.make_client_capabilities(),
-				},
-			}
-		end,
-	},
+	-- {
+	-- 	'mrcjkb/rustaceanvim',
+	-- 	enabled = utils.enableForCat 'rust',
+	-- 	ft = 'rust',
+	-- 	version = '^5',
+	-- 	config = function()
+	-- 		vim.g.rustaceanvim = {
+	-- 			server = {
+	-- 				-- fix completion insertion sometimes choosing the wrong item?
+	-- 				-- possibly related: https://github.com/hrsh7th/cmp-nvim-lsp/issues/72
+	-- 				capabilities = vim.lsp.protocol.make_client_capabilities(),
+	-- 			},
+	-- 		}
+	-- 	end,
+	-- },
 }

@@ -108,9 +108,6 @@
     lua = [
       lazydev-nvim
     ];
-    rust = [
-      rustaceanvim
-    ];
     markdown = [
       render-markdown-nvim
     ];
