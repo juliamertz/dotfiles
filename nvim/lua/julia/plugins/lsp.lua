@@ -166,7 +166,7 @@ return {
 				}
 			end
 
-			servers.rust_analyzer = utils.ifCat('rust', { })
+			servers.rust_analyzer = utils.ifCat('rust', {})
 
 			servers.lua_ls = utils.ifCat('lua', {
 				settings = {
