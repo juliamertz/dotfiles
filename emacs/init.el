@@ -23,7 +23,8 @@
 
 (with-eval-after-load 'evil
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-  (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up))
+  (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+  (define-key evil-normal-state-map (kbd "K") 'lsp-ui-doc-show))
 
 ;; Extra keybindings with leader
 (require 'general)
@@ -39,15 +40,18 @@
 (require 'lsp-ui)
 (require 'lsp-mode)
 
-(define-key lsp-mode-map (kbd "K") 'lsp-describe-thing-at-point)  ; Shift-K equivalent
-(define-key lsp-mode-map (kbd "g d") 'lsp-find-definition)        ; gd
-(define-key lsp-mode-map (kbd "g r") 'lsp-find-references)        ; gr
-(define-key lsp-mode-map (kbd "g i") 'lsp-find-implementation)    ; gi
-(define-key lsp-mode-map (kbd "g t") 'lsp-find-type-definition)   ; gt
-(define-key lsp-mode-map (kbd "g s") 'lsp-document-symbols)       ; gs
-(define-key lsp-mode-map (kbd "g S") 'lsp-workspace-symbol)       ; gS
-(define-key lsp-mode-map (kbd "g a") 'lsp-execute-code-action)    ; ga
-; (define-key lsp-mode-map (kbd "g R") 'lsp-rename)
+(setq lsp-ui-doc-enable t)
+(setq lsp-ui-doc-position 'at-point)
+(setq lsp-ui-doc-side 'right)
+
+(define-key lsp-mode-map (kbd "g d") 'lsp-find-definition)
+(define-key lsp-mode-map (kbd "g r") 'lsp-find-references)
+(define-key lsp-mode-map (kbd "g i") 'lsp-find-implementation)
+(define-key lsp-mode-map (kbd "g t") 'lsp-find-type-definition)
+(define-key lsp-mode-map (kbd "g s") 'lsp-document-symbols)
+(define-key lsp-mode-map (kbd "g S") 'lsp-workspace-symbol)
+(define-key lsp-mode-map (kbd "g a") 'lsp-execute-code-action)
+(define-key lsp-mode-map (kbd "g R") 'lsp-rename)
 
 (require 'rustic)
 (require 'nix-mode)
