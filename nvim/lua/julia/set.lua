@@ -68,6 +68,36 @@ vim.api.nvim_create_autocmd('FileType', {
 	end,
 })
 
+-- Auto-detect helm template files
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+	callback = function()
+		local filepath = vim.fn.expand '%:p'
+		local filename = vim.fn.expand '%:t'
+
+		local is_helm = false
+
+		if
+			filepath:match '/templates/.*%.ya?ml$'
+			or filepath:match '/templates/.*%.tpl$'
+			or filepath:match '/templates/.*%.txt$'
+		then
+			is_helm = true
+		end
+
+		if filename:match '%.gotmpl$' then
+			is_helm = true
+		end
+
+		if filename:match '^helmfile.*%.ya?ml$' then
+			is_helm = true
+		end
+
+		if is_helm then
+			vim.bo.filetype = 'helm'
+		end
+	end,
+})
+
 if utils.enableForCat 'nix' then
 	vim.api.nvim_create_user_command('Nurl', 'read !nurl <args> 2>/dev/null', { nargs = '*' })
 end
