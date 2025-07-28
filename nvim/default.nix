@@ -55,12 +55,14 @@
     lua = true;
     nix = true;
     rust = true;
+    ocaml = true;
     zig = true;
     go = true;
     python = true;
     javascript = true;
     markdown = true;
     yaml = true;
+    kcl = true;
     terraform = true;
     shell = true;
   };

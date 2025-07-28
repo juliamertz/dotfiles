@@ -127,6 +127,8 @@ return {
 				servers.terraformls = {}
 			end
 
+			servers.kcl = utils.ifCat('kcl', {})
+
 			servers.zls = utils.ifCat('zig', {})
 
 			servers.basedpyright = utils.ifCat('python', {})
@@ -167,6 +169,8 @@ return {
 			end
 
 			servers.rust_analyzer = utils.ifCat('rust', {})
+
+      servers.ocamllsp = utils.ifCat('ocaml', {})
 
 			servers.lua_ls = utils.ifCat('lua', {
 				settings = {
@@ -237,4 +241,8 @@ return {
 			},
 		},
 	},
+
+  {
+    'kcl-lang/kcl.nvim'
+  }
 }

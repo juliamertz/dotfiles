@@ -53,6 +53,9 @@
     yaml = [
       yamlfmt
     ];
+    # kcl = [
+    #   kcl-language-server
+    # ];
     terraform = [
       terraform-ls
     ];
@@ -144,12 +147,14 @@
             javascript
             typescript
             python
+            ocaml
 
             # data
             json
             xml
             toml
             yaml
+            kcl
             yuck
             ron
             hcl

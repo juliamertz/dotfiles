@@ -28,6 +28,7 @@ vim.opt.updatetime = 50
 vim.opt.undofile = true
 vim.opt.undolevels = 1000
 vim.opt.undoreload = 10000
+vim.opt.virtualedit = 'all'
 
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
