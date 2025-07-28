@@ -170,7 +170,7 @@ return {
 
 			servers.rust_analyzer = utils.ifCat('rust', {})
 
-      servers.ocamllsp = utils.ifCat('ocaml', {})
+			servers.ocamllsp = utils.ifCat('ocaml', {})
 
 			servers.lua_ls = utils.ifCat('lua', {
 				settings = {
@@ -242,7 +242,7 @@ return {
 		},
 	},
 
-  {
-    'kcl-lang/kcl.nvim'
-  }
+	{
+		'kcl-lang/kcl.nvim',
+	},
 }
