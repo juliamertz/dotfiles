@@ -70,11 +70,11 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Fix commenting in KCL
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "kcl",
-  callback = function()
-    vim.bo.commentstring = "# %s"
-  end,
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = 'kcl',
+	callback = function()
+		vim.bo.commentstring = '# %s'
+	end,
 })
 
 -- Auto-detect helm template files
