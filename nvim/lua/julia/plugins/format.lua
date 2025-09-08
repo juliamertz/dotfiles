@@ -14,6 +14,7 @@ return {
 			javascript = utils.optionalCat('javascript', { 'biome', lsp_format = 'fallback' }),
 			ocaml = utils.optionalCat('ocaml', { 'ocamlformat' }),
 			yaml = utils.optionalCat('yaml', { 'yamlfmt' }),
+			kcl = utils.optionalCat('kcl', { 'kcl' }),
 		},
 
 		formatters = {
@@ -37,6 +38,14 @@ return {
 					'None',
 					'--quote-style',
 					'AutoPreferSingle',
+				},
+			}),
+			kcl = utils.ifCat('kcl', {
+				command = 'kcl',
+				stdin = false,
+				args = {
+					'fmt',
+					'$FILENAME',
 				},
 			}),
 		},
