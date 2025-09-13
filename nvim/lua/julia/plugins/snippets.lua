@@ -7,6 +7,6 @@ return {
 
 	init = function()
 		local snippets_path = vim.fn.stdpath 'config' .. '/snippets'
-		require('luasnip.loaders.from_lua').load { paths = snippets_path }
+		require('luasnip.loaders.from_lua').load { paths = { snippets_path } }
 	end,
 }

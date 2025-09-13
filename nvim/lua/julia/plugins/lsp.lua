@@ -75,7 +75,6 @@ return {
 			local configs = require 'lspconfig.configs'
 			local util = require 'lspconfig.util'
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
 			local servers = {}
 
@@ -202,9 +201,13 @@ return {
 			servers.prismals = {}
 
 			if utils.isNixCats then
-				for server_name, _ in pairs(servers) do
+				for server_name, config in pairs(servers) do
 					require('lspconfig')[server_name].setup {
-						capabilities = capabilities,
+						capabilities = vim.tbl_deep_extend(
+							'force',
+							capabilities,
+							require('blink.cmp').get_lsp_capabilities(config.capabilities)
+						),
 						settings = (servers[server_name] or {}).settings,
 						filetypes = (servers[server_name] or {}).filetypes,
 						cmd = (servers[server_name] or {}).cmd,
