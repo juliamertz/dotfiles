@@ -27,15 +27,27 @@ return {
 	{
 		'lewis6991/gitsigns.nvim',
 		enabled = utils.enableForCat 'git',
+
 		opts = {
-			signs = {
-				add = { text = '+' },
-				change = { text = '~' },
-				delete = { text = '_' },
-				topdelete = { text = '‾' },
-				changedelete = { text = '~' },
-			},
+      signs = {
+        add          = { text = '┃' },
+        change       = { text = '┃' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+      },
+      signs_staged = {
+        add          = { text = '┃' },
+        change       = { text = '┃' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+      },
 		},
+
+    lazy = false,
 
 		keys = {
 			{ '<leader>gb', '<cmd>Gitsigns blame<cr>', desc = 'Open git blame' },
