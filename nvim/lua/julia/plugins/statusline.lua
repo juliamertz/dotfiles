@@ -72,7 +72,7 @@ return {
 			if vim.env.TMUX then
 				vim.opt.laststatus = 0
 				vim.g.tpipeline_autoembed = 1
-      else
+			else
 				vim.g.tpipeline_autoembed = 0
 			end
 		end,
