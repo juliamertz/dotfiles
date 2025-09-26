@@ -52,6 +52,8 @@
     ];
     yaml = [
       yamlfmt
+      yaml-language-server
+      helm-ls
     ];
     # kcl = [
     #   kcl-language-server

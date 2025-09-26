@@ -50,6 +50,11 @@ return {
 				servers.terraformls = {}
 			end
 
+			if utils.enableForCat 'yaml' then
+				servers.yamlls = {}
+				servers.helm_ls = {}
+			end
+
 			servers.kcl = utils.ifCat('kcl', {})
 
 			servers.zls = utils.ifCat('zig', {})
