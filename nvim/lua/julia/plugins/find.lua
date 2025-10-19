@@ -52,8 +52,10 @@ return {
 
 	keys = {
 		{ '<leader>ht', picker_cmd 'help_tags', desc = 'Search help tags' },
-		{ '<leader>pf', picker_cmd 'find_files hidden=true no_ignore=true', desc = 'Find files' },
-		{ '<leader>gs', picker_cmd 'live_grep hidden=true no_ignore=true', desc = 'Live grep' },
+		{ '<leader>pf', picker_cmd 'find_files', desc = 'Find project files' },
+		{ '<leader>af', picker_cmd 'find_files hidden=true no_ignore=true', desc = 'Find all files' },
+		{ '<leader>gs', picker_cmd 'live_grep', desc = 'Live grep' },
+		{ '<leader>ga', picker_cmd 'live_grep hidden=true no_ignore=true', desc = 'Live grep all' },
 		{ '<leader>vws', picker_cmd 'lsp_workspace_symbols', desc = 'View LSP workspace symbols' },
 	},
 }

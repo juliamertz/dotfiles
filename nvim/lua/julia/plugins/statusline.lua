@@ -36,11 +36,13 @@ return {
 					local fileinfo = section_fileinfo()
 					local macro = check_macro_recording()
 					local location = MiniStatusline.section_location { trunc_width = 120 }
+          local filename = MiniStatusline.section_filename { trunc_width = 120 }
 
 					return MiniStatusline.combine_groups {
 						'%<', -- Mark general truncate point
 						'%=', -- End left alignment
-						{ hl = 'MiniStatuslineFilename', strings = { macro } },
+            { hl = 'MiniStatuslineFilename', strings = { filename } },
+						{ hl = 'MiniStatuslineOther', strings = { macro } },
 						{ hl = 'MiniStatuslineLocation', strings = { location } },
 						{ hl = mode_hl, strings = { fileinfo } },
 					}
