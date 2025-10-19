@@ -32,11 +32,11 @@ return {
 						return filetype
 					end
 
-					local _, mode_hl = MiniStatusline.section_mode { trunc_width = 120 }
+					local _, mode_hl = MiniStatusline.section_mode { trunc_width = 20 }
 					local fileinfo = section_fileinfo()
 					local macro = check_macro_recording()
-					local location = MiniStatusline.section_location { trunc_width = 120 }
-					local filename = MiniStatusline.section_filename { trunc_width = 120 }
+					local location = MiniStatusline.section_location { trunc_width = 20 }
+          local filename = MiniStatusline.section_filename { trunc_width = 20 }
 
 					return MiniStatusline.combine_groups {
 						'%<', -- Mark general truncate point
