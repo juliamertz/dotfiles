@@ -32,11 +32,19 @@ return {
 						return filetype
 					end
 
+					local section_filename = function()
+						if vim.bo.buftype == 'terminal' then
+							return '%t'
+						else
+							return '%f%m%r'
+						end
+					end
+
 					local _, mode_hl = MiniStatusline.section_mode { trunc_width = 20 }
 					local fileinfo = section_fileinfo()
 					local macro = check_macro_recording()
 					local location = MiniStatusline.section_location { trunc_width = 20 }
-          local filename = MiniStatusline.section_filename { trunc_width = 20 }
+					local filename = section_filename()
 
 					return MiniStatusline.combine_groups {
 						'%<', -- Mark general truncate point
