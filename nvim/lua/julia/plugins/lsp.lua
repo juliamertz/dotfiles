@@ -65,7 +65,7 @@ return {
 
 			if utils.enableForCat 'javascript' then
 				servers.denols = { root_dir = lsp_utils.root_pattern('deno.json', 'deno.jsonc') }
-        -- should just be using deno anyway
+				-- should just be using deno anyway
 				-- servers.ts_ls = { root_dir = lsp_utils.root_pattern 'package.json' }
 
 				servers.astro = {}
