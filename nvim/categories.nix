@@ -148,6 +148,7 @@
             go
             javascript
             typescript
+            tsx
             python
             ocaml
 
