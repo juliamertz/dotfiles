@@ -63,7 +63,7 @@ return {
 
 			servers.gopls = utils.ifCat('go', {})
 
-      servers.taplo = utils.ifCat('toml', {})
+			servers.taplo = utils.ifCat('toml', {})
 
 			if utils.enableForCat 'javascript' then
 				servers.denols = { root_dir = lsp_utils.root_pattern('deno.json', 'deno.jsonc') }
