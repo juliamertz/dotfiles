@@ -168,6 +168,7 @@
             helm
             proto
             prisma
+            http
 
             # scripting
             bash
