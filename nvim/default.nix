@@ -62,6 +62,7 @@
     javascript = true;
     markdown = true;
     yaml = true;
+    toml = true;
     kcl = true;
     terraform = true;
     shell = true;

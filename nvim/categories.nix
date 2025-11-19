@@ -55,6 +55,10 @@
       yaml-language-server
       helm-ls
     ];
+    toml = [
+      taplo
+      taplo-lsp
+    ];
     # kcl = [
     #   kcl-language-server
     # ];
