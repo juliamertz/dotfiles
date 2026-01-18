@@ -1,7 +1,7 @@
 {
   lib,
   writeText,
-  runCommandNoCC,
+  runCommand,
   stdenvNoCC,
   makeWrapper,
   tmux,
@@ -48,7 +48,7 @@
     ]);
 
   makeTmuxConfigDir = opts:
-    runCommandNoCC (opts.name or "tmux-config") {} ''
+    runCommand (opts.name or "tmux-config") {} ''
       mkdir -p $out/tmux
       ln -svf ${makeTmuxConfig opts} $out/tmux/tmux.conf
     '';

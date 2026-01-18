@@ -1,7 +1,7 @@
 {
   writeText,
   fetchFromGitHub,
-  runCommandNoCC,
+  runCommand,
   wrapPackage,
   kitty,
   imagemagick,
@@ -19,7 +19,7 @@
   );
 
   configDir =
-    runCommandNoCC "kitty-config-directory"
+    runCommand "kitty-config-directory"
     {
       nativeBuildInputs = [imagemagick];
     }

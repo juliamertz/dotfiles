@@ -1,11 +1,11 @@
 {
   lib,
   wrapPackage,
-  runCommandNoCC,
+  runCommand,
   bat,
   ...
 }: let
-  cache = runCommandNoCC "bat-cache" {} ''
+  cache = runCommand "bat-cache" {} ''
     export BAT_CACHE_PATH="$out"
     export BAT_CONFIG_PATH="${./.}"
     ${lib.getExe bat} cache --build

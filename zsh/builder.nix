@@ -3,7 +3,7 @@
   lib,
   linkFarm,
   writeText,
-  runCommandNoCC,
+  runCommand,
   stdenvNoCC,
   makeWrapper,
   ...
@@ -52,7 +52,7 @@
       + builtins.readFile "${configDir}/.zshrc"
     );
 
-    config = runCommandNoCC "zsh-config" {} ''
+    config = runCommand "zsh-config" {} ''
       mkdir -p $out
 
       ln -svf ${zshrc} $out/.zshrc
