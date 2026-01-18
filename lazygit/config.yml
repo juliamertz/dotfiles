@@ -29,6 +29,7 @@ gui:
   portraitMode: 'auto' # one of 'auto' | 'never' | 'always'
 
 git:
+  overrideGpg: true
   skipHookPrefix: WIP
   mainBranches: [master, main]
   autoFetch: false
