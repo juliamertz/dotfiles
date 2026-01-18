@@ -8,7 +8,7 @@
 }: rec {
   callProgram = path:
     pkgs.callPackage path {
-      packages = self.packages.${pkgs.system};
+      packages = self.packages.${pkgs.stdenv.hostPlatform.system};
       inherit (self) inputs;
       inherit
         wrapPackage
@@ -86,7 +86,7 @@
     };
 
   fetchGithubFlake = opts: let
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     flake = with opts; builtins.getFlake "github:${owner}/${repo}/${rev}";
   in {
     packages = flake.packages.${system};

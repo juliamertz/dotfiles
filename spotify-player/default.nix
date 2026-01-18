@@ -6,7 +6,7 @@
   inputs,
   ...
 }: let
-  package = inputs.spotify-player.packages.${pkgs.system}.default;
+  package = inputs.spotify-player.packages.${pkgs.stdenv.hostPlatform.system}.default;
   overlay = package.overrideAttrs (_: {
     buildNoDefaultFeatures = true;
     meta.mainProgram = "spotify_player";

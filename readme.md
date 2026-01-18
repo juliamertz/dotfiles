@@ -40,7 +40,7 @@ Then you can add these programs to your environment like this
 ```nix
 { inputs, pkgs, ... }:
 let
-  dotfiles = inputs.dotfiles.packages.${pkgs.system};
+  dotfiles = inputs.dotfiles.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   environment.systemPackages = with dotfiles; [

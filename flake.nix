@@ -92,9 +92,10 @@
     devShells = forAllSystems (
       pkgs:
         import ./shells.nix {
-          packages = self.packages.${pkgs.system};
+          packages = self.packages.${pkgs.stdenv.hostPlatform.system};
           inherit inputs;
-          inherit (pkgs) lib system mkShell pkgs;
+          inherit (pkgs) lib mkShell pkgs;
+          system = pkgs.stdenv.hostPlatform.system;
         }
     );
   };
