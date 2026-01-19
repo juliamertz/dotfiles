@@ -15,21 +15,20 @@ gui:
   mouseEvents: true
   skipDiscardChangeWarning: false
   skipStashWarning: false
-  showFileTree: true 
-  showListFooter: true 
+  showFileTree: true
+  showListFooter: true
   showRandomTip: false
-  showBranchCommitHash: false 
+  showBranchCommitHash: false
   showBottomLine: false
-  showPanelJumps: false 
+  showPanelJumps: false
   showCommandLog: false
   nerdFontsVersion: "3" # nerd fonts version to use ("2" or "3"); empty means don't show nerd font icons
-  splitDiff: 'auto' 
+  splitDiff: 'auto'
   skipRewordInEditorWarning: true # for skipping the confirmation before launching the reword editor
   border: 'rounded' # one of 'single' | 'double' | 'rounded' | 'hidden'
   portraitMode: 'auto' # one of 'auto' | 'never' | 'always'
 
 git:
-  overrideGpg: true
   skipHookPrefix: WIP
   mainBranches: [master, main]
   autoFetch: false
@@ -38,9 +37,9 @@ git:
   branchLogCmd: 'git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --'
   disableForcePushing: false
   parseEmoji: false
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
   commit:
     signOff: false
   merging:
