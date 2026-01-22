@@ -1,6 +1,5 @@
 local utils = require 'utils'
 
--- LSP Keymaps and features on attach
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
 	callback = function(event)
@@ -9,23 +8,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
 		end
 
-		-- Navigation
 		map('gd', builtin.lsp_definitions, '[G]oto [D]efinition')
 		map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 		map('gr', builtin.lsp_references, '[G]oto [R]eferences')
 		map('gI', builtin.lsp_implementations, '[G]oto [I]mplementation')
 		map('<leader>D', builtin.lsp_type_definitions, 'Type [D]efinition')
 		map('<leader>ds', builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
-
-		-- Actions
 		map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 		map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 		map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-		-- Document highlight
-		if client and client.supports_method 'textDocument/documentHighlight' then
+		if client and client.server_capabilities.documentHighlightProvider then
 			local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
 			vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
 				buffer = event.buf,
@@ -46,8 +41,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			})
 		end
 
-		-- Inlay hints toggle
-		if client and client.supports_method 'textDocument/inlayHint' then
+		if client and client.server_capabilities.inlayHintProvider then
 			map('<leader>th', function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
 			end, '[T]oggle Inlay [H]ints')
@@ -62,13 +56,11 @@ if ok then
 end
 
 local function setup_lsp(name, config)
-	config = config or {}
-	config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+	config.capabilities = vim.tbl_deep_extend('force', capabilities, config.capabilities or {})
 	vim.lsp.config(name, config)
 	vim.lsp.enable(name)
 end
 
--- Nix
 if utils.enableForCat 'nix' then
 	if utils.isNixCats then
 		setup_lsp('nixd', {
@@ -85,7 +77,6 @@ if utils.enableForCat 'nix' then
 	end
 end
 
--- Bash/Shell
 if utils.enableForCat 'shell' then
 	setup_lsp('bashls', {
 		cmd = { 'bash-language-server', 'start' },
@@ -97,71 +88,19 @@ if utils.enableForCat 'shell' then
 			},
 		},
 	})
-
-	-- Fix filetype detection for nix-shell shebang scripts
-	vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-		pattern = '*',
-		callback = function()
-			local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ''
-			if first_line:match '^#!.*nix%-shell' then
-				vim.bo.filetype = 'sh'
-			end
-
-			vim.api.nvim_create_autocmd('LspAttach', {
-				group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
-				callback = function(event)
-					local telescope = require 'telescope.builtin'
-					local map = function(keys, func, desc)
-						vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-					end
-
-					map('gd', telescope.lsp_definitions, '[G]oto [D]efinition')
-					map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-					map('gr', telescope.lsp_references, '[G]oto [R]eferences')
-					map('gI', telescope.lsp_implementations, '[G]oto [I]mplementation')
-					map('<leader>D', telescope.lsp_type_definitions, 'Type [D]efinition')
-					map('<leader>ds', telescope.lsp_document_symbols, '[D]ocument [S]ymbols')
-					map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-					map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-					map('K', vim.lsp.buf.hover, 'Hover Documentation')
-
-					local client = vim.lsp.get_client_by_id(event.data.client_id)
-
-					if client and client.server_capabilities.documentHighlightProvider then
-						local highlight_group = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
-						vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-							buffer = event.buf,
-							group = highlight_group,
-							callback = vim.lsp.buf.document_highlight,
-						})
-
-						vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-							buffer = event.buf,
-							group = highlight_group,
-							callback = vim.lsp.buf.clear_references,
-						})
-
-						vim.api.nvim_create_autocmd('LspDetach', {
-							group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
-							callback = function(event2)
-								vim.lsp.buf.clear_references()
-								vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }
-							end,
-						})
-					end
-
-					if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-						map('<leader>th', function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-						end, '[T]oggle Inlay [H]ints')
-					end
-				end,
-			})
-		end,
-	})
 end
 
--- Zig
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+	pattern = '*',
+	callback = function()
+		-- Fix filetype detection for nix-shell shebang scripts
+		local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ''
+		if first_line:match '^#!.*nix%-shell' then
+			vim.bo.filetype = 'sh'
+		end
+	end,
+})
+
 if utils.enableForCat 'zig' then
 	setup_lsp('zls', {
 		cmd = { 'zls' },
@@ -170,7 +109,6 @@ if utils.enableForCat 'zig' then
 	})
 end
 
--- Python
 if utils.enableForCat 'python' then
 	setup_lsp('basedpyright', {
 		cmd = { 'basedpyright-langserver', '--stdio' },
@@ -179,7 +117,6 @@ if utils.enableForCat 'python' then
 	})
 end
 
--- Go
 if utils.enableForCat 'go' then
 	setup_lsp('gopls', {
 		cmd = { 'gopls' },
@@ -188,7 +125,6 @@ if utils.enableForCat 'go' then
 	})
 end
 
--- JavaScript/TypeScript ecosystem
 if utils.enableForCat 'javascript' then
 	setup_lsp('ts_ls', {
 		cmd = { 'typescript-language-server', '--stdio' },
@@ -238,7 +174,6 @@ if utils.enableForCat 'javascript' then
 	})
 end
 
--- Lua
 if utils.enableForCat 'lua' then
 	setup_lsp('lua_ls', {
 		cmd = { 'lua-language-server' },
