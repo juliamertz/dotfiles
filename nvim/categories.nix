@@ -13,6 +13,7 @@
       ripgrep
       fd
       stdenv.cc.cc
+      tree-sitter
     ];
     folke = [imagemagick];
     git = [git];
@@ -137,51 +138,6 @@
       nvim-nio
     ];
 
-    treesitter = [
-      (nvim-treesitter.withPlugins (
-        plugins:
-          with plugins; [
-            # programming languages
-            lua
-            nix
-            zig
-            rust
-            go
-            javascript
-            typescript
-            tsx
-            python
-            ocaml
-
-            # data
-            json
-            xml
-            toml
-            yaml
-            kcl
-            yuck
-            ron
-            hcl
-            helm
-            proto
-            prisma
-            http
-
-            # scripting
-            bash
-            make
-            regex
-
-            # web
-            html
-            css
-            scss
-            svelte
-
-            markdown
-            vimdoc
-          ]
-      ))
-    ];
+    treesitter = [nvim-treesitter.withAllGrammars];
   };
 }
