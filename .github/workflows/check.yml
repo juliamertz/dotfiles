@@ -1,12 +1,11 @@
-name: build-and-push
+name: check
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 2 * * *'
+  pull_request:
+    branches: ['main']
 
 jobs:
   build:
-    name: Build for ${{ matrix.arch }}-${{ matrix.kernel }}
+    name: Check ${{ matrix.arch }}-${{ matrix.kernel }}
     runs-on: ${{ matrix.runner }}
     container: ${{ matrix.container }}
 
@@ -15,10 +14,10 @@ jobs:
       matrix:
         include:
           - runner: macos-latest
-            kernel: darwin 
+            kernel: darwin
             arch: aarch64
           - runner: ubuntu-latest
-            kernel: linux 
+            kernel: linux
             arch: x86_64
 
     steps:
@@ -39,7 +38,7 @@ jobs:
           name: juliamertz
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Build nix packages
+      - name: Check packages
         env:
           EVAL_PATH: ".#checks.${{ matrix.arch }}-${{ matrix.kernel }}"
         run: |
