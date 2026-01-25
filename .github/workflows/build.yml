@@ -6,16 +6,20 @@ on:
 
 jobs:
   build:
-    name: Build for ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Build for ${{ matrix.arch }}-${{ matrix.kernel }}
+    runs-on: ${{ matrix.runner }}
     container: ${{ matrix.container }}
 
     strategy:
       fail-fast: false
       matrix:
         include:
-          - os: macos-latest
-          - os: ubuntu-latest
+          - runner: macos-latest
+            kernel: darwin 
+            arch: aarch64
+          - runner: ubuntu-latest
+            kernel: linux 
+            arch: x86_64
 
     steps:
       - name: Checkout repository
@@ -36,7 +40,10 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: Build nix packages
+        env:
+          EVAL_PATH: ".#checks.${{ matrix.arch }}-${{ matrix.kernel }}"
         run: |
           nix run github:Mic92/nix-fast-build -- \
+              --flake "$EVAL_PATH" \
               --cachix-cache "${{ matrix.cachixName }}" \
               --skip-cached
