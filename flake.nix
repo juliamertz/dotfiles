@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nixpins.url = "github:juliamertz/nixpins";
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";
     spicetify.url = "github:Gerg-L/spicetify-nix";
   };

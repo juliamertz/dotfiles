@@ -6,6 +6,8 @@
   mkShell,
   ...
 }: let
+  inherit (pkgs.stdenv.hostPlatform) system;
+
   buildForCachix = with pkgs;
     writeShellScriptBin "build-for-cachix" ''
       system=$(nix eval --impure --raw --expr 'builtins.currentSystem')
@@ -76,8 +78,8 @@ in {
             '';
           }
       )
-
       buildForCachix
+      inputs.nixpins.packages.${system}.default
     ];
 
     NIX_CONFIG = ''

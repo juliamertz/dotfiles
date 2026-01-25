@@ -32,6 +32,7 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes pipe-operators
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            accept-flake-config = true
 
       - name: Setup cachix
         uses: cachix/cachix-action@v16
