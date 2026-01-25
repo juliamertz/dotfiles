@@ -76,8 +76,8 @@
         awesome = ./awesome;
         picom = ./picom;
         btop = ./btop;
-        eww = ./eww;
-        rofi = ./rofi;
+        # eww = ./eww;
+        # rofi = ./rofi;
       };
       darwin = {
         aerospace = ./aerospace;
