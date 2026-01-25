@@ -1,0 +1,33 @@
+name: update-flake-lock
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            experimental-features = nix-command flakes pipe-operators
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            accept-flake-config = true
+
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          token: ${{ secrets.PAT }}
+          pr-title: "Update flake lockfile"
+          commit-msg: "chore(deps): update flake.lock"
+
+      # - uses: reitermarkus/automerge@v2
+      #   with:
+      #     token: ${{ secrets.PAT }}
+      #     merge-method: squash
+      #     pull-request: ${{ github.event.inputs.pull-request }}
