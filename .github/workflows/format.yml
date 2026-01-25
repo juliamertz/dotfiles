@@ -1,4 +1,4 @@
-name: Format
+name: format
 
 on:
   workflow_dispatch:
@@ -13,13 +13,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
         with:
-          nix_path: "${{ matrix.nixPath }}"
-          extra_nix_config: |
+          extra-conf: |
             experimental-features = nix-command flakes pipe-operators
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             accept-flake-config = true

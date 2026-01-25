@@ -26,8 +26,8 @@ jobs:
           pr-title: "Update flake lockfile"
           commit-msg: "chore(deps): update flake.lock"
 
-      # - uses: reitermarkus/automerge@v2
-      #   with:
-      #     token: ${{ secrets.PAT }}
-      #     merge-method: squash
-      #     pull-request: ${{ github.event.inputs.pull-request }}
+      - uses: reitermarkus/automerge@v2
+        with:
+          token: ${{ secrets.PAT }}
+          merge-method: squash
+          pull-request: ${{ github.event.inputs.pull-request }}
