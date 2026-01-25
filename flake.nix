@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-25_05.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixpins.url = "github:juliamertz/nixpins";
     spotify-player.url = "github:juliamertz/spotify-player/dev?dir=nix";

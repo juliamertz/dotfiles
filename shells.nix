@@ -8,6 +8,8 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) system;
 
+  pkgs-25_05 = import inputs.nixpkgs-25_05 {inherit system;};
+
   buildForCachix = with pkgs;
     writeShellScriptBin "build-for-cachix" ''
       system=$(nix eval --impure --raw --expr 'builtins.currentSystem')
@@ -56,7 +58,7 @@ in {
       deadnix
       taplo
       shfmt
-      mdformat
+      pkgs-25_05.mdformat
       stylua
       (
         let
