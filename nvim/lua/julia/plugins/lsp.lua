@@ -126,10 +126,15 @@ if utils.enableForCat 'go' then
 end
 
 if utils.enableForCat 'javascript' then
-	setup_lsp('ts_ls', {
-		cmd = { 'typescript-language-server', '--stdio' },
+	setup_lsp('vtsls', {
+		cmd = { 'vtsls', '--stdio' },
 		filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
 		root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+		settings = {
+			vtsls = {
+				autoUseWorkspaceTsdk = true,
+			},
+		},
 	})
 
 	setup_lsp('astro', {

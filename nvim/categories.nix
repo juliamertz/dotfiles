@@ -45,7 +45,7 @@
       black
     ];
     javascript = [
-      nodePackages.typescript-language-server
+      vtsls
       biome
       astro-language-server
       tailwindcss-language-server
