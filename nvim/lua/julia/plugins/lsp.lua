@@ -141,6 +141,11 @@ if utils.enableForCat 'javascript' then
 		cmd = { 'astro-ls', '--stdio' },
 		filetypes = { 'astro' },
 		root_markers = { 'package.json', '.git' },
+    init_options = {
+      typescript = {
+        tsdk = vim.fn.getcwd() .. '/node_modules/typescript/lib'
+      }
+    },
 	})
 
 	setup_lsp('svelte', {
