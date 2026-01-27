@@ -49,6 +49,58 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 })
 
+vim.api.nvim_create_user_command('LspStop', function(opts)
+	local clients = vim.lsp.get_clients { bufnr = 0 }
+	for _, client in ipairs(clients) do
+		if opts.args == '' or client.name == opts.args then
+			client:stop()
+			vim.notify('Stopped ' .. client.name)
+		end
+	end
+end, {
+	nargs = '?',
+	complete = function()
+		return vim.tbl_map(function(c)
+			return c.name
+		end, vim.lsp.get_clients { bufnr = 0 })
+	end,
+})
+
+vim.api.nvim_create_user_command('LspRestart', function()
+	local clients = vim.lsp.get_clients { bufnr = 0 }
+	for _, client in ipairs(clients) do
+		local name = client.name
+		client:stop()
+		vim.defer_fn(function()
+			vim.lsp.enable(name)
+		end, 100)
+	end
+end, {})
+
+vim.api.nvim_create_user_command('LspInfo', function()
+	local clients = vim.lsp.get_clients { bufnr = 0 }
+	if #clients == 0 then
+		print 'No LSP clients attached'
+		return
+	end
+	for _, c in ipairs(clients) do
+		print(string.format('%s (id=%d) root: %s', c.name, c.id, c.root_dir or 'none'))
+	end
+end, {})
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+	pattern = '*',
+	callback = function()
+		-- Fix filetype detection for nix-shell shebang scripts
+    if vim.bo.filetype == "nix" then
+      local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ''
+      if first_line:match '^#!.*nix%-shell' then
+        vim.bo.filetype = 'sh'
+      end
+    end
+	end,
+})
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 if ok then
@@ -90,17 +142,6 @@ if utils.enableForCat 'shell' then
 	})
 end
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = '*',
-	callback = function()
-		-- Fix filetype detection for nix-shell shebang scripts
-		local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ''
-		if first_line:match '^#!.*nix%-shell' then
-			vim.bo.filetype = 'sh'
-		end
-	end,
-})
-
 if utils.enableForCat 'zig' then
 	setup_lsp('zls', {
 		cmd = { 'zls' },
@@ -129,12 +170,20 @@ if utils.enableForCat 'javascript' then
 	setup_lsp('vtsls', {
 		cmd = { 'vtsls', '--stdio' },
 		filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-		root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+		root_markers = { 'package.json' },
+		workspace_required = true,
 		settings = {
 			vtsls = {
 				autoUseWorkspaceTsdk = true,
 			},
 		},
+	})
+
+	setup_lsp('denols', {
+		cmd = { 'deno', 'lsp' },
+		filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+		root_markers = { 'deno.json', 'deno.jsonc' },
+		workspace_required = true,
 	})
 
 	setup_lsp('astro', {
