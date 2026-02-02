@@ -92,20 +92,16 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = '*',
 	callback = function()
 		-- Fix filetype detection for nix-shell shebang scripts
-    if vim.bo.filetype == "nix" then
-      local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ''
-      if first_line:match '^#!.*nix%-shell' then
-        vim.bo.filetype = 'sh'
-      end
-    end
+		if vim.bo.filetype == 'nix' then
+			local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ''
+			if first_line:match '^#!.*nix%-shell' then
+				vim.bo.filetype = 'sh'
+			end
+		end
 	end,
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
-if ok then
-	capabilities = vim.tbl_deep_extend('force', capabilities, cmp_lsp.default_capabilities())
-end
 
 local function setup_lsp(name, config)
 	config.capabilities = vim.tbl_deep_extend('force', capabilities, config.capabilities or {})
@@ -252,37 +248,9 @@ if utils.enableForCat 'lua' then
 	})
 end
 
-if not utils.isNixCats then
-	return {
-		{
-			'williamboman/mason.nvim',
-			config = true,
-		},
-		{
-			'williamboman/mason-lspconfig.nvim',
-			dependencies = { 'williamboman/mason.nvim' },
-			opts = {
-				ensure_installed = {
-					'bashls',
-					'lua_ls',
-					'ts_ls',
-					'tailwindcss',
-				},
-				automatic_installation = true,
-			},
-		},
-		{
-			'WhoIsSethDaniel/mason-tool-installer.nvim',
-			dependencies = { 'williamboman/mason.nvim' },
-			opts = {
-				ensure_installed = { 'stylua' },
-			},
-		},
-	}
-end
-
 return {
-	{
+	'neovim/nvim-lspconfig',
+	dependencies = {
 		'folke/lazydev.nvim',
 		enabled = utils.enableForCat 'lua',
 		ft = 'lua',
