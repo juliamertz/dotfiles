@@ -7,8 +7,8 @@
     rose-pine = fetchFromGitHub {
       owner = "rose-pine";
       repo = "fish";
-      rev = "0749331afd4be6bc8035a812a20e489efe1d616f";
-      hash = "sha256-hOcsGt0IMoX1a02t85qeoE381XEca0F2x0AtFNwOqj0=";
+      rev = "6cfc508e81b231e955690dc9723c631374f468eb";
+      hash = "sha256-NgfZnaik5OAur53y3WA0Hqu6f332aVdhhMWnEtDxmNs=";
     };
   };
 }
