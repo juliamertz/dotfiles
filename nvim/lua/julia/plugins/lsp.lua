@@ -49,45 +49,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 })
 
-vim.api.nvim_create_user_command('LspStop', function(opts)
-	local clients = vim.lsp.get_clients { bufnr = 0 }
-	for _, client in ipairs(clients) do
-		if opts.args == '' or client.name == opts.args then
-			client:stop()
-			vim.notify('Stopped ' .. client.name)
-		end
-	end
-end, {
-	nargs = '?',
-	complete = function()
-		return vim.tbl_map(function(c)
-			return c.name
-		end, vim.lsp.get_clients { bufnr = 0 })
-	end,
-})
-
-vim.api.nvim_create_user_command('LspRestart', function()
-	local clients = vim.lsp.get_clients { bufnr = 0 }
-	for _, client in ipairs(clients) do
-		local name = client.name
-		client:stop()
-		vim.defer_fn(function()
-			vim.lsp.enable(name)
-		end, 100)
-	end
-end, {})
-
-vim.api.nvim_create_user_command('LspInfo', function()
-	local clients = vim.lsp.get_clients { bufnr = 0 }
-	if #clients == 0 then
-		print 'No LSP clients attached'
-		return
-	end
-	for _, c in ipairs(clients) do
-		print(string.format('%s (id=%d) root: %s', c.name, c.id, c.root_dir or 'none'))
-	end
-end, {})
-
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = '*',
 	callback = function()
@@ -111,17 +72,9 @@ end
 
 if utils.enableForCat 'nix' then
 	if utils.isNixCats then
-		setup_lsp('nixd', {
-			cmd = { 'nixd' },
-			filetypes = { 'nix' },
-			root_markers = { 'flake.nix', '.git' },
-		})
+		setup_lsp('nixd', {})
 	else
-		setup_lsp('nil_ls', {
-			cmd = { 'nil' },
-			filetypes = { 'nix' },
-			root_markers = { 'flake.nix', '.git' },
-		})
+		setup_lsp('nil_ls', {})
 	end
 end
 
@@ -139,11 +92,11 @@ if utils.enableForCat 'shell' then
 end
 
 if utils.enableForCat 'zig' then
-	setup_lsp('zls', {
-		cmd = { 'zls' },
-		filetypes = { 'zig', 'zir' },
-		root_markers = { 'build.zig', 'build.zig.zon', '.git' },
-	})
+	setup_lsp('zls', {})
+end
+
+if utils.enableForCat 'rust' then
+	setup_lsp('rust_analyzer', {})
 end
 
 if utils.enableForCat 'python' then
@@ -155,11 +108,7 @@ if utils.enableForCat 'python' then
 end
 
 if utils.enableForCat 'go' then
-	setup_lsp('gopls', {
-		cmd = { 'gopls' },
-		filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
-		root_markers = { 'go.work', 'go.mod', '.git' },
-	})
+	setup_lsp('gopls', {})
 end
 
 if utils.enableForCat 'javascript' then
@@ -182,25 +131,9 @@ if utils.enableForCat 'javascript' then
 		workspace_required = true,
 	})
 
-	setup_lsp('astro', {
-		cmd = { 'astro-ls', '--stdio' },
-		filetypes = { 'astro' },
-		root_markers = { 'package.json', '.git' },
-		init_options = {
-			typescript = {
-				tsdk = vim.fn.getcwd() .. '/node_modules/typescript/lib',
-			},
-		},
-	})
+	setup_lsp('astro', {})
 
-	setup_lsp('svelte', {
-		cmd = { 'svelteserver', '--stdio' },
-		filetypes = { 'svelte' },
-		root_markers = { 'package.json', '.git' },
-		capabilities = {
-			workspace = { didChangeWatchedFiles = false },
-		},
-	})
+	setup_lsp('svelte', {})
 
 	setup_lsp('tailwindcss', {
 		cmd = { 'tailwindcss-language-server', '--stdio' },
