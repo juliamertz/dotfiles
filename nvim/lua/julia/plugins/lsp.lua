@@ -107,6 +107,14 @@ if utils.enableForCat 'python' then
 	})
 end
 
+if utils.enableForCat 'toml' then
+  setup_lsp('tombi', {})
+end
+
+if utils.enableForCat 'yaml' then
+  setup_lsp('yamlls', {})
+end
+
 if utils.enableForCat 'go' then
 	setup_lsp('gopls', {})
 end
