@@ -38,6 +38,7 @@ git:
   disableForcePushing: false
   parseEmoji: false
   pagers:
+    - externalDiffCommand: difft --color=always
     - colorArg: always
       pager: delta --dark --paging=never
   commit:
