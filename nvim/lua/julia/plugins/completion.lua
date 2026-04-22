@@ -32,6 +32,9 @@ return {
 
 			completion = {
 				documentation = { auto_show = true },
+				ghost_text = {
+					enabled = true,
+				},
 			},
 
 			sources = {
@@ -44,6 +47,11 @@ return {
 			},
 
 			fuzzy = { implementation = 'prefer_rust' },
+
+			signature = {
+				enabled = true,
+				window = { show_documentation = false },
+			},
 		},
 	},
 }
