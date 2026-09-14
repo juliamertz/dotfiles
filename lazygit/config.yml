@@ -37,10 +37,11 @@ git:
   branchLogCmd: 'git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --'
   disableForcePushing: false
   parseEmoji: false
-  pagers:
-    - externalDiffCommand: difft --color=always
-    - colorArg: always
-      pager: delta --dark --paging=never
+  diffRenderers:
+    - command: difft --color=always
+      type: extDiff
+    - command: delta --dark --paging=never
+      colorArg: always
   commit:
     signOff: false
   merging:
