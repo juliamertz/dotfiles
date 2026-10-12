@@ -6,7 +6,8 @@
   kitty,
   imagemagick,
   ...
-}: let
+}:
+let
   theme = fetchFromGitHub {
     owner = "rose-pine";
     repo = "kitty";
@@ -20,21 +21,33 @@
 
   configDir =
     runCommand "kitty-config-directory"
-    {
-      nativeBuildInputs = [imagemagick];
-    }
-    ''
-      mkdir $out
-      cp ${kittyConf} $out/kitty.conf
-      cp ${theme}/icons/kitty.*.png $out
+      {
+        nativeBuildInputs = [ imagemagick ];
+      }
+      ''
+        mkdir $out
+        cp ${kittyConf} $out/kitty.conf
+        cp ${theme}/icons/kitty.*.png $out
 
-      # resize app icon for x11
-      magick ${theme}/icons/kitty.app.png -resize 128x128 $out/kitty.app-128.png
-    '';
+        # resize app icon for x11
+        magick ${theme}/icons/kitty.app.png -resize 128x128 $out/kitty.app-128.png
+      '';
 in
-  wrapPackage {
-    package = kitty;
-    extraArgs = [
-      "--set KITTY_CONFIG_DIRECTORY '${configDir}'"
-    ];
-  }
+wrapPackage {
+  package = kitty;
+  extraArgs = [
+    "--set KITTY_CONFIG_DIRECTORY '${configDir}'"
+  ];
+  postWrap = ''
+    contents="$out/Applications/kitty.app/Contents/"
+    plist="$(realpath $contents/Info.plist)"
+
+    rm "$contents/Info.plist"
+    cp "$plist" "$contents/Info.plist"
+    chmod +w "$contents/Info.plist"
+
+    /usr/libexec/PlistBuddy \
+      -c "Add :LSEnvironment:KITTY_CONFIG_DIRECTORY string ${configDir}" \
+      "$contents/Info.plist"
+  '';
+}
