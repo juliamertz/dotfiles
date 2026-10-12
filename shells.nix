@@ -80,7 +80,7 @@ in {
             '';
           }
       )
-      buildForCachix
+      # buildForCachix
       inputs.nixpins.packages.${system}.default
     ];
 
