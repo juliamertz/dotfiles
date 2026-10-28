@@ -50,6 +50,7 @@
     completion = true;
     colors = true;
     debug = true;
+    strudel = true;
 
     # languages
     lua = true;

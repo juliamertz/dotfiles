@@ -6,7 +6,8 @@
   name,
   mkNvimPlugin,
   ...
-} @ packageDef: {
+}@packageDef:
+{
   lspsAndRuntimeDeps = with pkgs; {
     general = [
       universal-ctags
@@ -15,8 +16,9 @@
       stdenv.cc.cc
       tree-sitter
     ];
-    folke = [imagemagick];
-    git = [git];
+    folke = [ imagemagick ];
+    git = [ git ];
+    strudel = [ nodejs ];
 
     # languages
     nix = [
@@ -56,7 +58,7 @@
       yaml-language-server
       helm-ls
     ];
-    toml = [tombi];
+    toml = [ tombi ];
     # kcl = [
     #   kcl-language-server
     # ];
@@ -71,13 +73,13 @@
 
   # This is for plugins that will load at startup without using packadd:
   startupPlugins = with pkgs.vimPlugins; {
-    theme = [rose-pine];
-    clipboard = [yanky-nvim];
-    oil = [oil-nvim];
-    filetree = [nvim-tree-lua];
-    undotree = [undotree];
-    harpoon = [harpoon2];
-    colors = [ccc-nvim];
+    theme = [ rose-pine ];
+    clipboard = [ yanky-nvim ];
+    oil = [ oil-nvim ];
+    filetree = [ nvim-tree-lua ];
+    undotree = [ undotree ];
+    harpoon = [ harpoon2 ];
+    colors = [ ccc-nvim ];
     mini = [
       mini-icons
       mini-comment
@@ -138,6 +140,10 @@
       nvim-nio
     ];
 
-    treesitter = [nvim-treesitter.withAllGrammars];
+    strudel = [
+      strudel-nvim
+    ];
+
+    treesitter = [ nvim-treesitter.withAllGrammars ];
   };
 }
