@@ -1,4 +1,6 @@
 {
+  lib,
+  stdenv,
   writeText,
   fetchFromGitHub,
   runCommand,
@@ -38,7 +40,7 @@ wrapPackage {
   extraArgs = [
     "--set KITTY_CONFIG_DIRECTORY '${configDir}'"
   ];
-  postWrap = ''
+  postWrap = lib.optionalString stdenv.isDarwin ''
     contents="$out/Applications/kitty.app/Contents/"
     plist="$(realpath $contents/Info.plist)"
 
